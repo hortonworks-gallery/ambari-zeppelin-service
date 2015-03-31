@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+ 
+<configuration>
+
+
+
+  <property require-input="true">
+    <name>install.dir</name>
+    <value>/root</value>
+    <description>Local dir where to install component</description>
+  </property> 
+
+  <property require-input="true">
+    <name>stack.port</name>
+    <value>9998</value>
+    <description>Port on which component will run. The subsequent port (e.g. 9999) should also be open as it will be used by the web socket </description>
+  </property> 
+  
+  <property require-input="true">
+    <name>stack.dir</name>
+    <value>/var/lib/ambari-server/resources/stacks/HDP/2.2/services/zeppelin-stack</value>
+    <description>Stack dir from where to run setup/start/stop scripts</description>
+  </property> 
+
+ 
+
+  <property require-input="true">
+    <name>mvn.dir</name>
+    <value>/usr/share/maven/latest/bin/mvn</value>
+    <description>Location of mvn executable. Must be installed prior to setting up Zeppelin</description>
+  </property> 
+      
+  <property require-input="true">
+    <name>stack.log</name>
+    <value>/var/log/zeppelin-notebook-setup.log</value>
+    <description>Log file for component</description>
+  </property> 
+  
+</configuration>
+

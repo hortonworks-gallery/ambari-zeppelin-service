@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+
+  <property require-input="true">
+    <name>pid_dir</name>
+    <value>/var/run/zeppelin-notebook</value>
+    <description>Dir containing process ID file</description>
+  </property> 
+ 
+</configuration>  
