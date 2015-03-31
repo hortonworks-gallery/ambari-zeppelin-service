@@ -37,9 +37,9 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 - Lauch the notebook via navigating to http://sandbox.hortonworks.com:9998/
 
 - Alternatively, you can launch it from Ambari via [iFrame view](https://github.com/abajwa-hw/iframe-view)
-![Image](../master/screenshots/3.png?raw=true)
+![Image](../master/screenshots/4.png?raw=true)
 
-- Test by creating a new note and add a cell to read a file from local drive
+- Test by creating a new note and add a cell to read a file from sandbox local disk
 ```
 val words = sc.textFile("file:///var/log/ambari-agent/ambari-agent.log").flatMap(line => line.toLowerCase().split(" ")).map(word => (word, 1))
 words.take(5)
@@ -50,7 +50,7 @@ words.take(5)
 val words = sc.textFile("hdfs:///tmp/ambari-agent.log").flatMap(line => line.toLowerCase().split(" ")).map(word => (word, 1))
 words.take(5)
 ```
-![Image](../master/screenshots/4.png?raw=true)
+![Image](../master/screenshots/3.png?raw=true)
 
 #### Remove zeppelin service
 
