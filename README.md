@@ -25,6 +25,7 @@ sudo service ambari restart
 
 On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Next -> Next -> Deploy
 
+On the configuration page, please ensure that you point mvn.dir property to the full path to mvn executable e.g. /usr/share/maven/latest/bin/mvn
 
 - On successful deployment you will see the Zeppelin service as part of Ambari stack and will be able to start/stop the service from here:
 ![Image](../master/screenshots/1.png?raw=true)
