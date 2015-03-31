@@ -13,7 +13,7 @@ Ambari stack for easily installing and managing Zeppelin on HDP cluster
 ssh root@sandbox.hortonworks.com
 /root/start_ambari.sh
 ```
-- *Install Maven*. You can also use the [Maven Ambari service](https://github.com/randerzander/maven-stack) for this
+- **Install Maven**. You can also use the [Maven Ambari service](https://github.com/randerzander/maven-stack) for this
 
 - To deploy the Zeppelin stack, run below
 ```
