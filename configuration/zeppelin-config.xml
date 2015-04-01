@@ -13,8 +13,8 @@
 
   <property require-input="true">
     <name>stack.port</name>
-    <value>9998</value>
-    <description>Port on which component will run. The subsequent port (e.g. 9999) should also be open as it will be used by the web socket </description>
+    <value>9995</value>
+    <description>Port on which component will run. The subsequent port (e.g. 9996) should also be open as it will be used by the web socket </description>
   </property> 
   
   <property require-input="true">
