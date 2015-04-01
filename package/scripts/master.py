@@ -24,7 +24,6 @@ class Master(Script):
   def stop(self, env):
     import params
     self.configure(env)
-    
     Execute (params.install_dir+'/zeppelin/bin/zeppelin-daemon.sh stop >> ' + params.stack_log)
  
       
