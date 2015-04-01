@@ -8,7 +8,7 @@
   <property require-input="true">
     <name>install.dir</name>
     <value>/root</value>
-    <description>Local dir where to install component</description>
+    <description>Local dir where to install component. zeppelin folder will be created as a subdir of this dir e.g. /root/zeppelin</description>
   </property> 
 
   <property require-input="true">
@@ -27,8 +27,8 @@
 
   <property require-input="true">
     <name>mvn.dir</name>
-    <value>/usr/share/maven/latest/bin/mvn</value>
-    <description>Location of mvn executable. Must be installed prior to setting up Zeppelin</description>
+    <value></value>
+    <description>Location of mvn executable (e.g. /usr/bin/mvn). Maven must be installed prior to setting up Zeppelin</description>
   </property> 
       
   <property require-input="true">

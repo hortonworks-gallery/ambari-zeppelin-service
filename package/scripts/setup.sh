@@ -15,6 +15,10 @@ export RUN_DIR=$4
 
 echo "Downloading zeppelin"
 cd $INSTALL_DIR
+
+if [ -d "./zeppelin" ]; then
+	rm -rf zeppelin
+fi	
 git clone https://github.com/NFLabs/zeppelin
 
 echo "Updating Zeppelin config"
