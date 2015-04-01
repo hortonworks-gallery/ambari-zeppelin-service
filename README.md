@@ -19,13 +19,22 @@ ssh root@sandbox.hortonworks.com
 ```
 cd /var/lib/ambari-server/resources/stacks/HDP/2.2/services
 git clone https://github.com/abajwa-hw/zeppelin-stack.git   
+```
+
+- Restart Ambari
+```
+#on sandbox
 sudo service ambari restart
+
+#on sandbox
+sudo service ambari-server restart
+
 ```
 - Then you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
 
 On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Next -> Next -> Deploy
 
-On the configuration page, please ensure that you point mvn.dir property to the full path to mvn executable e.g. /usr/share/maven/latest/bin/mvn
+On the configuration page, please ensure that you point mvn.dir property to the full path to mvn executable e.g. /usr/bin/mvn
 
 - On successful deployment you will see the Zeppelin service as part of Ambari stack and will be able to start/stop the service from here:
 ![Image](../master/screenshots/1.png?raw=true)
@@ -76,13 +85,18 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
   - Stop the service via Ambari
   - Delete the service
   
-    ```
-    curl -u admin:admin -i -H 'X-Requested-By: ambari' -X DELETE http://sandbox.hortonworks.com:8080/api/v1/clusters/Sandbox/services/ZEPPELIN
-    ```
+```
+export SERVICE=ZEPPELIN
+export PASSWORD=admin
+export AMBARI_HOST=sandbox.hortonworks.com
+export CLUSTER=Sandbox    
+curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X DELETE http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER/services/$SERVICE
+```
   - Remove artifacts 
   
     ```
     rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.2/services/zeppelin-stack
+    rm -rf /root/zeppelin
     ```
   - Restart Ambari
     ```
