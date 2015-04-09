@@ -23,7 +23,7 @@ fi
 git clone https://github.com/apache/incubator-zeppelin
 
 echo "Updating Zeppelin config"
-cd $INSTALL_DIR/zeppelin
+cd $INSTALL_DIR/incubator-zeppelin
 
 cp pom.xml pom.xml.orig
 #update pom to create profile for hadoop 2.6
