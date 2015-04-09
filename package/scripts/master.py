@@ -24,14 +24,14 @@ class Master(Script):
   def stop(self, env):
     import params
     self.configure(env)
-    Execute (params.install_dir+'/zeppelin/bin/zeppelin-daemon.sh stop >> ' + params.stack_log)
+    Execute (params.install_dir+'/incubator-zeppelin/bin/zeppelin-daemon.sh stop >> ' + params.stack_log)
  
       
   def start(self, env):
     import params
     import status_params
     #Execute(params.stack_dir + '/package/scripts/start.sh '+params.install_dir+' '+params.stack_log+' '+status_params.stack_piddir+' >> ' + params.stack_log)
-    Execute (params.install_dir+'/zeppelin/bin/zeppelin-daemon.sh start >> ' + params.stack_log)
+    Execute (params.install_dir+'/incubator-zeppelin/bin/zeppelin-daemon.sh start >> ' + params.stack_log)
 
   def status(self, env):
     import status_params
