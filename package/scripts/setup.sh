@@ -48,5 +48,12 @@ echo "export ZEPPELIN_JAVA_OPTS=\"-Dhdp.version=$HDP_VER\"" >> conf/zeppelin-env
 echo "Compiling Zeppelin"
 $MVN_LOCATION -Phadoop-2.6 -Dhadoop.version=2.6.0 -Pspark-1.2 -Pyarn clean package -DskipTests
 
+echo "Copying zeppelin-spark jar to HDFS"
+set +e 
+hadoop fs -rm -r /tmp/.zeppelin
+set -e 
+hadoop fs -mkdir /tmp/.zeppelin
+hadoop fs -put ./spark/target/zeppelin-spark-0.5.0-SNAPSHOT.jar /tmp/.zeppelin/
+
 
 echo "Setup complete"
