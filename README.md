@@ -24,7 +24,6 @@ git clone https://github.com/abajwa-hw/zeppelin-stack.git
 - Restart Ambari
 ```
 sudo service ambari-server restart
-
 ```
 - Then you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
 
