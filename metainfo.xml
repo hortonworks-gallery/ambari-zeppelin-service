@@ -16,7 +16,7 @@
                   <commandScript>
                     <script>scripts/master.py</script>
                     <scriptType>PYTHON</scriptType>
-                    <timeout>5000</timeout>
+                    <timeout>10000</timeout>
                   </commandScript>
                 </component>
             </components>

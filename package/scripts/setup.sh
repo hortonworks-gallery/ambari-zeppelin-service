@@ -16,8 +16,8 @@ export RUN_DIR=$4
 echo "Downloading zeppelin"
 cd $INSTALL_DIR
 
-if [ -d "./zeppelin" ]; then
-	rm -rf zeppelin
+if [ -d "./incubator-zeppelin" ]; then
+	rm -rf incubator-zeppelin
 fi	
 
 git clone https://github.com/apache/incubator-zeppelin
@@ -25,11 +25,11 @@ git clone https://github.com/apache/incubator-zeppelin
 echo "Updating Zeppelin config"
 cd $INSTALL_DIR/incubator-zeppelin
 
-cp pom.xml pom.xml.orig
+#cp pom.xml pom.xml.orig
 #update pom to create profile for hadoop 2.6
-sed -i "s/<id>hadoop-2.4<\/id>/<id>hadoop-2.6<\/id>/g" pom.xml
-sed -i "s/<hadoop.version>2.4.0<\/hadoop.version>/<hadoop.version>2.6.0<\/hadoop.version>/g" pom.xml
-sed -i "s/<jets3t.version>0.9.3<\/jets3t.version>/<jets3t.version>0.9.3<\/jets3t.version>\n\t<codehaus.jackson.version>1.9.13<\/codehaus.jackson.version>/g" pom.xml
+#sed -i "s/<id>hadoop-2.4<\/id>/<id>hadoop-2.6<\/id>/g" pom.xml
+#sed -i "s/<hadoop.version>2.4.0<\/hadoop.version>/<hadoop.version>2.6.0<\/hadoop.version>/g" pom.xml
+#sed -i "s/<jets3t.version>0.9.3<\/jets3t.version>/<jets3t.version>0.9.3<\/jets3t.version>\n\t<codehaus.jackson.version>1.9.13<\/codehaus.jackson.version>/g" pom.xml
 
 
 cp conf/zeppelin-site.xml.template conf/zeppelin-site.xml
