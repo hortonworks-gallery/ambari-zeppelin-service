@@ -23,10 +23,6 @@ git clone https://github.com/abajwa-hw/zeppelin-stack.git
 
 - Restart Ambari
 ```
-#on sandbox
-sudo service ambari restart
-
-#on sandbox
 sudo service ambari-server restart
 
 ```
