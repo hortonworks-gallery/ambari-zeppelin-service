@@ -43,7 +43,7 @@ echo "export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64" >> conf/zeppelin-
 
 #echo "export SPARK_YARN_JAR=$SPARK_YARN_JAR" >> conf/zeppelin-env.sh
 echo "export SPARK_YARN_JAR=hdfs:///tmp/.zeppelin/zeppelin-spark-0.5.0-SNAPSHOT.jar" >> conf/zeppelin-env.sh
-echo "export MASTER=yarn-client" >> conf/zeppelin-env.sh
+#echo "export MASTER=yarn-client" >> conf/zeppelin-env.sh
 echo "export SPARK_HOME=/usr/hdp/current/spark-client/" >> conf/zeppelin-env.sh
 echo "export HADOOP_CONF_DIR=/etc/hadoop/conf" >> conf/zeppelin-env.sh
 echo "export ZEPPELIN_PID_DIR=$RUN_DIR" >> conf/zeppelin-env.sh
