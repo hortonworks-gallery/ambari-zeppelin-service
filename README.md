@@ -91,7 +91,7 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X DELETE http://$AMBARI_
   
     ```
     rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.2/services/zeppelin-stack
-    rm -rf /root/zeppelin
+    rm -rf /root/incubator-zeppelin
     ```
   - Restart Ambari
     ```

@@ -4,6 +4,17 @@
 <configuration>
 
 
+  <property require-input="true">
+    <name>download.prebuilt</name>
+    <value>true</value>
+    <description>If true, will download previously built package instead of building latest code</description>
+  </property> 
+
+  <property require-input="true">
+    <name>executor.mem</name>
+    <value>512m</value>
+    <description>Executor memory to use (e.g. 512m or 1g)</description>
+  </property> 
 
   <property require-input="true">
     <name>install.dir</name>
@@ -24,18 +35,17 @@
     <description>Stack dir from where to run setup/start/stop scripts</description>
   </property>
 
- 
 
   <property require-input="true">
     <name>mvn.dir</name>
-    <value></value>
-    <description>Location of mvn executable (e.g. /usr/bin/mvn). Maven must be installed prior to setting up Zeppelin</description>
+    <value> </value>
+    <description>Only needed if download.prebuilt is false as Maven must be installed prior to setting up Zeppelin in this mode. Set this to the location of mvn executable (e.g. /usr/bin/mvn).</description>
   </property> 
       
   <property require-input="true">
     <name>stack.log</name>
-    <value>/var/log/zeppelin-notebook-setup.log</value>
-    <description>Log file for component</description>
+    <value>/var/log/zeppelin</value>
+    <description>Log dir component</description>
   </property> 
   
 </configuration>
