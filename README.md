@@ -46,7 +46,7 @@ The default configuration sets up Zeppelin in yarn-client mode by downloading th
 
 #### Use zeppelin notebook
 
-- Lauch the notebook via navigating to http://sandbox.hortonworks.com:9998/
+- Lauch the notebook via navigating to http://sandbox.hortonworks.com:9995/
 
 - Alternatively, you can launch it from Ambari via [iFrame view](https://github.com/abajwa-hw/iframe-view)
 ![Image](../master/screenshots/4.png?raw=true)
