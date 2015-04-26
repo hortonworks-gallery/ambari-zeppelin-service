@@ -15,7 +15,7 @@ sudo service ambari-server restart
 ```
 - Then you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
 
-On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Next -> Next -> Deploy
+On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Next -> Next -> Deploy. Note that:
 
 - The default configuration of the service sets up Zeppelin in yarn-client mode by downloading the bits thats were precompiled against spark 1.3 (ETA: < 5min)
 
