@@ -55,7 +55,7 @@ words.take(5)
 ```
 ![Image](../master/screenshots/3.png?raw=true)
 
-- Open the ResourceManager UI and notice Spark is running in YARN mode and the click on the ApplicationMaster link to access the Spark UI:
+- Open the ResourceManager UI and notice Spark is running on YARN. Click on the ApplicationMaster link to access the Spark UI:
 http://sandbox.hortonworks.com:8088/cluster
 
 ![Image](../master/screenshots/RM-UI.png?raw=true)
@@ -83,23 +83,20 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 #### Remove zeppelin service
 
 - To remove the Zeppelin service: 
-  - Stop the service via Ambari
-  - Delete the service
+  - Stop the service and delete it. Then restart Ambari
   
 ```
 export SERVICE=ZEPPELIN
 export PASSWORD=admin
 export AMBARI_HOST=sandbox.hortonworks.com
 export CLUSTER=Sandbox    
+curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo": {"context" :"Stop $SERVICE via REST"}, "Body": {"ServiceInfo": {"state": "INSTALLED"}}}' http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER/services/$SERVICE
 curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X DELETE http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER/services/$SERVICE
+service ambari-server restart
 ```
   - Remove artifacts 
   
-    ```
-    rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.2/services/zeppelin-stack
-    rm -rf /root/incubator-zeppelin
-    ```
-  - Restart Ambari
-    ```
-    service ambari restart
-    ```
+```
+rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.2/services/zeppelin-stack
+rm -rf /root/incubator-zeppelin
+```
