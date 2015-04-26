@@ -17,9 +17,9 @@ sudo service ambari-server restart
 
 On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Next -> Next -> Deploy. Note that:
 
-- The default configuration of the service sets up Zeppelin in yarn-client mode by downloading a tarball of bits thats were precompiled against a version of spark containing fix for [SPARK-4461](https://issues.apache.org/jira/browse/SPARK-4461) (ETA: < 5min)
+- The default mode of the service sets up Zeppelin in yarn-client mode by downloading a tarball of bits thats were precompiled against a version of spark containing fix for [SPARK-4461](https://issues.apache.org/jira/browse/SPARK-4461) (ETA: < 5min)
 
-- To instead pull/compile the latest Zeppelin code (ETA: < 40min depending on internet connection):  
+- To instead pull/compile the latest Zeppelin code from the [git page](https://github.com/apache/incubator-zeppelin) (ETA: < 40min depending on internet connection):  
   - Install maven prior to installing Zeppelin service. You can use the [Maven Ambari service](https://github.com/randerzander/maven-stack) for this
   - While adding zeppelin service, in the configuration step of the wizard:
     - set download.prebuilt to false
