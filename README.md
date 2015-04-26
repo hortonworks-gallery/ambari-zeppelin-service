@@ -55,11 +55,11 @@ words.take(5)
 ```
 ![Image](../master/screenshots/3.png?raw=true)
 
-- Open the ResourceManager UI and notice Spark is running on YARN. Click on the ApplicationMaster link to access the Spark UI:
-http://sandbox.hortonworks.com:8088/cluster
+- Open the ResourceManager UI and notice Spark is running on YARN: http://sandbox.hortonworks.com:8088/cluster
 
 ![Image](../master/screenshots/RM-UI.png?raw=true)
 
+- Click on the ApplicationMaster link to access the Spark UI:
 
 ![Image](../master/screenshots/spark-UI.png?raw=true)
 
