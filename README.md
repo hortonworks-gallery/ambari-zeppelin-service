@@ -21,7 +21,9 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 
 - To instead pull and compile using the latest Zeppelin (ETA < 40min depending on internet connection):  
   - Install maven. You can use the [Maven Ambari service](https://github.com/randerzander/maven-stack) to install maven
-  - While adding zeppelin service, in the the configuration, change download.prebuilt=false and set the mvn.dir to location of mvn executable. 
+  - While adding zeppelin service, in the configuration step of the wizard:
+    - set download.prebuilt to false
+    - set the mvn.dir to location of mvn executable (e.g. /usr/bin/mvn)
   - Note that during install, the service will update maven settings to point to hortonworks dev repo to get latest spark jars by adding [this file](https://github.com/abajwa-hw/zeppelin-stack/blob/master/package/files/settings.xml) under ~/.m2
   - Mapreduce config changes in Ambari: change all references to ${hdp.version} or $HDP_VERSION to your HDP version (e.g. 2.2.4.0-2633) and restart (see my secloud setup for example http://pregion-shared01.cloud.hortonworks.com:8080/#/main/services/MAPREDUCE2/configs). You can find your HDP version by running ```hdp-select status hadoop-client```
     - Why is this needed? [SPARK-4461](https://issues.apache.org/jira/browse/SPARK-4461)
