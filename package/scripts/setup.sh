@@ -12,6 +12,11 @@ export MVN_LOCATION=$3
 #e.g. /var/run/zeppelin
 export RUN_DIR=$4
 
+#e.g. 512m
+export EXECUTOR_MEM=$5
+
+#e.g. /var/log/zeppelin
+export LOG_DIR=$6
 
 echo "Downloading zeppelin"
 cd $INSTALL_DIR
@@ -43,11 +48,12 @@ echo "export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64" >> conf/zeppelin-
 
 #echo "export SPARK_YARN_JAR=$SPARK_YARN_JAR" >> conf/zeppelin-env.sh
 echo "export SPARK_YARN_JAR=hdfs:///tmp/.zeppelin/zeppelin-spark-0.5.0-SNAPSHOT.jar" >> conf/zeppelin-env.sh
-#echo "export MASTER=yarn-client" >> conf/zeppelin-env.sh
+echo "export MASTER=yarn-client" >> conf/zeppelin-env.sh
 echo "export SPARK_HOME=/usr/hdp/current/spark-client/" >> conf/zeppelin-env.sh
 echo "export HADOOP_CONF_DIR=/etc/hadoop/conf" >> conf/zeppelin-env.sh
 echo "export ZEPPELIN_PID_DIR=$RUN_DIR" >> conf/zeppelin-env.sh
 echo "export ZEPPELIN_JAVA_OPTS=\"-Dhdp.version=$HDP_VER\"" >> conf/zeppelin-env.sh
+echo "export ZEPPELIN_LOG_DIR=$LOG_DIR" >> conf/zeppelin-env.sh
 
 echo "Compiling Zeppelin"
 $MVN_LOCATION -Phadoop-2.6 -Dhadoop.version=2.6.0 -Pspark-1.2 -Pyarn clean package -DskipTests
@@ -59,5 +65,24 @@ set -e
 hadoop fs -mkdir /tmp/.zeppelin
 hadoop fs -put ./spark/target/zeppelin-spark-0.5.0-SNAPSHOT.jar /tmp/.zeppelin/
 
+
+bin/zeppelin-daemon.sh start
+while [ ! -f conf/interpreter.json ]
+do
+  sleep 2
+  echo "Waiting for interpreter.json to be created...."
+done
+
+#update interpreter.json
+
+export VER_STRING="-Dhdp.version=$HDP_VER"
+echo "updating interpreter.json..."
+sed -i "s/\"master\": \"yarn-client\",/\"master\": \"yarn-client\",\n\t\"spark.driver.extraJavaOptions\": \"$VER_STRING\",/g" conf/interpreter.json
+sed -i "s/\"master\": \"yarn-client\",/\"master\": \"yarn-client\",\n\t\"spark.yarn.am.extraJavaOptions\": \"$VER_STRING\",/g" conf/interpreter.json
+sed -i "s/\"spark.executor.memory\": \"512m\",/\"spark.executor.memory\": \"$EXECUTOR_MEM\",/g" conf/interpreter.json
+
+echo "restarting daemon...."
+bin/zeppelin-daemon.sh stop
+sleep 10
 
 echo "Setup complete"

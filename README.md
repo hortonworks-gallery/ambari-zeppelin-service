@@ -20,11 +20,11 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 The default configuration sets up Zeppelin in yarn-client mode by downloading the bits thats were precompiled against spark 1.3 (ETA < 5min)
 
 - To pull and compile using the latest Zeppelin (ETA < 40min):  
-  - change download.prebuilt=false and set the mvn.dir to location of mvn executable. 
-  - You can use the [Maven Ambari service](https://github.com/randerzander/maven-stack) to install maven
+  - Install maven. You can use the [Maven Ambari service](https://github.com/randerzander/maven-stack) to install maven
+  - While adding zeppelin service, in the the configuration, change download.prebuilt=false and set the mvn.dir to location of mvn executable. 
+  - Note that during install, the service will point your maven settings to point to hortonworks dev repo to get latest spark jars using [this file](https://github.com/abajwa-hw/zeppelin-stack/blob/master/package/files/settings.xml)
   - Mapreduce config changes in Ambari: change all references to ${hdp.version} or $HDP_VERSION to your HDP version (e.g. 2.2.4.0-2633) and restart (see my secloud setup for example http://pregion-shared01.cloud.hortonworks.com:8080/#/main/services/MAPREDUCE2/configs). You can find your HDP version by running ```hdp-select status hadoop-client```
     - Why is this needed? [SPARK-4461](https://issues.apache.org/jira/browse/SPARK-4461)
-  - Once Zeppelin comes up, set the interpreter settings as mentioned [here](https://github.com/RamVenkatesh/zeppelin-notes/wiki/Configuring-Zeppelin) and restart zeppelin
 
 - On successful deployment you will see the Zeppelin service as part of Ambari stack and will be able to start/stop the service from here:
 ![Image](../master/screenshots/1.png?raw=true)
