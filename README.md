@@ -67,6 +67,12 @@ words.take(5)
 - Open the ResourceManager UI and notice Spark is running in YARN mode and the click on the ApplicationMaster link to access the Spark UI:
 http://sandbox.hortonworks.com:8088/cluster
 
+![Image](../master/screenshots/RM-UI.png?raw=true)
+
+
+![Image](../master/screenshots/spark-UI.png?raw=true)
+
+
 - One benefit to wrapping the component in Ambari service is that you can now monitor/manage this service remotely via REST API
 ```
 export SERVICE=ZEPPELIN
