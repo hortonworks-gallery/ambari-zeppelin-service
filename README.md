@@ -42,23 +42,27 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 - Alternatively, you can launch it from Ambari via [iFrame view](https://github.com/abajwa-hw/iframe-view)
 ![Image](../master/screenshots/4.png?raw=true)
 
-- Test by creating a new note and enter some arithmetic in the first cell and press Shift-Enter to execute
+- Test by creating a new note and enter some arithmetic in the first cell and press Shift-Enter to execute. 
 ```
 2+2
 ```
-- Test pyspark by entering some python commands in the second cell and press Shift-Enter to execute
+- The first invocation takes some time as the Spark context is launched. You can tail the interpreter log file to see the details.
+```
+ tail -f /var/log/zeppelin/zeppelin-interpreter-spark--*.log
+```
+- Test pyspark by entering some python commands in the second cell and press Shift-Enter to execute. This should execute instantaneously 
 ```
 %pyspark
 a=(1,2,3,4,5,6)
 print a
 ```
-- Test scala by pasting the below in the third cell to read/parse a file from sandbox local disk
+- Test scala by pasting the below in the third cell to read/parse a log file from sandbox local disk
 ```
 val words = sc.textFile("file:///var/log/ambari-agent/ambari-agent.log").flatMap(line => line.toLowerCase().split(" ")).map(word => (word, 1))
 words.take(5)
 ```
 
-- You can also add a cell as below to read a file from HDFS instead. (You can copy the same file to HDFS by running ```hadoop fs -put /var/log/ambari-agent/ambari-agent.log /tmp``` from the terminal window)
+- You can also add a cell as below to read a file from HDFS instead. Prior to running the below cell, you should copy the log file to HDFS by running ```hadoop fs -put /var/log/ambari-agent/ambari-agent.log /tmp``` from your SSH terminal window
 ```
 val words = sc.textFile("hdfs:///tmp/ambari-agent.log").flatMap(line => line.toLowerCase().split(" ")).map(word => (word, 1))
 words.take(5)
