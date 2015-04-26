@@ -20,7 +20,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 - The default configuration of the service sets up Zeppelin in yarn-client mode by downloading the bits thats were precompiled against spark 1.3 (ETA < 5min)
 
 - To instead pull and compile using the latest Zeppelin (ETA < 40min depending on internet connection):  
-  - Install maven. You can use the [Maven Ambari service](https://github.com/randerzander/maven-stack) to install maven
+  - Install maven prior to installing Zeppelin service. You can use the [Maven Ambari service](https://github.com/randerzander/maven-stack) to install maven
   - While adding zeppelin service, in the configuration step of the wizard:
     - set download.prebuilt to false
     - set the mvn.dir to location of mvn executable (e.g. /usr/bin/mvn)
