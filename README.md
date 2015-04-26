@@ -25,7 +25,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - set download.prebuilt to false
     - set the mvn.dir to location of mvn executable (e.g. /usr/bin/mvn)
   - Note that during install, the service will update maven settings to point to hortonworks dev repo to get latest spark jars by adding [this file](https://github.com/abajwa-hw/zeppelin-stack/blob/master/package/files/settings.xml) under ~/.m2
-  - Mapreduce config changes in Ambari: change all references to ${hdp.version} or $HDP_VERSION to your HDP version (e.g. 2.2.4.0-2633) and restart (see my secloud setup for example http://pregion-shared01.cloud.hortonworks.com:8080/#/main/services/MAPREDUCE2/configs). You can find your HDP version by running ```hdp-select status hadoop-client```
+  - Mapreduce config changes in Ambari: change all references to ${hdp.version} or $HDP_VERSION to your HDP version (e.g. 2.2.4.0-2633) and restart. You can find your HDP version by running ```hdp-select status hadoop-client```
     - Why is this needed? [SPARK-4461](https://issues.apache.org/jira/browse/SPARK-4461)
 
 - On successful deployment you will see the Zeppelin service as part of Ambari stack and will be able to start/stop the service from here:
