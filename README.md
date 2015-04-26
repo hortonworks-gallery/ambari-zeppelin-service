@@ -22,7 +22,7 @@ The default configuration sets up Zeppelin in yarn-client mode by downloading th
 - To pull and compile using the latest Zeppelin (ETA < 40min):  
   - Install maven. You can use the [Maven Ambari service](https://github.com/randerzander/maven-stack) to install maven
   - While adding zeppelin service, in the the configuration, change download.prebuilt=false and set the mvn.dir to location of mvn executable. 
-  - Note that during install, the service will point your maven settings to point to hortonworks dev repo to get latest spark jars using [this file](https://github.com/abajwa-hw/zeppelin-stack/blob/master/package/files/settings.xml)
+  - Note that during install, the service will update maven settings to point to hortonworks dev repo to get latest spark jars by adding [this file](https://github.com/abajwa-hw/zeppelin-stack/blob/master/package/files/settings.xml) under ~/.m2
   - Mapreduce config changes in Ambari: change all references to ${hdp.version} or $HDP_VERSION to your HDP version (e.g. 2.2.4.0-2633) and restart (see my secloud setup for example http://pregion-shared01.cloud.hortonworks.com:8080/#/main/services/MAPREDUCE2/configs). You can find your HDP version by running ```hdp-select status hadoop-client```
     - Why is this needed? [SPARK-4461](https://issues.apache.org/jira/browse/SPARK-4461)
 
