@@ -28,6 +28,11 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
   - Mapreduce config changes in Ambari: change all references to ${hdp.version} or $HDP_VERSION to your HDP version (e.g. 2.2.4.2-2) and restart Mapreduce2 service. You can find your HDP version by running ```hdp-select status hadoop-client```
     - Why is this needed? See [SPARK-4461](https://issues.apache.org/jira/browse/SPARK-4461) for details. This is fixed in Spark 1.3
 
+- To track the progress of the install you can run the below:
+```
+tail -f  /var/log/zeppelin/zeppelin-setup.log
+```
+
 - On successful deployment you will see the Zeppelin service as part of Ambari stack and will be able to start/stop the service from here:
 ![Image](../master/screenshots/1.png?raw=true)
 
