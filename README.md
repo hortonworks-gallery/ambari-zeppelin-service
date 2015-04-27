@@ -27,6 +27,8 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
   - Note that during install, the service will update maven settings to point to hortonworks dev repo to get latest spark jars by adding [this file](https://github.com/abajwa-hw/zeppelin-stack/blob/master/package/files/settings.xml) under ~/.m2
   - Mapreduce config changes in Ambari: change all references to ${hdp.version} or $HDP_VERSION to your HDP version (e.g. 2.2.4.2-2) and restart Mapreduce2 service. You can find your HDP version by running ```hdp-select status hadoop-client```
     - Why is this needed? See [SPARK-4461](https://issues.apache.org/jira/browse/SPARK-4461) for details. This is fixed in Spark 1.3
+    - Without this, you will encounter the below error when running scala cells and RM log will show that ${hdp.version} did not get replaced.
+    ```org.apache.spark.SparkException: Job cancelled because SparkContext was shut down```
 
 - To track the progress of the install you can run the below:
 ```
