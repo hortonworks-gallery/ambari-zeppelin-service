@@ -56,10 +56,6 @@ echo "export ZEPPELIN_JAVA_OPTS=\"-Dhdp.version=$HDP_VER\"" >> conf/zeppelin-env
 echo "export ZEPPELIN_LOG_DIR=$LOG_DIR" >> conf/zeppelin-env.sh
 
 
-if [ ! -d "/root/.m2" ]; then
-	mkdir /root/.m2/
-fi	
-
 echo "Compiling Zeppelin"
 $MVN_LOCATION -Phadoop-2.6 -Dhadoop.version=2.6.0 -Pspark-1.2 -Pyarn clean package -DskipTests
 

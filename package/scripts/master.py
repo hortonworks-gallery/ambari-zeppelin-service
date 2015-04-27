@@ -24,7 +24,10 @@ class Master(Script):
     if params.download_prebuilt:
       Execute(params.stack_dir + '/package/scripts/setup_snapshot.sh '+params.install_dir+' '+str(params.stack_port)+' '+status_params.stack_piddir+' '+snapshot_package+' '+str(params.executor_mem)+' '+params.stack_log+' >> ' + params.stack_logfile)
     else:
-      Execute('cp '+params.stack_dir+'/package/files/settings.xml ~/.m2')
+      #create the maven dir if not already present
+      if not os.path.exists('/root/.m2'):
+        os.makedirs('/root/.m2')     
+      Execute('cp '+params.stack_dir+'/package/files/settings.xml /root/.m2/')
       Execute(params.stack_dir + '/package/scripts/setup.sh '+params.install_dir+' '+str(params.stack_port)+' '+params.mvn_dir+' '+status_params.stack_piddir+' '+str(params.executor_mem)+' '+params.stack_log+' >> ' + params.stack_logfile)
 
 
