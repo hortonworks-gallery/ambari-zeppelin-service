@@ -61,6 +61,7 @@ $MVN_LOCATION -Phadoop-2.6 -Dhadoop.version=2.6.0 -Pspark-1.2 -Pyarn clean packa
 
 echo "Copying zeppelin-spark jar to HDFS"
 set +e 
+sudo -u hdfs hadoop fs -chmod +w /user
 sudo -u hdfs hadoop fs -rm -r /tmp/.zeppelin
 hadoop fs -mkdir /tmp/.zeppelin
 hadoop fs -put ./spark/target/zeppelin-spark-0.5.0-SNAPSHOT.jar /tmp/.zeppelin/
