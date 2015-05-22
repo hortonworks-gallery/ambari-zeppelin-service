@@ -90,6 +90,15 @@ words.take(5)
 ```
 ![Image](../master/screenshots/3.png?raw=true)
 
+- Now try a hive query and notice how you can view the results as a table and as different charts
+```
+%hive
+select description, salary from default.sample_07
+```
+
+![Image](../master/screenshots/hive-queries.png?raw=true)
+
+
 - Open the ResourceManager UI and notice Spark is running on YARN: http://sandbox.hortonworks.com:8088/cluster
 
 ![Image](../master/screenshots/RM-UI.png?raw=true)
