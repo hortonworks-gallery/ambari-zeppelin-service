@@ -15,3 +15,6 @@ stack_log = config['configurations']['zeppelin-config']['stack.log']
 stack_logfile = os.path.join(stack_log,'zeppelin-setup.log')
 
 
+#detect HS2 hostname
+master_configs = config['clusterHostInfo']
+hive_server_host = str(master_configs['hive_server_host'][0])

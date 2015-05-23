@@ -22,7 +22,7 @@ class Master(Script):
 
     #depending on whether prebuilt option is selected, execute appropriate script
     if params.download_prebuilt:
-      Execute(params.stack_dir + '/package/scripts/setup_snapshot.sh '+params.install_dir+' '+str(params.stack_port)+' '+status_params.stack_piddir+' '+snapshot_package+' '+str(params.executor_mem)+' '+params.stack_log+' >> ' + params.stack_logfile)
+      Execute(params.stack_dir + '/package/scripts/setup_snapshot.sh '+params.install_dir+' '+str(params.stack_port)+' '+status_params.stack_piddir+' '+snapshot_package+' '+str(params.executor_mem)+' '+params.stack_log+' '+params.hive_server_host+' >> ' + params.stack_logfile)
     else:
       #create the maven dir if not already present
       if not os.path.exists('/root/.m2'):
