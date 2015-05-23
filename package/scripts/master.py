@@ -28,7 +28,7 @@ class Master(Script):
       if not os.path.exists('/root/.m2'):
         os.makedirs('/root/.m2')     
       Execute('cp '+params.stack_dir+'/package/files/settings.xml /root/.m2/')
-      Execute(params.stack_dir + '/package/scripts/setup.sh '+params.install_dir+' '+str(params.stack_port)+' '+params.mvn_dir+' '+status_params.stack_piddir+' '+str(params.executor_mem)+' '+params.stack_log+' >> ' + params.stack_logfile)
+      Execute(params.stack_dir + '/package/scripts/setup.sh '+params.install_dir+' '+str(params.stack_port)+' '+params.mvn_dir+' '+status_params.stack_piddir+' '+str(params.executor_mem)+' '+params.stack_log+' '+params.hive_server_host+' >> ' + params.stack_logfile)
 
 
   def configure(self, env):
