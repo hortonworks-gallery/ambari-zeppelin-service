@@ -109,6 +109,10 @@ sed -i "s/\"master\": \"yarn-client\",/\"master\": \"yarn-client\",\n\t\"spark.y
 sed -i "s/\"spark.executor.memory\": \"512m\",/\"spark.executor.memory\": \"$EXECUTOR_MEM\",/g" conf/interpreter.json
 sed -i "s#\"hive.hiveserver2.url\": \"jdbc:hive2://localhost:10000\",#\"spark.executor.memory\": \"jdbc:hive2://$HIVE_HOST:10000\",#g" conf/interpreter.json
 
+cd notebook
+wget https://www.dropbox.com/s/jlacnbvlzcdhjzf/notebooks.zip?dl=0 -O notebooks.zip
+unzip notebooks.zip
+cd ..
 
 echo "restarting daemon...."
 bin/zeppelin-daemon.sh stop
