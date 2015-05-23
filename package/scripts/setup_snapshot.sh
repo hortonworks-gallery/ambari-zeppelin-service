@@ -87,9 +87,10 @@ if [ -d "notebook/2AK7D7JNE" ]; then
 	rm -rf notebook/2AK7D7JNE
 fi	
 
-if [ -d "notebook/2A94M5J1Z" ]; then
-	rm -rf notebook/2A94M5J1Z
-fi
+#Keep the demo notebook
+#if [ -d "notebook/2A94M5J1Z" ]; then
+#	rm -rf notebook/2A94M5J1Z
+#fi
 
 #Start daemon to create the interpreter.json
 
