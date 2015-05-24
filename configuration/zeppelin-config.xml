@@ -3,50 +3,133 @@
  
 <configuration>
 
-
+  <!-- common params -->
   <property require-input="true">
-    <name>download.prebuilt</name>
+    <name>zeppelin.download.prebuilt</name>
     <value>true</value>
     <description>If true, will download previously built package instead of building latest code</description>
   </property> 
 
   <property require-input="true">
-    <name>executor.mem</name>
+    <name>zeppelin.executor.mem</name>
     <value>512m</value>
     <description>Executor memory to use (e.g. 512m or 1g)</description>
   </property> 
 
   <property require-input="true">
-    <name>install.dir</name>
+    <name>zeppelin.install.dir</name>
     <value>/root</value>
     <description>Local dir where to install component. incubator-zeppelin folder will be created as a subdir of this dir e.g. /root/incubator-zeppelin</description>
   </property> 
 
   <property require-input="true">
-    <name>stack.port</name>
-    <value>9995</value>
-    <description>Port on which component will run. The subsequent port (e.g. 9996) should also be open as it will be used by the web socket </description>
-  </property> 
-  
-  <property require-input="true">
-    <name>stack.dir</name>
-    <!-- <value>/var/lib/ambari-server/resources/stacks/HDP/2.2/services/zeppelin-stack</value>-->
-    <value>/var/lib/ambari-agent/cache/stacks/HDP/2.2/services/zeppelin-stack</value>
-    <description>Stack dir from where to run setup/start/stop scripts</description>
-  </property>
-
-
-  <property require-input="true">
-    <name>mvn.dir</name>
+    <name>zeppelin.mvn.dir</name>
     <value> </value>
     <description>Only needed if download.prebuilt is false as Maven must be installed prior to setting up Zeppelin in this mode. Set this to the location of mvn executable (e.g. /usr/bin/mvn).</description>
   </property> 
       
   <property require-input="true">
-    <name>stack.log</name>
+    <name>zeppelin.server.log</name>
     <value>/var/log/zeppelin</value>
-    <description>Log dir component</description>
+    <description>Zeppelin Log dir</description>
   </property> 
+
   
+<!-- contents of actual zeppelin-site.xml -->
+
+<property>
+  <name>zeppelin.server.port</name>
+  <value>9995</value>
+  <description>Server port.The subsequent port (e.g. 9996) should also be open as it will be used by the web socket</description>
+</property>
+
+<!-- If the port value is negative, then it'll default to the server
+     port + 1.
+  -->
+<property>
+  <name>zeppelin.websocket.port</name>
+  <value>-1</value>
+  <description>Testing websocket port</description>
+</property>
+
+<property>
+  <name>zeppelin.notebook.dir</name>
+  <value>notebook</value>
+  <description>notebook persist</description>
+</property>
+
+<property>
+  <name>zeppelin.interpreter.dir</name>
+  <value>interpreter</value>
+  <description>Interpreter implementation base directory</description>
+</property>
+
+<property>
+  <name>zeppelin.interpreters</name>
+  <value>org.apache.zeppelin.spark.SparkInterpreter,org.apache.zeppelin.spark.PySparkInterpreter,org.apache.zeppelin.spark.SparkSqlInterpreter,org.apache.zeppelin.spark.DepInterpreter,org.apache.zeppelin.markdown.Markdown,org.apache.zeppelin.shell.ShellInterpreter,org.apache.zeppelin.hive.HiveInterpreter</value>
+  <description>Comma separated interpreter configurations. First interpreter become a default</description>
+</property>
+
+<property>
+  <name>zeppelin.ssl</name>
+  <value>false</value>
+  <description>Should SSL be used by the servers?</description>
+</property>
+
+
+<property>
+  <name>zeppelin.ssl.client.auth</name>
+  <value>false</value>
+  <description>Should client authentication be used for SSL connections?</description>
+</property>
+
+<property>
+  <name>zeppelin.ssl.keystore.path</name>
+  <value>conf/keystore</value>
+  <description>Path to keystore relative to Zeppelin home</description>
+</property>
+
+<property>
+  <name>zeppelin.ssl.keystore.type</name>
+  <value>JKS</value>
+  <description>The format of the given keystore (e.g. JKS or PKCS12)</description>
+</property>
+
+<property>
+  <name>zeppelin.ssl.keystore.password</name>
+  <value>change me</value>
+  <description>Keystore password. Can be obfuscated by the Jetty Password tool</description>
+</property>
+
+
+<property>
+  <name>zeppelin.ssl.key.manager.password</name>
+  <value>change me</value>
+  <description>Key Manager password. Defaults to keystore password. Can be obfuscated.</description>
+</property>
+
+
+<property>
+  <name>zeppelin.ssl.truststore.path</name>
+  <value>conf/truststore</value>
+  <description>Path to truststore relative to Zeppelin home. Defaults to the keystore path</description>
+</property>
+
+<property>
+  <name>zeppelin.ssl.truststore.type</name>
+  <value>JKS</value>
+  <description>The format of the given truststore (e.g. JKS or PKCS12). Defaults to the same type as the keystore type</description>
+</property>
+
+
+<property>
+  <name>zeppelin.ssl.truststore.password</name>
+  <value>change me</value>
+  <description>Truststore password. Can be obfuscated by the Jetty Password tool. Defaults to the keystore password</description>
+</property>
+
+
+
+
 </configuration>
 

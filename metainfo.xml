@@ -6,7 +6,7 @@
             <name>ZEPPELIN</name>
             <displayName>Zeppelin Notebook</displayName>
             <comment>A web-based notebook that enables interactive data analytics</comment>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
             <components>
                 <component>
                   <name>ZEPPELIN_MASTER</name>
