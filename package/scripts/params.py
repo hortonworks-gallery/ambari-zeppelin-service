@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from resource_management import *
 from resource_management.libraries.script.script import Script
 import sys, os
 from resource_management.libraries.functions.version import format_hdp_stack_version
