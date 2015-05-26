@@ -3,7 +3,7 @@
 
 <configuration>
 
- <property require-input="true">
+ <property>
     <name>zeppelin.piddir</name>
     <value>/var/run/zeppelin-notebook</value>
     <description>Dir containing process ID file</description>
