@@ -4,31 +4,31 @@
 <configuration>
 
   <!-- common params -->
-  <property require-input="true">
+  <property>
     <name>zeppelin.download.prebuilt</name>
     <value>true</value>
     <description>If true, will download previously built package instead of building latest code</description>
   </property> 
 
-  <property require-input="true">
+  <property>
     <name>zeppelin.executor.mem</name>
     <value>512m</value>
     <description>Executor memory to use (e.g. 512m or 1g)</description>
   </property> 
 
-  <property require-input="true">
+  <property>
     <name>zeppelin.install.dir</name>
     <value>/root</value>
     <description>Local dir where to install component. incubator-zeppelin folder will be created as a subdir of this dir e.g. /root/incubator-zeppelin</description>
   </property> 
 
-  <property require-input="true">
+  <property>
     <name>zeppelin.mvn.dir</name>
     <value> </value>
     <description>Only needed if download.prebuilt is false as Maven must be installed prior to setting up Zeppelin in this mode. Set this to the location of mvn executable (e.g. /usr/bin/mvn).</description>
   </property> 
       
-  <property require-input="true">
+  <property>
     <name>zeppelin.server.log</name>
     <value>/var/log/zeppelin</value>
     <description>Zeppelin Log dir</description>
