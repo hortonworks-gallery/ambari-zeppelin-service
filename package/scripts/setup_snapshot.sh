@@ -54,7 +54,7 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 	echo "   <name>hive.metastore.uris</name>" >> conf/hive-site.xml
 	echo "   <value>thrift://$HIVE_METASTORE_HOST:$HIVE_METASTORE_PORT</value>" >> conf/hive-site.xml
 	echo "</property>" >> conf/hive-site.xml		
-	echo "<configuration>" >> conf/hive-site.xml				
+	echo "</configuration>" >> conf/hive-site.xml				
 fi
 
 #Stop daemon if started
