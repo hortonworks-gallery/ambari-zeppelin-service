@@ -9,7 +9,12 @@ from resource_management.libraries.functions.version import format_hdp_stack_ver
 #from resource_management.libraries.functions import get_kinit_path
 #hdp_version = functions.get_hdp_version('spark-client')
 
-
+def get_port_from_url(address):
+  if not is_empty(address):
+    return address.split(':')[-1]
+  else:
+    return address
+    
 # server configurations
 config = Script.get_config()
 
