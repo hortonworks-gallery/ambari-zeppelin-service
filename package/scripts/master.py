@@ -44,7 +44,7 @@ class Master(Script):
       
       #run setup_snapshot.sh in FIRSTLAUNCH mode
       #Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+str(params.stack_port)+' '+status_params.zeppelin_piddir+' '+snapshot_package+' '+str(params.executor_mem)+' '+params.stack_log+' '+params.hive_server_host+' >> ' + params.stack_logfile)
-      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' FIRSTLAUNCH >> ' + params.stack_logfile)
+      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH >> ' + params.stack_logfile)
       
     else:
       #create the maven dir if not already present
@@ -72,7 +72,7 @@ class Master(Script):
     
     #run setup_snapshot.sh in configure mode to regenerate interpreter and add back version flags 
     service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
-    Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' CONFIGURE >> ' + params.stack_logfile)
+    Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' CONFIGURE >> ' + params.stack_logfile)
     
 
   def stop(self, env):

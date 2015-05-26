@@ -30,9 +30,12 @@ conf_dir = os.path.join(*[install_dir,zeppelin_dirname,'conf'])
 #zeppelin-env.sh
 zeppelin_env_content = config['configurations']['zeppelin-env']['content']
 
-#detect HS2 hostname and java home
+#detect HS2 details and java home
 master_configs = config['clusterHostInfo']
 hive_server_host = str(master_configs['hive_server_host'][0])
+hive_metastore_host = str(master_configs['hive_metastore_host'][0])
+hive_metastore_port = str(get_port_from_url(config['configurations']['hive-site']['hive.metastore.uris']))
+
 java64_home = config['hostLevelParams']['java_home']
 
 #TODO: allow this to be configurable

@@ -6,8 +6,14 @@ export INSTALL_DIR=$1
 #e.g. sandbox.hortonworks.com
 export HIVE_HOST=$2
 
+#e.g. sandbox.hortonworks.com
+export HIVE_METASTORE_HOST=$3
+
+#e.g. 9083
+export HIVE_METASTORE_PORT=$4
+
 #e.g. FIRSTLAUNCH
-export MODE=$3
+export MODE=$5
 
 echo "Setting up zeppelin at $INSTALL_DIR"
 cd $INSTALL_DIR
@@ -41,6 +47,14 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 	wget https://www.dropbox.com/s/jlacnbvlzcdhjzf/notebooks.zip?dl=0 -O notebooks.zip
 	unzip notebooks.zip
 	cd ..
+	
+	
+	echo "<configuration>" > conf/hive-site.xml
+	echo "<property>" >> conf/hive-site.xml
+	echo "   <name>hive.metastore.uris</name>" >> conf/hive-site.xml
+	echo "   <value>thrift://$HIVE_METASTORE_HOST:$HIVE_METASTORE_PORT</value>" >> conf/hive-site.xml
+	echo "</property>" >> conf/hive-site.xml		
+	echo "<configuration>" >> conf/hive-site.xml				
 fi
 
 #Stop daemon if started
