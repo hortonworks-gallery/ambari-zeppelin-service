@@ -43,7 +43,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     ```org.apache.spark.SparkException: Job cancelled because SparkContext was shut down```
     - To automate this you can run the below commands **only needed with Spark 1.2.1**
     ```
-#replace the values for "cluster" and "password" with the values for your own cluster    
+#Run from ambari server host. Replace the values for "cluster" and "password" with the values for your own cluster    
 export password=admin	
 export cluster=Sandbox
 export HDP_VER=`hdp-select status hadoop-client | sed 's/hadoop-client - \(.*\)/\1/'`
