@@ -21,12 +21,6 @@
     <value>/root</value>
     <description>Local dir where to install component. incubator-zeppelin folder will be created as a subdir of this dir e.g. /root/incubator-zeppelin</description>
   </property> 
-
-  <property>
-    <name>zeppelin.mvn.dir</name>
-    <value> </value>
-    <description>Only needed if download.prebuilt is false as Maven must be installed prior to setting up Zeppelin in this mode. Set this to the location of mvn executable (e.g. /usr/bin/mvn).</description>
-  </property> 
       
   <property>
     <name>zeppelin.server.log</name>

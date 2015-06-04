@@ -25,7 +25,6 @@ install_dir = config['configurations']['zeppelin-config']['zeppelin.install.dir'
 download_prebuilt = config['configurations']['zeppelin-config']['zeppelin.download.prebuilt']
 executor_mem = config['configurations']['zeppelin-config']['zeppelin.executor.mem']
 stack_port = config['configurations']['zeppelin-config']['zeppelin.server.port']
-mvn_dir = config['configurations']['zeppelin-config']['zeppelin.mvn.dir']
 stack_log = config['configurations']['zeppelin-config']['zeppelin.server.log']
 stack_logfile = os.path.join(stack_log,'zeppelin-setup.log')
 

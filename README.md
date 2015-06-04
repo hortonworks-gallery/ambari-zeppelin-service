@@ -34,11 +34,9 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 - The default mode of the service sets up Zeppelin in yarn-client mode by downloading a tarball of bits thats were precompiled against a version of spark containing fix for [SPARK-4461](https://issues.apache.org/jira/browse/SPARK-4461) (ETA: < 5min)
 
 - To instead pull/compile the latest Zeppelin code from the [git page](https://github.com/apache/incubator-zeppelin) (ETA: < 40min depending on internet connection):  
-  - Install maven prior to installing Zeppelin service. You can use the [Maven Ambari service](https://github.com/randerzander/maven-stack) for this
   - While adding zeppelin service, in the configuration step of the wizard:
-    - set download.prebuilt to false
-    - set the mvn.dir to location of mvn executable (e.g. /usr/bin/mvn)
-  - Note that during install, the service will update maven settings to point to hortonworks dev repo to get latest spark jars by adding [this file](https://github.com/abajwa-hw/zeppelin-stack/blob/master/package/files/settings.xml) under ~/.m2
+    - set zeppelin.download.prebuilt to false
+  - Note that during install, the service will automatically intall maven and update its settings to point to hortonworks dev repo to get latest spark jars by adding [this file](https://github.com/abajwa-hw/zeppelin-stack/blob/master/package/files/settings.xml) under ~/.m2
   - Mapreduce config changes in Ambari: change all references to ${hdp.version} or $HDP_VERSION to your HDP version (e.g. 2.2.4.2-2) and restart Mapreduce2 service. You can find your HDP version by running ```hdp-select status hadoop-client```
     - Why is this needed? See [SPARK-4461](https://issues.apache.org/jira/browse/SPARK-4461) for details. This is fixed in Spark 1.3
     - Without this, you will encounter the below error when running scala cells and RM log will show that ${hdp.version} did not get replaced.
