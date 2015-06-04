@@ -57,6 +57,7 @@ cd /var/lib/ambari-server/resources/scripts
 
 
 curl --user admin:$password -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo": {"context": "Stop MAPREDUCE2"}, "ServiceInfo": {"state": "INSTALLED"}}' http://localhost:8080/api/v1/clusters/$cluster/services/MAPREDUCE2
+sleep 20
 curl --user admin:$password -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo": {"context": "Start MAPREDUCE2"}, "ServiceInfo": {"state": "STARTED"}}' http://localhost:8080/api/v1/clusters/$cluster/services/MAPREDUCE2    
     ```
 
