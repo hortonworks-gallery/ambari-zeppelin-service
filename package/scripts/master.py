@@ -22,6 +22,9 @@ class Master(Script):
     if not os.path.exists(params.stack_log):
         os.makedirs(params.stack_log)    
     
+    Execute('rm -rf ' + params.zeppelin_dir, ignore_failures=True)
+    Execute('mkdir '+params.zeppelin_dir)    
+    
     #depending on whether prebuilt option is selected, execute appropriate script
     if params.download_prebuilt:
 
@@ -30,10 +33,8 @@ class Master(Script):
       #Execute('echo hdp_stack_version: ' + params.hdp_stack_version)   
           
 	  #Fetch and unzip snapshot build
-      Execute('rm -rf ' + params.zeppelin_dir, ignore_failures=True)
-      Execute('wget '+snapshot_package+' -O zeppelin.tar.gz')
-      Execute('mkdir '+params.zeppelin_dir)
-      Execute('tar -zxvf zeppelin.tar.gz -C ' + params.zeppelin_dir)
+      Execute('wget '+snapshot_package+' -O zeppelin.tar.gz >> '  + params.stack_logfile)
+      Execute('tar -zxvf zeppelin.tar.gz -C ' + params.zeppelin_dir + ' >> ' + params.stack_logfile)
       Execute('mv '+params.zeppelin_dir+'/*/* ' + params.zeppelin_dir)
       Execute('rm -rf zeppelin.tar.gz')
           
@@ -43,15 +44,28 @@ class Master(Script):
 
       
       #run setup_snapshot.sh in FIRSTLAUNCH mode
-      #Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+str(params.stack_port)+' '+status_params.zeppelin_piddir+' '+snapshot_package+' '+str(params.executor_mem)+' '+params.stack_log+' '+params.hive_server_host+' >> ' + params.stack_logfile)
       Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH >> ' + params.stack_logfile)
       
     else:
       #create the maven dir if not already present
+      Execute('curl -o /etc/yum.repos.d/epel-apache-maven.repo https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo')
+      Execute('yum -y install apache-maven >> ' + params.stack_logfile)
       if not os.path.exists('/root/.m2'):
         os.makedirs('/root/.m2')     
       Execute('cp '+service_packagedir+'/files/settings.xml /root/.m2/')
-      Execute(service_packagedir + '/scripts/setup.sh '+params.install_dir+' '+str(params.stack_port)+' '+params.mvn_dir+' '+status_params.zeppelin_piddir+' '+str(params.executor_mem)+' '+params.stack_log+' '+params.hive_server_host+' >> ' + params.stack_logfile)
+      Execute('cd '+params.install_dir+'; git clone https://github.com/apache/incubator-zeppelin >> ' + params.stack_logfile)
+
+      #update the configs specified by user
+      self.configure(env)
+            
+      Execute('cd '+params.zeppelin_dir+'; mvn -Phadoop-2.6 -Dhadoop.version=2.6.0 -Pspark-1.2 -Pyarn clean package -DskipTests >> ' + params.stack_logfile)
+      
+      #old script
+      #Execute(service_packagedir + '/scripts/setup.sh '+params.install_dir+' '+str(params.stack_port)+' '+params.mvn_dir+' '+status_params.zeppelin_piddir+' '+str(params.executor_mem)+' '+params.stack_log+' '+params.hive_server_host+' >> ' + params.stack_logfile)
+      
+      #run setup_snapshot.sh in FIRSTLAUNCH mode
+      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH >> ' + params.stack_logfile)
+      
 
 
   def configure(self, env):

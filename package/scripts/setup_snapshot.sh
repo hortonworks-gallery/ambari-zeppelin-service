@@ -25,7 +25,7 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 	hadoop fs -rm -r /tmp/.zeppelin
 	set -e 
 	hadoop fs -mkdir /tmp/.zeppelin
-	hadoop fs -put $INSTALL_DIR/interpreter/spark/zeppelin-spark-0.5.0-SNAPSHOT.jar /tmp/.zeppelin/
+	hadoop fs -put $INSTALL_DIR/interpreter/spark/zeppelin-spark-*.jar /tmp/.zeppelin/zeppelin-spark-0.5.0-SNAPSHOT.jar
 
 
 	#clean old notebooks
@@ -70,7 +70,12 @@ fi
 set -e
 
 #archive old interpreter
-mv conf/interpreter.json conf/interpreter_$(date +%d-%m-%Y).json
+if [ -f conf/interpreter.json ] 
+then
+	mv conf/interpreter.json conf/interpreter_$(date +%d-%m-%Y).json
+else
+	exit 0	
+fi	
 
 #Start daemon to re-create the interpreter.json
 echo "Starting zeppelin to generate interpreter"
