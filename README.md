@@ -41,6 +41,24 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - Why is this needed? See [SPARK-4461](https://issues.apache.org/jira/browse/SPARK-4461) for details. This is fixed in Spark 1.3
     - Without this, you will encounter the below error when running scala cells and RM log will show that ${hdp.version} did not get replaced.
     ```org.apache.spark.SparkException: Job cancelled because SparkContext was shut down```
+    - To automate this you can run the below commands **only needed with Spark 1.2.1**
+    ```
+#replace the values for "cluster" and "password" with the values for your own cluster    
+export password=admin	
+export cluster=Sandbox
+export HDP_VER=`hdp-select status hadoop-client | sed 's/hadoop-client - \(.*\)/\1/'`
+cd /var/lib/ambari-server/resources/scripts
+./configs.sh -u admin -p $password set localhost $cluster mapred-site yarn.app.mapreduce.am.admin-command-opts -Dhdp.version=$HDP_VER
+./configs.sh -u admin -p $password set localhost $cluster mapred-site mapreduce.application.framework.path /hdp/apps/$HDP_VER/mapreduce/mapreduce.tar.gz#mr-framework
+./configs.sh -u admin -p $password set localhost $cluster mapred-site mapreduce.admin.map.child.java.opts "-server -XX:NewRatio=8 -Djava.net.preferIPv4Stack=true -Dhdp.version=$HDP_VER"
+./configs.sh -u admin -p $password set localhost $cluster mapred-site mapreduce.admin.reduce.child.java.opts "-server -XX:NewRatio=8 -Djava.net.preferIPv4Stack=true -Dhdp.version=$HDP_VER"
+./configs.sh -u admin -p $password set localhost $cluster mapred-site mapreduce.admin.user.env "LD_LIBRARY_PATH=/usr/hdp/$HDP_VER/hadoop/lib/native:/usr/hdp/$HDP_VER/hadoop/lib/native/Linux-amd64-64"
+./configs.sh -u admin -p $password set localhost $cluster mapred-site mapreduce.application.classpath "$PWD/mr-framework/hadoop/share/hadoop/mapreduce/*:$PWD/mr-framework/hadoop/share/hadoop/mapreduce/lib/*:$PWD/mr-framework/hadoop/share/hadoop/common/*:$PWD/mr-framework/hadoop/share/hadoop/common/lib/*:$PWD/mr-framework/hadoop/share/hadoop/yarn/*:$PWD/mr-framework/hadoop/share/hadoop/yarn/lib/*:$PWD/mr-framework/hadoop/share/hadoop/hdfs/*:$PWD/mr-framework/hadoop/share/hadoop/hdfs/lib/*:/usr/hdp/$HDP_VER/hadoop/lib/hadoop-lzo-0.6.0.$HDP_VER.jar:/etc/hadoop/conf/secure"
+
+
+curl --user admin:$password -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo": {"context": "Stop MAPREDUCE2"}, "ServiceInfo": {"state": "INSTALLED"}}' http://localhost:8080/api/v1/clusters/$cluster/services/MAPREDUCE2
+curl --user admin:$password -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo": {"context": "Start MAPREDUCE2"}, "ServiceInfo": {"state": "STARTED"}}' http://localhost:8080/api/v1/clusters/$cluster/services/MAPREDUCE2    
+    ```
 
 - To track the progress of the install you can run the below:
 ```
