@@ -1,5 +1,9 @@
 #### An Ambari Stack for Zeppelin
-Ambari stack for easily installing and managing Zeppelin on HDP cluster
+Ambari service for easily installing and managing Zeppelin on HDP cluster
+
+Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
+
+#### Setup
 
 - The below steps were tested on HDP 2.2.4.2 cluster installed via Ambari 2.0 and latest HDP 2.2.4.2 sandbox
 
@@ -17,7 +21,7 @@ ssh root@sandbox.hortonworks.com
 ```
 
 
-- To deploy the Zeppelin stack, run below on ambari server
+- To deploy the Zeppelin service, run below on ambari server
 ```
 cd /var/lib/ambari-server/resources/stacks/HDP/2.2/services
 git clone https://github.com/abajwa-hw/zeppelin-stack.git   
