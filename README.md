@@ -1,4 +1,4 @@
-#### An Ambari Stack for Zeppelin
+#### An Ambari Service for Zeppelin
 Ambari service for easily installing and managing Zeppelin on HDP cluster
 
 Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
@@ -151,6 +151,7 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 #### Remove zeppelin service
 
 - To remove the Zeppelin service: 
+
   - Stop the service and delete it. Then restart Ambari
   
 ```
