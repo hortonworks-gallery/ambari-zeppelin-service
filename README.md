@@ -3,6 +3,13 @@ Ambari service for easily installing and managing Zeppelin on HDP cluster
 
 Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 
+Contents:
+  - [Setup](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup)
+  - [Use zeppelin notebook](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebook)
+  - [Remove zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#remove-zeppelin-service)
+  
+-------------------
+  
 #### Setup
 
 - The below steps were tested on HDP 2.2.4.2 cluster installed via Ambari 2.0 and latest HDP 2.2.4.2 sandbox
@@ -33,7 +40,20 @@ sudo service ambari-server restart
 ```
 - Then you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
 
-On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Next -> Next -> Deploy. Note that:
+On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Next -> Next -> Deploy. 
+![Image](../master/screenshots/install-1.png?raw=true)
+![Image](../master/screenshots/install-2.png?raw=true)
+![Image](../master/screenshots/install-3.png?raw=true)
+You should not need to change any default configs
+![Image](../master/screenshots/install-4.png?raw=true)
+Here are sample of configurations that you could modify if needed
+![Image](../master/screenshots/install-5.png?raw=true)
+![Image](../master/screenshots/install-6.png?raw=true)
+![Image](../master/screenshots/install-7.png?raw=true)
+![Image](../master/screenshots/install-8.png?raw=true)
+
+
+Note that:
 
 - The default mode of the service sets up Zeppelin in yarn-client mode by downloading a tarball of bits thats were precompiled against a version of spark containing fix for [SPARK-4461](https://issues.apache.org/jira/browse/SPARK-4461) (ETA: < 5min)
 
@@ -81,30 +101,59 @@ tail -f  /var/log/zeppelin/zeppelin-setup.log
 
 - Lauch the notebook via navigating to http://sandbox.hortonworks.com:9995/
 
-- Alternatively, you can launch it from Ambari via [iFrame view](https://github.com/abajwa-hw/iframe-view)
-![Image](../master/screenshots/4.png?raw=true)
+- Alternatively, you can launch it from Ambari via [iFrame view](https://github.com/abajwa-hw/iframe-view) using steps below:
+```
+export ZEPPELIN_HOST=sandbox.hortonworks.com
+export ZEPPELIN_PORT=9995
 
-- Test by creating a new note and enter some arithmetic in the first cell and press Shift-Enter to execute. 
+cd /tmp
+git clone https://github.com/abajwa-hw/iframe-view.git
+sed -i "s/iFrame View/Zeppelin/g" iframe-view/src/main/resources/view.xml	
+sed -i "s/IFRAME_VIEW/ZEPPELIN/g" iframe-view/src/main/resources/view.xml	
+sed -i "s/sandbox.hortonworks.com:6080/$ZEPPELIN_HOST:$ZEPPELIN_PORT/g" iframe-view/src/main/resources/index.html	
+sed -i "s/iframe-view/zeppelin-view/g" iframe-view/pom.xml	
+sed -i "s/Ambari iFrame View/Zeppelin View/g" iframe-view/pom.xml	
+mv iframe-view zeppelin-view
+cd zeppelin-view
+mvn clean package
+
+/bin/cp -f /tmp/zeppelin-view/target/*.jar /var/lib/ambari-server/resources/views
+
+service ambari-server restart
+#may not be needed but good to check
+service ambari-agent start
 ```
-2+2
-```
-- The first invocation takes some time as the Spark context is launched. You can tail the interpreter log file to see the details.
+![Image](../master/screenshots/install-8.png?raw=true)
+
+- There should be a few sample notebooks created. Started by running through the Hive one:
+![Image](../master/screenshots/install-9.png?raw=true)
+
+- Next try the same demo using Spark/SparkSQL
+![Image](../master/screenshots/install-10.png?raw=true)
+
+  - The first invocation takes some time as the Spark context is launched. You can tail the interpreter log file to see the details.
 ```
  tail -f /var/log/zeppelin/zeppelin-interpreter-spark--*.log
 ```
-- Test pyspark by entering some python commands in the second cell and press Shift-Enter to execute. This should execute instantaneously 
+
+- Other things to try
+  - Test by creating a new note and enter some arithmetic in the first cell and press Shift-Enter to execute. 
+```
+2+2
+```
+  - Test pyspark by entering some python commands in the second cell and press Shift-Enter to execute. This should execute instantaneously 
 ```
 %pyspark
 a=(1,2,3,4,5,6)
 print a
 ```
-- Test scala by pasting the below in the third cell to read/parse a log file from sandbox local disk
+  - Test scala by pasting the below in the third cell to read/parse a log file from sandbox local disk
 ```
 val words = sc.textFile("file:///var/log/ambari-agent/ambari-agent.log").flatMap(line => line.toLowerCase().split(" ")).map(word => (word, 1))
 words.take(5)
 ```
 
-- You can also add a cell as below to read a file from HDFS instead. Prior to running the below cell, you should copy the log file to HDFS by running ```hadoop fs -put /var/log/ambari-agent/ambari-agent.log /tmp``` from your SSH terminal window
+  - You can also add a cell as below to read a file from HDFS instead. Prior to running the below cell, you should copy the log file to HDFS by running ```hadoop fs -put /var/log/ambari-agent/ambari-agent.log /tmp``` from your SSH terminal window
 ```
 val words = sc.textFile("hdfs:///tmp/ambari-agent.log").flatMap(line => line.toLowerCase().split(" ")).map(word => (word, 1))
 words.take(5)
