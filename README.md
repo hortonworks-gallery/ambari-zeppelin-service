@@ -7,7 +7,7 @@ Contents:
   - [Pre-requisites: Have Spark 1.2.1+ installed](https://github.com/hortonworks-gallery/ambari-zeppelin-service#pre-requisites-have-spark-121-installed)
   - [Setup Ambari service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-the-ambari-service)
   - [Install Ambari view](https://github.com/hortonworks-gallery/ambari-zeppelin-service#install-zeppelin-view)
-  - [Use zeppelin notebook](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebook)
+  - [Run demo zeppelin notebooks](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebook)
   - [Remove zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#remove-zeppelin-service)
 
 - The below steps were tested on HDP 2.2.4.2 cluster installed via Ambari 2.0 and latest HDP 2.2.4.2 sandbox
@@ -58,7 +58,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 ![Image](../master/screenshots/install-3.png?raw=true)
 You should not need to change any default configs...
 ![Image](../master/screenshots/install-4.png?raw=true)
-...but here are sample of configurations that you could modify if needed
+...but here are sample of configurations that you could modify if needed (e.g. executor memory, port etc)
 ![Image](../master/screenshots/install-5.png?raw=true)
 ![Image](../master/screenshots/install-6.png?raw=true)
 ![Image](../master/screenshots/install-7.png?raw=true)
