@@ -13,6 +13,10 @@ Contents:
 Testing:
   - These steps were tested on HDP 2.2.4.2 cluster installed via Ambari 2.0 and latest HDP 2.2.4.2 sandbox
   
+Videos (internal to HWX currently):
+  - [How to setup zeppelin service](https://drive.google.com/open?id=0B9y0isiULrnxa1oxVWx0M3VuVms&authuser=0)
+  - [How to setup zeppelin view and run sample notebooks](https://drive.google.com/open?id=0B9y0isiULrnxTDc4T3hMUXN0aU0&authuser=0)
+  
 -------------------
   
 #### Pre-requisites: Have Spark 1.2.1+ installed
