@@ -122,6 +122,7 @@ service ambari-server restart
 #may not be needed but good to check
 service ambari-agent start
 ```
+- Opening http://sandbox.hortonworks.com:8080/#/main/views/ZEPPELIN/1.0.0/INSTANCE_1 should show Zeppelin as Ambari view
 ![Image](../master/screenshots/install-8.png?raw=true)
 
 - There should be a few sample notebooks created. Started by running through the Hive one:
