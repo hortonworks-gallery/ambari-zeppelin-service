@@ -10,7 +10,8 @@ Contents:
   - [Run demo zeppelin notebooks](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebook)
   - [Remove zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#remove-zeppelin-service)
 
-- The below steps were tested on HDP 2.2.4.2 cluster installed via Ambari 2.0 and latest HDP 2.2.4.2 sandbox
+Testing:
+  - These steps were tested on HDP 2.2.4.2 cluster installed via Ambari 2.0 and latest HDP 2.2.4.2 sandbox
   
 -------------------
   
