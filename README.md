@@ -7,12 +7,12 @@ Contents:
   - [Setup](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup)
   - [Use zeppelin notebook](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebook)
   - [Remove zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#remove-zeppelin-service)
+
+- The below steps were tested on HDP 2.2.4.2 cluster installed via Ambari 2.0 and latest HDP 2.2.4.2 sandbox
   
 -------------------
   
-#### Setup
-
-- The below steps were tested on HDP 2.2.4.2 cluster installed via Ambari 2.0 and latest HDP 2.2.4.2 sandbox
+#### Pre-requisites: Have Spark 1.2.1+ installed
 
 - Download HDP 2.2.4.2 sandbox VM image (Sandbox_HDP_2.2.4.2_VMWare.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
 - Import Sandbox_HDP_2.2.4.2_VMWare.ova into VMWare and set the VM memory size to 8GB
@@ -27,6 +27,16 @@ ssh root@sandbox.hortonworks.com
 /root/start_ambari.sh
 ```
 
+- Note that if you do not have Spark 1.2.1+ installed (e.g. if you are running HDP 2.2.0), you can use below commands to download/set it up
+```
+cd
+wget http://d3kbcqa49mib13.cloudfront.net/spark-1.3.1-bin-hadoop2.6.tgz
+tar -xzvf spark-1.3.1-bin-hadoop2.6.tgz
+echo "spark.driver.extraJavaOptions -Dhdp.version=2.2.0.0-2041" >> spark-1.3.1-bin-hadoop2.6/conf/spark-defaults.conf
+echo "spark.yarn.am.extraJavaOptions -Dhdp.version=2.2.0.0-2041" >> spark-1.3.1-bin-hadoop2.6/conf/spark-defaults.conf
+```
+
+#### Setup the Ambari service
 
 - To deploy the Zeppelin service, run below on ambari server
 ```
@@ -96,11 +106,8 @@ tail -f  /var/log/zeppelin/zeppelin-setup.log
 ![Image](../master/screenshots/2.png?raw=true)
 
 
-#### Use zeppelin notebook
-
-- Lauch the notebook via navigating to http://sandbox.hortonworks.com:9995/
-
-- Alternatively, you can launch it from Ambari via [iFrame view](https://github.com/abajwa-hw/iframe-view) using steps below:
+#### Install Zeppelin view
+- You can launch Zeppelin from Ambari via [iFrame view](https://github.com/abajwa-hw/iframe-view) using steps below:
 ```
 export ZEPPELIN_HOST=sandbox.hortonworks.com
 export ZEPPELIN_PORT=9995
@@ -122,7 +129,10 @@ service ambari-server restart
 #may not be needed but good to check
 service ambari-agent start
 ```
-- Opening http://sandbox.hortonworks.com:8080/#/main/views/ZEPPELIN/1.0.0/INSTANCE_1 should show Zeppelin as Ambari view
+
+#### Use zeppelin notebook
+
+- Lauch the notebook either via navigating to http://sandbox.hortonworks.com:9995 or via the view by opening http://sandbox.hortonworks.com:8080/#/main/views/ZEPPELIN/1.0.0/INSTANCE_1 should show Zeppelin as Ambari view
 ![Image](../master/screenshots/install-8.png?raw=true)
 
 - There should be a few sample notebooks created. Started by running through the Hive one (highlight a cell then press Shift-Enter):
