@@ -15,17 +15,31 @@ export HIVE_METASTORE_PORT=$4
 #e.g. FIRSTLAUNCH
 export MODE=$5
 
+#e.g. hdfs:///tmp/.zeppelin/zeppelin-spark-0.5.0-SNAPSHOT.jar
+export SPARK_JAR=$6
+
 echo "Setting up zeppelin at $INSTALL_DIR"
 cd $INSTALL_DIR
+
+#Stop daemon if started
+set +e
+bin/zeppelin-daemon.sh status
+STATUS=$?
+if [ $STATUS -eq 0 ]; then
+    echo "Stopping zeppelin daemon..."
+	bin/zeppelin-daemon.sh stop
+else
+	echo "Zeppelin was not running."	
+fi
+set -e
 
 if [ "$MODE" = "FIRSTLAUNCH" ]; then
 
 	echo "Copying zeppelin-spark jar to HDFS"
 	set +e 
-	hadoop fs -rm -r /tmp/.zeppelin
+	hadoop fs -rm $SPARK_JAR
 	set -e 
-	hadoop fs -mkdir /tmp/.zeppelin
-	hadoop fs -put $INSTALL_DIR/interpreter/spark/zeppelin-spark-*.jar /tmp/.zeppelin/zeppelin-spark-0.5.0-SNAPSHOT.jar
+	hadoop fs -put $INSTALL_DIR/interpreter/spark/zeppelin-spark-*.jar $SPARK_JAR
 
 
 	#clean old notebooks
@@ -42,7 +56,7 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 		rm -rf notebook/2A94M5J1Z
 	fi
 
-	echo "Importng notebooks"
+	echo "Importing notebooks"
 	cd notebook
 	wget https://www.dropbox.com/s/jlacnbvlzcdhjzf/notebooks.zip?dl=0 -O notebooks.zip
 	unzip notebooks.zip
@@ -54,28 +68,27 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 	echo "   <name>hive.metastore.uris</name>" >> conf/hive-site.xml
 	echo "   <value>thrift://$HIVE_METASTORE_HOST:$HIVE_METASTORE_PORT</value>" >> conf/hive-site.xml
 	echo "</property>" >> conf/hive-site.xml		
-	echo "</configuration>" >> conf/hive-site.xml				
+	echo "</configuration>" >> conf/hive-site.xml		
+else
+	if [ ! -f conf/interpreter.json ]
+	then
+		echo 'Did not find interpreter so skipping rest of setup'
+		exit 0
+	fi	
 fi
 
-#Stop daemon if started
-set +e
-bin/zeppelin-daemon.sh status
-STATUS=$?
-if [ $STATUS -eq 0 ]; then
-    echo "Stopping zeppelin daemon..."
-	bin/zeppelin-daemon.sh stop
-else
-	echo "Zeppelin was not running."	
-fi
-set -e
+
 
 #archive old interpreter
 if [ -f conf/interpreter.json ] 
 then
 	mv conf/interpreter.json conf/interpreter_$(date +%d-%m-%Y).json
-else
-	exit 0	
+#else
+#    echo 'Did not find interpreter so exiting setup'
+#	exit 0	
 fi	
+
+
 
 #Start daemon to re-create the interpreter.json
 echo "Starting zeppelin to generate interpreter"

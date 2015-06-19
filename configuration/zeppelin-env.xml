@@ -4,25 +4,46 @@
 <configuration>
 
  <property>
-    <name>zeppelin.piddir</name>
+    <name>zeppelin_pid_dir</name>
     <value>/var/run/zeppelin-notebook</value>
     <description>Dir containing process ID file</description>
   </property>
 
+  <property>
+    <name>zeppelin_user</name>
+    <value>zeppelin</value>
+    <property-type>USER</property-type>
+    <description>User zeppelin daemon runs as</description>
+  </property> 
+        
+  <property>
+    <name>zeppelin_group</name>
+    <value>zeppelin</value>
+    <property-type>USER</property-type>
+    <description>zeppelin group</description>
+  </property> 
+          
+  <property>
+    <name>zeppelin_log_dir</name>
+    <value>/var/log/zeppelin</value>
+    <description>Zeppelin Log dir</description>
+  </property> 
+
+  
   <property>
     <name>content</name>
     <description>This is the jinja template for zeppelin-env.sh file</description>
     <value>      
 # Spark master url. eg. spark://master_addr:7077. Leave empty if you want to use local mode    
 export MASTER=yarn-client        
-export SPARK_YARN_JAR=hdfs:///tmp/.zeppelin/zeppelin-spark-0.5.0-SNAPSHOT.jar
+export SPARK_YARN_JAR={{spark_jar}}
 export SPARK_HOME=/usr/hdp/current/spark-client/
 
 # Where log files are stored.  PWD by default.
-export ZEPPELIN_LOG_DIR={{stack_log}}  
+export ZEPPELIN_LOG_DIR={{zeppelin_log_dir}}  
 
 # The pid files are stored. /tmp by default.
-export ZEPPELIN_PID_DIR={{zeppelin_piddir}}  
+export ZEPPELIN_PID_DIR={{zeppelin_pid_dir}}  
 
 # Options read in YARN client mode
 # yarn-site.xml is located in configuration directory in HADOOP_CONF_DIR.

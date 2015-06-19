@@ -17,16 +17,19 @@
   </property> 
 
   <property>
+    <name>zeppelin.spark.jar.dir</name>
+    <value>hdfs:///apps/zeppelin</value>
+    <!-- <value>hdfs:///tmp/.zeppelin/zeppelin-spark-0.5.0-SNAPSHOT.jar</value> -->
+    <description>Location of zeppelin jar</description>
+  </property> 
+  
+  <property>
     <name>zeppelin.install.dir</name>
-    <value>/root</value>
+    <value>/opt</value>
     <description>Local dir where to install component. incubator-zeppelin folder will be created as a subdir of this dir e.g. /root/incubator-zeppelin</description>
   </property> 
-      
-  <property>
-    <name>zeppelin.server.log</name>
-    <value>/var/log/zeppelin</value>
-    <description>Zeppelin Log dir</description>
-  </property> 
+
+
 
   
 <!-- contents of actual zeppelin-site.xml -->
@@ -60,7 +63,7 @@
 
 <property>
   <name>zeppelin.interpreters</name>
-  <value>org.apache.zeppelin.spark.SparkInterpreter,org.apache.zeppelin.spark.PySparkInterpreter,org.apache.zeppelin.spark.SparkSqlInterpreter,org.apache.zeppelin.spark.DepInterpreter,org.apache.zeppelin.markdown.Markdown,org.apache.zeppelin.shell.ShellInterpreter,org.apache.zeppelin.hive.HiveInterpreter</value>
+  <value>org.apache.zeppelin.spark.SparkInterpreter,org.apache.zeppelin.spark.PySparkInterpreter,org.apache.zeppelin.spark.SparkSqlInterpreter,org.apache.zeppelin.spark.DepInterpreter,org.apache.zeppelin.markdown.Markdown,org.apache.zeppelin.angular.AngularInterpreter,org.apache.zeppelin.shell.ShellInterpreter,org.apache.zeppelin.hive.HiveInterpreter,org.apache.zeppelin.tajo.TajoInterpreter,org.apache.zeppelin.flink.FlinkInterpreter</value>
   <description>Comma separated interpreter configurations. First interpreter become a default</description>
 </property>
 
