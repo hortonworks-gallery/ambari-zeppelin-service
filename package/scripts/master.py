@@ -41,6 +41,10 @@ class Master(Script):
     #Execute('echo hdp_stack_version: ' + params.hdp_stack_version)
     #Execute('echo spark_version: ' + params.spark_version)
     #Execute('echo full_version:' + params.full_version)
+
+    #install maven as root
+    Execute('curl -o /etc/yum.repos.d/epel-apache-maven.repo https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo')
+    Execute('yum -y install apache-maven >> ' + params.zeppelin_log_file)
     
     #depending on whether prebuilt option is selected, execute appropriate script
     if params.download_prebuilt:
@@ -60,9 +64,7 @@ class Master(Script):
       Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
       
     else:
-      #install maven as root
-      Execute('curl -o /etc/yum.repos.d/epel-apache-maven.repo https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo')
-      Execute('yum -y install apache-maven >> ' + params.zeppelin_log_file)
+      Execute('yum -y install java-1.7.0-openjdk-devel >> ' + params.zeppelin_log_file)
       if not os.path.exists('/root/.m2'):
         os.makedirs('/root/.m2')     
       Execute('cp '+service_packagedir+'/files/settings.xml /root/.m2/')
