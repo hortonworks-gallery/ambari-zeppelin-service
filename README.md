@@ -125,10 +125,10 @@ service ambari-agent start
 - Opening http://sandbox.hortonworks.com:8080/#/main/views/ZEPPELIN/1.0.0/INSTANCE_1 should show Zeppelin as Ambari view
 ![Image](../master/screenshots/install-8.png?raw=true)
 
-- There should be a few sample notebooks created. Started by running through the Hive one:
+- There should be a few sample notebooks created. Started by running through the Hive one (highlight a cell then press Shift-Enter):
 ![Image](../master/screenshots/install-9.png?raw=true)
 
-- Next try the same demo using Spark/SparkSQL
+- Next try the same demo using the Spark/SparkSQL notebook (highlight a cell then press Shift-Enter):
 ![Image](../master/screenshots/install-10.png?raw=true)
 
   - The first invocation takes some time as the Spark context is launched. You can tail the interpreter log file to see the details.
@@ -141,7 +141,7 @@ service ambari-agent start
 ```
 2+2
 ```
-  - Test pyspark by entering some python commands in the second cell and press Shift-Enter to execute. This should execute instantaneously 
+  - Test pyspark by entering some python commands in the second cell and press Shift-Enter to execute. 
 ```
 %pyspark
 a=(1,2,3,4,5,6)
