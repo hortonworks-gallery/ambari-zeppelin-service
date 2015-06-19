@@ -44,13 +44,13 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 ![Image](../master/screenshots/install-1.png?raw=true)
 ![Image](../master/screenshots/install-2.png?raw=true)
 ![Image](../master/screenshots/install-3.png?raw=true)
-You should not need to change any default configs
+You should not need to change any default configs...
 ![Image](../master/screenshots/install-4.png?raw=true)
-Here are sample of configurations that you could modify if needed
+...but here are sample of configurations that you could modify if needed
 ![Image](../master/screenshots/install-5.png?raw=true)
 ![Image](../master/screenshots/install-6.png?raw=true)
 ![Image](../master/screenshots/install-7.png?raw=true)
-Click Deply to start the installation
+Click Deploy to start the installation
 
 Note that:
 
