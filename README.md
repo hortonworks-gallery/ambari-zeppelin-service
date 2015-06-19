@@ -61,6 +61,7 @@ You should not need to change any default configs...
 ...but here are sample of configurations that you could modify if needed (e.g. executor memory, port etc)
 ![Image](../master/screenshots/install-5.png?raw=true)
 ![Image](../master/screenshots/install-6.png?raw=true)
+Click Next to accept defaults...
 ![Image](../master/screenshots/install-7.png?raw=true)
 Click Deploy to start the installation
 
