@@ -12,14 +12,14 @@
   <property>
     <name>zeppelin_user</name>
     <value>zeppelin</value>
-    <property-type>USER</property-type>
+    <!-- <property-type>USER</property-type> -->
     <description>User zeppelin daemon runs as</description>
   </property> 
         
   <property>
     <name>zeppelin_group</name>
     <value>zeppelin</value>
-    <property-type>USER</property-type>
+    <!-- <property-type>USER</property-type> -->
     <description>zeppelin group</description>
   </property> 
           
