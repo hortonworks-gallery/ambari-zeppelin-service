@@ -51,7 +51,7 @@ Here are sample of configurations that you could modify if needed
 ![Image](../master/screenshots/install-6.png?raw=true)
 ![Image](../master/screenshots/install-7.png?raw=true)
 ![Image](../master/screenshots/install-8.png?raw=true)
-
+Click Deply to start the installation
 
 Note that:
 
