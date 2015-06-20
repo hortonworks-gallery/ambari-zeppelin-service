@@ -11,8 +11,10 @@ class Master(Script):
     import params
     import status_params
 
-    #location of prebuilt package
-    snapshot_package='https://www.dropbox.com/s/nhv5j42qsybldh4/zeppelin-0.5.0-SNAPSHOT.tar.gz'
+    #location of prebuilt package from april 2015
+    #snapshot_package='https://www.dropbox.com/s/nhv5j42qsybldh4/zeppelin-0.5.0-SNAPSHOT.tar.gz'
+    #location of prebuilt package from June 14 2015
+    snapshot_package='https://www.dropbox.com/s/s16oicpljugltjj/zeppelin-0.5.0-SNAPSHOT.tar.gz'
     
     #e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.2/services/zeppelin-stack/package
     service_packagedir = os.path.realpath(__file__).split('/scripts')[0] 
