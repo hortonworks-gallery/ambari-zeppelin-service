@@ -34,13 +34,15 @@ ssh root@sandbox.hortonworks.com
 /root/start_ambari.sh
 ```
 
-- Note that if you do not have Spark 1.2.1+ installed (e.g. if you are running HDP 2.2.0), you can use below commands to download/set it up
+- Note that if you do not have Spark 1.2.1+ installed (e.g. if you are running HDP 2.2.0), you can use below commands to download/set up Spark 1.3
 ```
-cd
+mkdir -p /usr/hdp/current/spark-client/
+cd /usr/hdp/current/spark-client/
 wget http://d3kbcqa49mib13.cloudfront.net/spark-1.3.1-bin-hadoop2.6.tgz
-tar -xzvf spark-1.3.1-bin-hadoop2.6.tgz
+tar --strip-components=1 -xzvf spark-1.3.1-bin-hadoop2.6.tgz
 echo "spark.driver.extraJavaOptions -Dhdp.version=2.2.0.0-2041" >> spark-1.3.1-bin-hadoop2.6/conf/spark-defaults.conf
 echo "spark.yarn.am.extraJavaOptions -Dhdp.version=2.2.0.0-2041" >> spark-1.3.1-bin-hadoop2.6/conf/spark-defaults.conf
+rm -f spark-1.3.1-bin-hadoop2.6.tgz
 ```
 
 #### Setup the Ambari service
