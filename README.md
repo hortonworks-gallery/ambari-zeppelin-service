@@ -34,7 +34,7 @@ ssh root@sandbox.hortonworks.com
 /root/start_ambari.sh
 ```
 
-- Note that if you do not have Spark 1.2.1+ installed (e.g. if you are running HDP 2.2.0), you can use below commands to download and set it up
+- Note that if you do not have Spark 1.2+ installed (e.g. if you are running HDP 2.2.0), you can use below commands to download and set it up
 ```
 mkdir -p /usr/hdp/current/spark-client/
 cd /usr/hdp/current/spark-client/
