@@ -34,6 +34,8 @@ ssh root@sandbox.hortonworks.com
 /root/start_ambari.sh
 ```
 
+- (Optional) If you deployed in a VirtualBox Sandbox environment, enable port forwarding on ports 9995 and 9996. If you don't enable port 9996, the Zeppelin UI/Ambari View shows disconnected on the upper right and none of the default tutorials are visible. 
+
 - Note that if you do not have Spark 1.2+ installed (e.g. if you are running HDP 2.2.0), you can use below commands to download and set it up
 ```
 mkdir -p /usr/hdp/current/spark-client/
