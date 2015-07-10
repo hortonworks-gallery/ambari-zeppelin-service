@@ -77,7 +77,7 @@ class Master(Script):
       #update the configs specified by user
       self.configure(env)
             
-      Execute('cd '+params.zeppelin_dir+'; mvn -Phadoop-2.6 -Dhadoop.version=2.6.0 -P'+params.mvn_spark_tag+' -Pyarn clean package -DskipTests >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+      Execute('cd '+params.zeppelin_dir+'; mvn -Phadoop-2.6 -Dhadoop.version=2.6.0 -P'+params.mvn_spark_tag+' -Ppyspark -Pyarn clean package -DskipTests >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
             
       #run setup_snapshot.sh in FIRSTLAUNCH mode
       Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
