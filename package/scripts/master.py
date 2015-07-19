@@ -127,7 +127,7 @@ class Master(Script):
   def stop(self, env):
     import params
     import status_params    
-    self.configure(env)
+    #self.configure(env)
     Execute (params.zeppelin_dir+'/bin/zeppelin-daemon.sh stop >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
  
       
