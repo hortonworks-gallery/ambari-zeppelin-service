@@ -18,6 +18,10 @@ export MODE=$5
 #e.g. hdfs:///tmp/.zeppelin/zeppelin-spark-0.5.0-SNAPSHOT.jar
 export SPARK_JAR=$6
 
+export ZEPPELIN_HOST=$7
+
+export ZEPPELIN_PORT=$8
+
 echo "Setting up zeppelin at $INSTALL_DIR"
 cd $INSTALL_DIR
 
@@ -70,6 +74,31 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 	echo "   <value>thrift://$HIVE_METASTORE_HOST:$HIVE_METASTORE_PORT</value>" >> conf/hive-site.xml
 	echo "</property>" >> conf/hive-site.xml		
 	echo "</configuration>" >> conf/hive-site.xml		
+
+	#setup view
+	echo "Compiling Zeppelin view..."
+	cd
+	if [ -d iframe-view ] 
+	then
+		rm -rf iframe-view
+	fi	
+	if [ -d zeppelin-view ] 
+	then
+		rm -rf zeppelin-view
+	fi	
+
+	git clone https://github.com/abajwa-hw/iframe-view.git
+	sed -i "s/iFrame View/Zeppelin/g" iframe-view/src/main/resources/view.xml	
+	sed -i "s/IFRAME_VIEW/ZEPPELIN/g" iframe-view/src/main/resources/view.xml	
+	sed -i "s/sandbox.hortonworks.com:6080/$ZEPPELIN_HOST:$ZEPPELIN_PORT/g" iframe-view/src/main/resources/index.html	
+	sed -i "s/iframe-view/zeppelin-view/g" iframe-view/pom.xml	
+	sed -i "s/Ambari iFrame View/Zeppelin View/g" iframe-view/pom.xml	
+	mv iframe-view zeppelin-view
+	cd zeppelin-view
+	mvn clean package
+	
+	cd $INSTALL_DIR
+
 else
 	if [ ! -f conf/interpreter.json ]
 	then

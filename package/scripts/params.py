@@ -48,7 +48,8 @@ hive_metastore_host = str(master_configs['hive_metastore_host'][0])
 hive_metastore_port = str(get_port_from_url(config['configurations']['hive-site']['hive.metastore.uris']))
 
 java64_home = config['hostLevelParams']['java_home']
-
+zeppelin_host = str(master_configs['zeppelin_master_hosts'][0])
+ambari_host = str(master_configs['ambari_server_host'][0])
 
 
 #e.g. 2.3

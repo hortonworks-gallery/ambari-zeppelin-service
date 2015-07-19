@@ -66,7 +66,12 @@ class Master(Script):
 
       
       #run setup_snapshot.sh in FIRSTLAUNCH mode
-      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+
+      #if zeppelin installed on ambari server, copy view jar into ambari views dir
+      if params.ambari_host == params.zeppelin_host and not os.path.exists('/var/lib/ambari-server/resources/views/zeppelin-view-1.0-SNAPSHOT.jar'):
+        Execute('echo "Copying zeppelin view jar to ambari views dir"')      
+        Execute('cp /home/'+params.zeppelin_user+'/zeppelin-view/target/*.jar /var/lib/ambari-server/resources/views')
       
     else:
       Execute('yum -y install java-1.7.0-openjdk-devel >> ' + params.zeppelin_log_file)
@@ -83,7 +88,13 @@ class Master(Script):
       Execute('cd '+params.zeppelin_dir+'; mvn -Phadoop-2.6 -Dhadoop.version=2.6.0 -P'+params.mvn_spark_tag+' -Ppyspark -Pyarn clean package -DskipTests >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
             
       #run setup_snapshot.sh in FIRSTLAUNCH mode
-      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+
+      #if zeppelin installed on ambari server, copy view jar into ambari views dir
+      if params.ambari_host == params.zeppelin_host and not os.path.exists('/var/lib/ambari-server/resources/views/zeppelin-view-1.0-SNAPSHOT.jar'):
+        Execute('echo "Copying zeppelin view jar to ambari views dir"')      
+        Execute('cp /home/'+params.zeppelin_user+'/zeppelin-view/target/*.jar /var/lib/ambari-server/resources/views')
+
       
   def create_linux_user(self, user, group):
     try: pwd.getpwnam(user)
@@ -121,8 +132,8 @@ class Master(Script):
     
     #run setup_snapshot.sh in configure mode to regenerate interpreter and add back version flags 
     service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
-    Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' CONFIGURE ' + params.spark_jar + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
-    
+    #Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' CONFIGURE ' + params.spark_jar + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+    Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' CONFIGURE ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)    
 
   def stop(self, env):
     import params
