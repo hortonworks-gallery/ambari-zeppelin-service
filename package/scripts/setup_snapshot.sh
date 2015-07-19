@@ -41,6 +41,7 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 	set -e 
 	hadoop fs -put $INSTALL_DIR/interpreter/spark/zeppelin-spark-*.jar $SPARK_JAR
 
+        rm -rf notebook/*
 
 	#clean old notebooks
 	if [ -d "notebook/2AHFKRNDZ" ]; then

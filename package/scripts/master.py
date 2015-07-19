@@ -14,8 +14,10 @@ class Master(Script):
     #location of prebuilt package from april 2015
     #snapshot_package='https://www.dropbox.com/s/nhv5j42qsybldh4/zeppelin-0.5.0-SNAPSHOT.tar.gz'
     #location of prebuilt package from June 14 2015
-    snapshot_package='https://www.dropbox.com/s/s16oicpljugltjj/zeppelin-0.5.0-SNAPSHOT.tar.gz'
-    
+    #snapshot_package='https://www.dropbox.com/s/s16oicpljugltjj/zeppelin-0.5.0-SNAPSHOT.tar.gz'
+    #location of prebuilt package from July 17 2015
+    snapshot_package='https://www.dropbox.com/s/kthyw8hqgweoo0q/zeppelin-0.5.0-SNAPSHOT.tar.gz'
+
     #e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.2/services/zeppelin-stack/package
     service_packagedir = os.path.realpath(__file__).split('/scripts')[0] 
             
@@ -52,10 +54,11 @@ class Master(Script):
     if params.download_prebuilt:
 
       #Fetch and unzip snapshot build
-      Execute('wget '+snapshot_package+' -O zeppelin.tar.gz -a '  + params.zeppelin_log_file, user=params.zeppelin_user)
-      Execute('tar -zxvf zeppelin.tar.gz -C ' + params.zeppelin_dir + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+      if not os.path.exists('/tmp/zeppelin.tar.gz'):
+        Execute('wget '+snapshot_package+' -O /tmp/zeppelin.tar.gz -a '  + params.zeppelin_log_file, user=params.zeppelin_user)
+      Execute('tar -zxvf /tmp/zeppelin.tar.gz -C ' + params.zeppelin_dir + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
       Execute('mv '+params.zeppelin_dir+'/*/* ' + params.zeppelin_dir, user=params.zeppelin_user)
-      Execute('rm -rf zeppelin.tar.gz', user=params.zeppelin_user)
+      #Execute('rm -rf /tmp/zeppelin.tar.gz', user=params.zeppelin_user)
           
       
       #update the configs specified by user
@@ -69,7 +72,7 @@ class Master(Script):
       Execute('yum -y install java-1.7.0-openjdk-devel >> ' + params.zeppelin_log_file)
       if not os.path.exists('/root/.m2'):
         os.makedirs('/root/.m2')     
-      Execute('cp '+service_packagedir+'/files/settings.xml /root/.m2/')
+      #Execute('cp '+service_packagedir+'/files/settings.xml /root/.m2/')
       
       Execute('cd '+params.install_dir+'; git clone https://github.com/apache/incubator-zeppelin >> ' + params.zeppelin_log_file)
       Execute('chown -R ' + params.zeppelin_user + ':' + params.zeppelin_group + ' ' + params.zeppelin_dir)
