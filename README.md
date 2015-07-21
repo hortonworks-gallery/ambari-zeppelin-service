@@ -56,7 +56,7 @@ rm -f spark-*.tgz
 - To deploy the Zeppelin service, run below on ambari server
 ```
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
-git clone https://github.com/abajwa-hw/zeppelin-stack.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/zeppelin-stack   
+git clone https://github.com/abajwa-hw/zeppelin-stack.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN   
 ```
 
 - Restart Ambari
