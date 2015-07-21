@@ -25,7 +25,7 @@ download_prebuilt = config['configurations']['zeppelin-config']['zeppelin.downlo
 executor_mem = config['configurations']['zeppelin-config']['zeppelin.executor.mem']
 zeppelin_port = config['configurations']['zeppelin-config']['zeppelin.server.port']
 spark_jar_dir = config['configurations']['zeppelin-config']['zeppelin.spark.jar.dir']
-spark_jar = format("{spark_jar_dir}/zeppelin-spark-0.5.0-SNAPSHOT.jar")
+spark_jar = format("{spark_jar_dir}/zeppelin-spark-0.6.0-SNAPSHOT.jar")
 
 zeppelin_user= config['configurations']['zeppelin-env']['zeppelin_user']
 zeppelin_group= config['configurations']['zeppelin-env']['zeppelin_group']
