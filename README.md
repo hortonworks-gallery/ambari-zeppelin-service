@@ -61,6 +61,10 @@ git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /
 
 - Restart Ambari
 ```
+#on sandbox
+service ambari restart
+
+#on non-sandbox
 sudo service ambari-server restart
 ```
 - Then you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
