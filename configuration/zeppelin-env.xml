@@ -60,7 +60,7 @@ export ZEPPELIN_JAVA_OPTS="-Dhdp.version={{hdp_version}} -Dspark.executor.memory
 # path to the python command. must be the same path on the driver(Zeppelin) and all workers.
 # export PYSPARK_PYTHON         
 # export PYTHONPATH              
-     
+export PYTHONPATH=${SPARK_HOME}/python     
 
 # Zeppelin jvm mem options Default -Xmx1024m -XX:MaxPermSize=512m
 # export ZEPPELIN_MEM            
