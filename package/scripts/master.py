@@ -2,7 +2,6 @@ import sys, os, pwd, grp, signal, time, glob
 from resource_management import *
 from subprocess import call
 
-
 class Master(Script):
   def install(self, env):
     # Install packages listed in metainfo.xml
