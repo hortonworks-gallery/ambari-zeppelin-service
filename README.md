@@ -124,10 +124,12 @@ tail -f  /var/log/zeppelin/zeppelin-setup.log
 - Lauch the notebook either via navigating to http://sandbox.hortonworks.com:9995 or via the view by opening http://sandbox.hortonworks.com:8080/#/main/views/ZEPPELIN/1.0.0/INSTANCE_1 should show Zeppelin as Ambari view
 ![Image](../master/screenshots/install-8.png?raw=true)
 
-- There should be a few sample notebooks created. Started by running through the Hive one (highlight a cell then press Shift-Enter):
+- There should be a few sample notebooks created. Select the Hive one (make sure Hive service is up)
 ![Image](../master/screenshots/install-9.png?raw=true)
 
-  - On first launch of a notebook, you will need to click "Save" under the interpreter order.
+- On first launch of a notebook, you will the "Interpreter Binding" settings will be displayed. You will need to click "Save" under the interpreter order.
+
+- Execute the cells by clicking the 'Play' (triangular) button on top right of each cell or just highlight a cell then press Shift-Enter
 
 - Next try the same demo using the Spark/SparkSQL notebook (highlight a cell then press Shift-Enter):
 ![Image](../master/screenshots/install-10.png?raw=true)
@@ -148,6 +150,16 @@ tail -f  /var/log/zeppelin/zeppelin-setup.log
 a=(1,2,3,4,5,6)
 print a
 ```
+  - Test settings by checking the spark version and spark home, python path env vars. 
+```
+sc.version
+sc.getConf.get("spark.home")
+System.getenv().get("PYTHONPATH")
+System.getenv().get("SPARK_HOME")
+```  
+    - On 1.4, `sc.version` should return `String = 1.4.0` and `SPARK_HOME` should be `/home/zeppelin/spark-1.4.1-bin-hadoop2.6/` (or whatever you set)
+    - On 1.3, `sc.version` should return `String = 1.3.0` and `SPARK_HOME` should be `/usr/hdp/current/spark-client/` 
+    
   - Test scala by pasting the below in the third cell to read/parse a log file from sandbox local disk
 ```
 val words = sc.textFile("file:///var/log/ambari-agent/ambari-agent.log").flatMap(line => line.toLowerCase().split(" ")).map(word => (word, 1))
