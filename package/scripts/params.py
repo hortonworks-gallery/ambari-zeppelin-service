@@ -27,6 +27,8 @@ zeppelin_port = config['configurations']['zeppelin-config']['zeppelin.server.por
 spark_jar_dir = config['configurations']['zeppelin-config']['zeppelin.spark.jar.dir']
 spark_jar = format("{spark_jar_dir}/zeppelin-spark-0.6.0-SNAPSHOT.jar")
 
+spark_version = config['configurations']['zeppelin-config']['zeppelin.spark.version']
+
 zeppelin_user= config['configurations']['zeppelin-env']['zeppelin_user']
 zeppelin_group= config['configurations']['zeppelin-env']['zeppelin_group']
 zeppelin_log_dir = config['configurations']['zeppelin-env']['zeppelin_log_dir']

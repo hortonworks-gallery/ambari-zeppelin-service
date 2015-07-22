@@ -17,9 +17,20 @@ class Master(Script):
     #snapshot_package='https://www.dropbox.com/s/s16oicpljugltjj/zeppelin-0.5.0-SNAPSHOT.tar.gz'
     #location of prebuilt package from July 17 2015
     #snapshot_package='https://www.dropbox.com/s/kthyw8hqgweoo0q/zeppelin-0.5.0-SNAPSHOT.tar.gz'
-    #location of prebuilt package from July 21 2015    
-    snapshot_package='https://www.dropbox.com/s/g9ua0no3gmb16uy/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
+    #location of prebuilt package from July 21 2015 using spark 1.3   
+    snapshot_package_13='https://www.dropbox.com/s/g9ua0no3gmb16uy/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
+    #location of prebuilt package from July 21 2015 using Spark 1.4    
+    snapshot_package_14='https://www.dropbox.com/s/0qyvze6t3xhlthn/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
 
+    if params.spark_version == '1.4':
+      snapshot_package = snapshot_package_14
+    elif params.spark_version == '1.3':
+      snapshot_package = snapshot_package_13
+    else:
+      Execute('echo Unrecognized spark version: ' + params.spark_version + ' defaulting to 1.3')
+      snapshot_package = snapshot_package_13
+  
+      
     #e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.2/services/zeppelin-stack/package
     service_packagedir = os.path.realpath(__file__).split('/scripts')[0] 
             
