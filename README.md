@@ -81,7 +81,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 
 - (Optional) If you installed Spark 1.4, on the Customize services page:
   - Under 'Advanced zeppelin-config'
-    - set zeppelin.spark.version = 1.4
+    - set `zeppelin.spark.version=1.4`
   - Under 'Advanced zeppelin-env'
     - set `export SPARK_HOME=/home/zeppelin/spark-1.4.1-bin-hadoop2.6/` 
 
