@@ -160,7 +160,8 @@ sc.version
 sc.getConf.get("spark.home")
 System.getenv().get("PYTHONPATH")
 System.getenv().get("SPARK_HOME")
-```  
+``` 
+ 
     - On 1.4, `sc.version` should return `String = 1.4.0` and `SPARK_HOME` should be `/home/zeppelin/spark-1.4.1-bin-hadoop2.6/` (or whatever you set)
     - On 1.3, `sc.version` should return `String = 1.3.0` and `SPARK_HOME` should be `/usr/hdp/current/spark-client/` 
     
