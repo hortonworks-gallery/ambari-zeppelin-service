@@ -126,13 +126,14 @@ tail -f  /var/log/zeppelin/zeppelin-setup.log
 - Lauch the notebook either via navigating to http://sandbox.hortonworks.com:9995 or via the view by opening http://sandbox.hortonworks.com:8080/#/main/views/ZEPPELIN/1.0.0/INSTANCE_1 should show Zeppelin as Ambari view
 ![Image](../master/screenshots/install-8.png?raw=true)
 
-- There should be a few sample notebooks created. Select the Hive one (make sure Hive service is up)
-![Image](../master/screenshots/install-9.png?raw=true)
-
+- There should be a few sample notebooks created. Select the Hive one (make sure Hive service is up first)
 - On first launch of a notebook, you will the "Interpreter Binding" settings will be displayed. You will need to click "Save" under the interpreter order.
 ![Image](../master/screenshots/interpreter-binding.png?raw=true)    
 
-- Execute the cells by clicking the 'Play' (triangular) button on top right of each cell or just highlight a cell then press Shift-Enter
+- Now you will see the list of executable cells laid out in a sequence 
+![Image](../master/screenshots/install-9.png?raw=true)
+
+- Execute the cells one by one, by clicking the 'Play' (triangular) button on top right of each cell or just highlight a cell then press Shift-Enter
 
 - Next try the same demo using the Spark/SparkSQL notebook (highlight a cell then press Shift-Enter):
 ![Image](../master/screenshots/install-10.png?raw=true)
