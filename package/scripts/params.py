@@ -60,10 +60,10 @@ stack_version_unformatted = str(config['hostLevelParams']['stack_version'])
 #e.g. 2.3.0.0
 hdp_stack_version = format_hdp_stack_version(stack_version_unformatted)
 
-if hasattr(Script, 'is_hdp_stack_greater_or_equal') and Script.is_hdp_stack_greater_or_equal("2.3"):
-  mvn_spark_tag='spark-1.3'
-else:
-  mvn_spark_tag='spark-1.2'
+#if hasattr(Script, 'is_hdp_stack_greater_or_equal') and Script.is_hdp_stack_greater_or_equal("2.3"):
+#  mvn_spark_tag='spark-1.3'
+#else:
+#  mvn_spark_tag='spark-1.2'
 
 #e.g. 2.3.0.0-2130
 full_version = default("/commandParams/version", None)

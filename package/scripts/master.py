@@ -23,17 +23,7 @@ class Master(Script):
     snapshot_package_14='https://www.dropbox.com/s/0qyvze6t3xhlthn/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
 
     Execute('echo User selected spark_version:' + params.spark_version)
-    if params.spark_version == '1.4':
-      Execute('echo Proceesing with zeppelin tar compiled with spark 1.4')
-      snapshot_package = snapshot_package_14
-    elif params.spark_version == '1.3':
-      Execute('echo Proceesing with zeppelin tar compiled with spark 1.3')
-      snapshot_package = snapshot_package_13
-    else:
-      Execute('echo Unrecognized spark version: ' + params.spark_version + ' defaulting to 1.3')
-      snapshot_package = snapshot_package_13
-  
-      
+        
     #e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.2/services/zeppelin-stack/package
     service_packagedir = os.path.realpath(__file__).split('/scripts')[0] 
             
@@ -69,6 +59,16 @@ class Master(Script):
     #depending on whether prebuilt option is selected, execute appropriate script
     if params.download_prebuilt:
 
+      if params.spark_version == '1.4':
+        Execute('echo Proceesing with zeppelin tar compiled with spark 1.4')
+        snapshot_package = snapshot_package_14
+      elif params.spark_version == '1.3':
+        Execute('echo Proceesing with zeppelin tar compiled with spark 1.3')
+        snapshot_package = snapshot_package_13
+      else:
+        Execute('echo Unrecognized spark version: ' + params.spark_version + ' defaulting to 1.3')
+        snapshot_package = snapshot_package_13
+
       #Fetch and unzip snapshot build
       if not os.path.exists('/tmp/zeppelin.tar.gz'):
         Execute('wget '+snapshot_package+' -O /tmp/zeppelin.tar.gz -a '  + params.zeppelin_log_file, user=params.zeppelin_user)
@@ -102,7 +102,7 @@ class Master(Script):
       #update the configs specified by user
       self.configure(env)
             
-      Execute('cd '+params.zeppelin_dir+'; mvn -Phadoop-2.6 -Dhadoop.version=2.6.0 -P'+params.mvn_spark_tag+' -Ppyspark -Pyarn clean package -P build-distr -DskipTests >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+      Execute('cd '+params.zeppelin_dir+'; mvn -Phadoop-2.6 -Dhadoop.version=2.6.0 -Pspark-'+params.spark_version+' -Ppyspark -Pyarn clean package -P build-distr -DskipTests >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
             
       #run setup_snapshot.sh in FIRSTLAUNCH mode
       Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
