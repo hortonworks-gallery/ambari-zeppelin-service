@@ -98,6 +98,7 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 	mvn clean package
 	
 	cd $INSTALL_DIR
+	exit 0
 
 else
 	if [ ! -f conf/interpreter.json ]
