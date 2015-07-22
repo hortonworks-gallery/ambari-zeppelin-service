@@ -78,7 +78,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 
 - To use Spark 1.3, you should not need to change any default configs. 
 - If you installed Spark 1.4:
-  - set 
+  - set zeppelin.spark.version = 1.4
   - set `export HADOOP_CONF_DIR=/home/zeppelin/spark-1.4.1-bin-hadoop2.6/` 
 
 ![Image](../master/screenshots/install-4.png?raw=true)
