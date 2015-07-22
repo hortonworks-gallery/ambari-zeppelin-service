@@ -76,10 +76,13 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 ![Image](../master/screenshots/install-2.png?raw=true)
 ![Image](../master/screenshots/install-3.png?raw=true)
 
-- To use Spark 1.3, you should not need to change any default configs. 
-- If you installed Spark 1.4:
-  - set zeppelin.spark.version = 1.4
-  - set `export HADOOP_CONF_DIR=/home/zeppelin/spark-1.4.1-bin-hadoop2.6/` 
+- (Optional) If you installed Spark 1.4, on the Customize services page:
+  - Under 'Advanced zeppelin-config'
+    - set zeppelin.spark.version = 1.4
+  - Under 'Advanced zeppelin-env'
+    - set `export SPARK_HOME=/home/zeppelin/spark-1.4.1-bin-hadoop2.6/` 
+
+- Otherwise, to use Spark 1.3, you should not need to change any default configs. 
 
 ![Image](../master/screenshots/install-4.png?raw=true)
 ...but here are sample of configurations that you could modify if needed (e.g. executor memory, port etc)
@@ -122,6 +125,8 @@ tail -f  /var/log/zeppelin/zeppelin-setup.log
 
 - There should be a few sample notebooks created. Started by running through the Hive one (highlight a cell then press Shift-Enter):
 ![Image](../master/screenshots/install-9.png?raw=true)
+
+  - On first launch of a notebook, you will need to click "Save" under the interpreter order.
 
 - Next try the same demo using the Spark/SparkSQL notebook (highlight a cell then press Shift-Enter):
 ![Image](../master/screenshots/install-10.png?raw=true)

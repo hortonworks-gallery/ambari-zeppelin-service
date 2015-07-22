@@ -22,12 +22,12 @@ class Master(Script):
     #location of prebuilt package from July 21 2015 using Spark 1.4    
     snapshot_package_14='https://www.dropbox.com/s/0qyvze6t3xhlthn/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
 
-    Execute('User selected spark_version:' + params.spark_version)
+    Execute('echo User selected spark_version:' + params.spark_version)
     if params.spark_version == '1.4':
-      Execute('Proceesing with zeppelin tar compiled with spark 1.4')
+      Execute('echo Proceesing with zeppelin tar compiled with spark 1.4')
       snapshot_package = snapshot_package_14
     elif params.spark_version == '1.3':
-      Execute('Proceesing with zeppelin tar compiled with spark 1.3')
+      Execute('echo Proceesing with zeppelin tar compiled with spark 1.3')
       snapshot_package = snapshot_package_13
     else:
       Execute('echo Unrecognized spark version: ' + params.spark_version + ' defaulting to 1.3')

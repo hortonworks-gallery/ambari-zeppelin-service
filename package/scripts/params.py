@@ -69,5 +69,6 @@ else:
 full_version = default("/commandParams/version", None)
 hdp_version = full_version
 
+#e.g. 2.3.0.0-2130
 if hasattr(functions, 'get_hdp_version'):
-  spark_version = functions.get_hdp_version('spark-client')
+  spark_client_version = functions.get_hdp_version('spark-client')
