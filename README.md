@@ -82,8 +82,10 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 - (Optional) If you installed Spark 1.4, on the Customize services page:
   - Under 'Advanced zeppelin-config'
     - set `zeppelin.spark.version=1.4`
+![Image](../master/screenshots/spark-1.4-config.png?raw=true)    
   - Under 'Advanced zeppelin-env'
     - set `export SPARK_HOME=/home/zeppelin/spark-1.4.1-bin-hadoop2.6/` 
+![Image](../master/screenshots/spark-1.4-config2.png?raw=true)    
 
 - Otherwise, to use Spark 1.3, you should not need to change any default configs. 
   - ...but here are sample of configurations that you could modify if needed (e.g. executor memory, port etc)
@@ -128,6 +130,7 @@ tail -f  /var/log/zeppelin/zeppelin-setup.log
 ![Image](../master/screenshots/install-9.png?raw=true)
 
 - On first launch of a notebook, you will the "Interpreter Binding" settings will be displayed. You will need to click "Save" under the interpreter order.
+![Image](../master/screenshots/interpreter-binding.png?raw=true)    
 
 - Execute the cells by clicking the 'Play' (triangular) button on top right of each cell or just highlight a cell then press Shift-Enter
 
