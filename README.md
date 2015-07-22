@@ -70,7 +70,7 @@ service ambari restart
 #on non-sandbox
 sudo service ambari-server restart
 ```
-- Then you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
+- Once Ambari comes back up and the services turn green, you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
 
 On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Next -> Next -> Deploy. 
 ![Image](../master/screenshots/install-1.png?raw=true)
