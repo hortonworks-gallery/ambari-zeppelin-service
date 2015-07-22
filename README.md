@@ -76,6 +76,9 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 ![Image](../master/screenshots/install-2.png?raw=true)
 ![Image](../master/screenshots/install-3.png?raw=true)
 
+- This will bring up the Customize Services page where you can configure the Zeppelin service:
+![Image](../master/screenshots/install-4.png?raw=true)
+
 - (Optional) If you installed Spark 1.4, on the Customize services page:
   - Under 'Advanced zeppelin-config'
     - set zeppelin.spark.version = 1.4
@@ -83,9 +86,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - set `export SPARK_HOME=/home/zeppelin/spark-1.4.1-bin-hadoop2.6/` 
 
 - Otherwise, to use Spark 1.3, you should not need to change any default configs. 
-
-![Image](../master/screenshots/install-4.png?raw=true)
-...but here are sample of configurations that you could modify if needed (e.g. executor memory, port etc)
+  - ...but here are sample of configurations that you could modify if needed (e.g. executor memory, port etc)
 ![Image](../master/screenshots/install-5.png?raw=true)
 ![Image](../master/screenshots/install-6.png?raw=true)
 Click Next to accept defaults...
