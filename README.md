@@ -4,7 +4,7 @@ Ambari service for easily installing and managing Zeppelin on HDP cluster
 Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 
 Contents:
-  - [Pre-requisites: Have Spark 1.3.1+ installed](https://github.com/hortonworks-gallery/ambari-zeppelin-service#pre-requisites-have-spark-121-installed)
+  - [Setup Pre-requisites](https://github.com/hortonworks-gallery/ambari-zeppelin-service#pre-requisites-have-spark-121-installed)
   - [Setup Ambari service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-the-ambari-service)
   - [Install Ambari view](https://github.com/hortonworks-gallery/ambari-zeppelin-service#install-zeppelin-view)
   - [Run demo zeppelin notebooks](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebook)
@@ -22,7 +22,7 @@ Videos:
   
 -------------------
   
-#### Pre-requisites:
+#### Setup Pre-requisites:
 
 - Download HDP 2.3 sandbox VM image (Sandbox_HDP_2.3_VMWare.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
 - Import Sandbox_HDP_2.3_VMWare.ova into VMWare and set the VM memory size to 8GB
