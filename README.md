@@ -4,7 +4,7 @@ Ambari service for easily installing and managing Zeppelin on HDP cluster
 Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 
 Contents:
-  - [Setup Pre-requisites](https://github.com/hortonworks-gallery/ambari-zeppelin-service#pre-requisites-have-spark-121-installed)
+  - [Setup Pre-requisites](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-pre-requisites)
   - [Setup Ambari service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-the-ambari-service)
   - [Install Ambari view](https://github.com/hortonworks-gallery/ambari-zeppelin-service#install-zeppelin-view)
   - [Run demo zeppelin notebooks](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebook)
@@ -220,7 +220,7 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 
 #### Remove zeppelin service
 
-- To remove the Zeppelin service: 
+- In case you need to remove the Zeppelin service: 
 
   - Stop the service and delete it. Then restart Ambari
   
