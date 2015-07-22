@@ -10,8 +10,11 @@ Contents:
   - [Run demo zeppelin notebooks](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebook)
   - [Remove zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#remove-zeppelin-service)
 
+Pre-requisites:
+  - HDP 2.3 with Spark and Hive installed. Instructions for older releases available [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README-22.md)
+  
 Testing:
-  - These steps were tested on HDP 2.2.4.2 cluster installed via Ambari 2.0 and latest HDP 2.2.4.2 sandbox
+  - These steps were tested on HDP 2.3 cluster installed via Ambari 2.1 and latest HDP 2.3 sandbox
   
 Videos:
   - [How to setup zeppelin service](https://www.dropbox.com/s/9s122qbjilw5d2u/zeppelin-1-setup.mp4?dl=0)
@@ -73,7 +76,10 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 ![Image](../master/screenshots/install-2.png?raw=true)
 ![Image](../master/screenshots/install-3.png?raw=true)
 
-To use Spark 1.3, you should not need to change any default configs. If you installed Spark 1.4, set `export HADOOP_CONF_DIR=/home/zeppelin/spark-1.4.1-bin-hadoop2.6/` 
+- To use Spark 1.3, you should not need to change any default configs. 
+- If you installed Spark 1.4:
+  - set 
+  - set `export HADOOP_CONF_DIR=/home/zeppelin/spark-1.4.1-bin-hadoop2.6/` 
 
 ![Image](../master/screenshots/install-4.png?raw=true)
 ...but here are sample of configurations that you could modify if needed (e.g. executor memory, port etc)
@@ -211,6 +217,8 @@ rm -rf /opt/incubator-zeppelin
 rm -rf /var/log/zeppelin*
 rm -rf /var/run/zeppelin*
 sudo -u hdfs hadoop fs -rmr /apps/zeppelin
-rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.2/services/zeppelin-stack
+VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
+rm -rf /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN
+rm -rf /var/lib/ambari-server/resources/views/zeppelin-view-1.0-SNAPSHOT.jar
 service ambari-server restart
 ```
