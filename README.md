@@ -120,7 +120,9 @@ tail -f  /var/log/zeppelin/zeppelin-setup.log
 
 - If Zeppelin was installed on the Ambari server host, simply restart Ambari server
 
-- Otherwise copy the zeppelin view jar from /tmp/zeppelin-view/target on zeppelin node, to /var/lib/ambari-server/resources/views, then restart Ambari server
+- Otherwise copy the zeppelin view jar from /home/zeppelin/zeppelin-view/target/zeppelin-view-1.0-SNAPSHOT.jar on zeppelin node, to /var/lib/ambari-server/resources/views/ dir and then restart Ambari server
+
+- Now the Zeppelin view should appear under views: http://sandbox.hortonworks.com:8080/#/main/views
 
 #### Use zeppelin notebook
 
