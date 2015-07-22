@@ -50,6 +50,7 @@ tar -xzvf spark-1.4.1.tgz
 export HDP_VER=`hdp-select status hadoop-client | sed 's/hadoop-client - \(.*\)/\1/'`
 echo "spark.driver.extraJavaOptions -Dhdp.version=$HDP_VER" >> spark-1.4.1-bin-hadoop2.6/conf/spark-defaults.conf
 echo "spark.yarn.am.extraJavaOptions -Dhdp.version=$HDP_VER" >> spark-1.4.1-bin-hadoop2.6/conf/spark-defaults.conf
+exit
 ```
 
 
