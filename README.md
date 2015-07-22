@@ -20,6 +20,9 @@ Videos:
   - [How to setup zeppelin service](https://www.dropbox.com/s/9s122qbjilw5d2u/zeppelin-1-setup.mp4?dl=0)
   - [How to setup zeppelin view and run sample notebooks](https://www.dropbox.com/s/skhudcy89s7qho1/zeppelin-2-view-demo.mp4?dl=0)
   
+Limitations:
+	- No support for secured (kerborized) clusters
+  
 -------------------
   
 #### Setup Pre-requisites:
