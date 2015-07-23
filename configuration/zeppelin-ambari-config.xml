@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+ 
+<configuration>
+
+  <!-- params for service -->
+  <property>
+    <name>zeppelin.setup.prebuilt</name>
+    <value>true</value>
+    <description>If true, will download previously built package (instead of building from source). To compile from source instead, set to false. If cluster does not have internet access, manually copy the tar.gz to /tmp/zeppelin.tar.gz on Ambari server and set this property to true. </description>
+  </property> 
+
+  <property>
+    <name>zeppelin.executor.mem</name>
+    <value>512m</value>
+    <description>Executor memory to use (e.g. 512m or 1g)</description>
+  </property> 
+
+  <property>
+    <name>zeppelin.spark.version</name>
+    <value>1.3</value>
+    <description>Version of Spark installed in location specified in SPARK_HOME. Default with HDP 2.3 is 1.3, but can also be set to 1.4 or 1.2 (if you manually installed Spark 1.2 or 1.4)</description>
+  </property> 
+
+  <property>
+    <name>zeppelin.spark.jar.dir</name>
+    <value>hdfs:///apps/zeppelin</value>
+    <description>Shared location where zeppelin spark jar will be copied to. Should be accesible by all cluster nodes</description>
+  </property> 
+  
+  <property>
+    <name>zeppelin.install.dir</name>
+    <value>/opt</value>
+    <description>Local dir where to install component. incubator-zeppelin folder will be created as a subdir of this dir e.g. /opt/incubator-zeppelin</description>
+  </property> 
+
+  <property>
+    <name>zeppelin.setup.view</name>
+    <value>true</value>
+    <description>Whether the Zeppelin view should be compiled. Set to false if cluster does not have internet access</description>
+  </property> 
+  
+</configuration>  
