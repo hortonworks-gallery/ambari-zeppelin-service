@@ -27,6 +27,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - See [blog](http://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/) for steps on manual setup
 
 ##### Limitations:
+  - Currently only supports CentOS/RHEL 6
   - No support for secured (kerborized) clusters
     
 ##### Testing:
