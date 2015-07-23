@@ -117,6 +117,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 
 - Otherwise, to use Spark 1.3, you should not need to change any default configs. 
   - ...but here are sample of configurations that you could modify if needed (e.g. executor memory, port etc)
+![Image](../master/screenshots/install-4.5.png?raw=true)
 ![Image](../master/screenshots/install-5.png?raw=true)
 ![Image](../master/screenshots/install-6.png?raw=true)
 - Click Next to accept defaults...
