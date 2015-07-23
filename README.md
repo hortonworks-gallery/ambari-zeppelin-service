@@ -133,7 +133,7 @@ Note that:
 
 - (Optional) To instead pull/compile the latest Zeppelin code from the [git page](https://github.com/apache/incubator-zeppelin) (ETA: < 40min depending on internet connection):  
   - While adding zeppelin service, in the configuration step of the wizard:
-    - set zeppelin.download.prebuilt to false
+    - set zeppelin.setup.prebuilt to false
 
 - To track the progress of the install you can run the below:
 ```
