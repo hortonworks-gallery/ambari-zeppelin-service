@@ -27,7 +27,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - see [blog](http://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/) for steps on manual setup
 
 ##### Limitations:
-	- No support for secured (kerborized) clusters
+  - No support for secured (kerborized) clusters
     
 ##### Testing:
   - These steps were tested on HDP 2.3 cluster installed via Ambari 2.1 and latest HDP 2.3 sandbox using both Spark 1.4.1 and 1.3.1
