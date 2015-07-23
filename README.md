@@ -15,11 +15,11 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Have 2 ports available and open for zeppelin and its websocket. These will be defaulted to 9995/9996 (but can be configured in Ambari)
 
 ##### Features:
-  - automates deployment, configuration, management of zeppelin on HDP cluster
-  - automates deployment of Ambari view to bring up Zeppelin webapp (requires manual ambari-server restart)
-  - runs in yarn-client mode (instead of standalone) 
-  - runs as configurable user, by default zeppelin (instead of root)
-  - uploads zeppelin jar to /apps/zeppelin location in HDFS 
+  - Automates deployment, configuration, management of zeppelin on HDP cluster
+  - Automates deployment of Ambari view to bring up Zeppelin webapp (requires manual ambari-server restart)
+  - Runs zeppelin in yarn-client mode (instead of standalone) 
+  - Runs zeppelin as configurable user, by default zeppelin (instead of root)
+  - Uploads zeppelin jar to /apps/zeppelin location in HDFS to be accessible from all nodes in cluster
   - exposes the [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template) and [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template) files in Ambari for easy configuration
   - deploys sample notebooks (that demo hive, spark and sparksql, shell intepreters)
   - configures Zeppelin to point to Hive metastore so Spark commands can access Hive tables out of the box
