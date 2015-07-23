@@ -3,25 +3,18 @@ Ambari service for easily installing and managing Zeppelin on HDP cluster
 
 Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 
-Contents:
+##### Contents:
   - [Setup Pre-requisites](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-pre-requisites)
   - [Setup Ambari service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-the-ambari-service)
   - [Install Ambari view](https://github.com/hortonworks-gallery/ambari-zeppelin-service#install-zeppelin-view)
   - [Run demo zeppelin notebooks](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebook)
   - [Remove zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#remove-zeppelin-service)
 
-Pre-requisites:
+##### Pre-requisites:
   - HDP 2.3 with Spark and Hive installed. Instructions for older releases available [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README-22.md)
   - Have 2 ports available and open for zeppelin and its websocket. These will be defaulted to 9995/9996 (but can be configured in Ambari)
-  
-Testing:
-  - These steps were tested on HDP 2.3 cluster installed via Ambari 2.1 and latest HDP 2.3 sandbox using both Spark 1.4.1 and 1.3.1
-  
-Videos (from HDP 2.2.4.2):
-  - [How to setup zeppelin service](https://www.dropbox.com/s/9s122qbjilw5d2u/zeppelin-1-setup.mp4?dl=0)
-  - [How to setup zeppelin view and run sample notebooks](https://www.dropbox.com/s/skhudcy89s7qho1/zeppelin-2-view-demo.mp4?dl=0)
 
-Features:
+##### Features:
   - automates deployment, configuration, management of zeppelin on HDP cluster
   - automates deployment of Ambari view to bring up Zeppelin webapp (requires manual ambari-server restart)
   - runs in yarn-client mode (instead of standalone) 
@@ -32,9 +25,17 @@ Features:
   - configures Zeppelin to point to Hive metastore so Spark commands can access Hive tables out of the box
   - spark, pyspark, sparksql, hive, shell all tested to be working
   - see [blog](http://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/) for steps on manual setup
-  
-Limitations:
+
+##### Limitations:
 	- No support for secured (kerborized) clusters
+    
+##### Testing:
+  - These steps were tested on HDP 2.3 cluster installed via Ambari 2.1 and latest HDP 2.3 sandbox using both Spark 1.4.1 and 1.3.1
+  
+##### Videos (from HDP 2.2.4.2):
+  - [How to setup zeppelin service](https://www.dropbox.com/s/9s122qbjilw5d2u/zeppelin-1-setup.mp4?dl=0)
+  - [How to setup zeppelin view and run sample notebooks](https://www.dropbox.com/s/skhudcy89s7qho1/zeppelin-2-view-demo.mp4?dl=0)
+
   
 -------------------
   
