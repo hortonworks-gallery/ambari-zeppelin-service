@@ -98,7 +98,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 ![Image](../master/screenshots/install-4.png?raw=true)
 
 - There are three sections:
-  - Advanced zeppelin-ambari-config: Parameters specific to Ambari service only
+  - Advanced zeppelin-ambari-config: Parameters specific to Ambari service only (will not be written to zeppelin-site.xml or zeppelin-env.sh)
     - install dir: Local dir under which to install component
     - setup prebuilt: If true, will download previously built package (instead of building from source). To compile from source instead, set to false. If cluster does not have internet access, manually copy the tar.gz to /tmp/zeppelin.tar.gz on Ambari server and set this property to true. 
     - setup view: Whether the Zeppelin view should be compiled. Set to false if cluster does not have internet access
@@ -107,7 +107,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - executor memory: Executor memory to use (e.g. 512m or 1g)
     
   - Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
-  - Advanced zeppelin-env: Used to populate [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template)
+  - Advanced zeppelin-env: Used to populate [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template). See [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/install/install.html) for more info
 - (Optional) If you installed Spark 1.4, on the Customize services page:
   - Under 'Advanced zeppelin-config'
     - set `zeppelin.spark.version=1.4`
