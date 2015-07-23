@@ -15,11 +15,23 @@ Pre-requisites:
   - Have 2 ports available and open for zeppelin and its websocket. These will be defaulted to 9995/9996 (but can be configured in Ambari)
   
 Testing:
-  - These steps were tested on HDP 2.3 cluster installed via Ambari 2.1 and latest HDP 2.3 sandbox
+  - These steps were tested on HDP 2.3 cluster installed via Ambari 2.1 and latest HDP 2.3 sandbox using both Spark 1.4.1 and 1.3.1
   
-Videos:
+Videos (from HDP 2.2.4.2):
   - [How to setup zeppelin service](https://www.dropbox.com/s/9s122qbjilw5d2u/zeppelin-1-setup.mp4?dl=0)
   - [How to setup zeppelin view and run sample notebooks](https://www.dropbox.com/s/skhudcy89s7qho1/zeppelin-2-view-demo.mp4?dl=0)
+
+Features:
+  - automates deployment, configuration, management of zeppelin on HDP cluster
+  - automates deployment of Ambari view to bring up Zeppelin webapp (requires manual ambari-server restart)
+  - runs in yarn-client mode (instead of standalone) 
+  - runs as configurable user, by default zeppelin (instead of root)
+  - uploads zeppelin jar to /apps/zeppelin location in HDFS 
+  - exposes the [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template) and [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template) files in Ambari for easy configuration
+  - deploys a sample notebooks (that demo hive, spark and sparksql, shell intepreters)
+  - configures Zeppelin to point to Hive metastore so Spark commands can access Hive tables out of the box
+  - spark, pyspark, sparksql, hive, shell all tested to be working
+  - see [blog](http://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/) for steps on manual setup
   
 Limitations:
 	- No support for secured (kerborized) clusters
@@ -84,6 +96,16 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 - This will bring up the Customize Services page where you can configure the Zeppelin service:
 ![Image](../master/screenshots/install-4.png?raw=true)
 
+- There are three sections:
+  - Advanced zeppelin-ambari-config: Parameters specific to Ambari service only
+    - executor memory
+    - install dir
+    - setup prebuilt
+    - setup view
+    - spark jar dir
+    - spark version
+  - Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
+  - Advanced zeppelin-env: Used to populate [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template)
 - (Optional) If you installed Spark 1.4, on the Customize services page:
   - Under 'Advanced zeppelin-config'
     - set `zeppelin.spark.version=1.4`
@@ -247,8 +269,9 @@ rm -rf /opt/incubator-zeppelin
 rm -rf /var/log/zeppelin*
 rm -rf /var/run/zeppelin*
 sudo -u hdfs hadoop fs -rmr /apps/zeppelin
+rm -rf /var/lib/ambari-server/resources/views/zeppelin-view-1.0-SNAPSHOT.jar
+
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
 rm -rf /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN
-rm -rf /var/lib/ambari-server/resources/views/zeppelin-view-1.0-SNAPSHOT.jar
 service ambari-server restart
 ```

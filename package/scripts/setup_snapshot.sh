@@ -22,6 +22,11 @@ export ZEPPELIN_HOST=$7
 
 export ZEPPELIN_PORT=$8
 
+export SETUP_VIEW=$9
+SETUP_VIEW=${SETUP_VIEW,,}
+
+echo "SETUP_VIEW is $SETUP_VIEW"
+
 echo "Setting up zeppelin at $INSTALL_DIR"
 cd $INSTALL_DIR
 
@@ -87,18 +92,26 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 		rm -rf zeppelin-view
 	fi	
 
-	git clone https://github.com/abajwa-hw/iframe-view.git
-	sed -i "s/iFrame View/Zeppelin/g" iframe-view/src/main/resources/view.xml	
-	sed -i "s/IFRAME_VIEW/ZEPPELIN/g" iframe-view/src/main/resources/view.xml	
-	sed -i "s/sandbox.hortonworks.com:6080/$ZEPPELIN_HOST:$ZEPPELIN_PORT/g" iframe-view/src/main/resources/index.html	
-	sed -i "s/iframe-view/zeppelin-view/g" iframe-view/pom.xml	
-	sed -i "s/Ambari iFrame View/Zeppelin View/g" iframe-view/pom.xml	
-	mv iframe-view zeppelin-view
-	cd zeppelin-view
-	mvn clean package
-	
-	cd $INSTALL_DIR
+    if [[ $SETUP_VIEW == "true" ]]
+    then
+		git clone https://github.com/abajwa-hw/iframe-view.git
+		sed -i "s/iFrame View/Zeppelin/g" iframe-view/src/main/resources/view.xml	
+		sed -i "s/IFRAME_VIEW/ZEPPELIN/g" iframe-view/src/main/resources/view.xml	
+		sed -i "s/sandbox.hortonworks.com:6080/$ZEPPELIN_HOST:$ZEPPELIN_PORT/g" iframe-view/src/main/resources/index.html	
+		sed -i "s/iframe-view/zeppelin-view/g" iframe-view/pom.xml	
+		sed -i "s/Ambari iFrame View/Zeppelin View/g" iframe-view/pom.xml	
+		mv iframe-view zeppelin-view
+		cd zeppelin-view
+		mvn clean package		
+	fi	
 
+	cd $INSTALL_DIR	
+	
+	#Start daemon to create the interpreter.json
+	echo "Starting zeppelin to generate interpreter"
+	bin/zeppelin-daemon.sh start	
+	exit 0
+	
 else
 	if [ ! -f conf/interpreter.json ]
 	then
@@ -121,7 +134,7 @@ fi
 
 
 #Start daemon to re-create the interpreter.json
-echo "Starting zeppelin to generate interpreter"
+echo "Starting zeppelin..."
 bin/zeppelin-daemon.sh start
 while [ ! -f conf/interpreter.json ]
 do

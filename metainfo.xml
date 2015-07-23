@@ -6,7 +6,7 @@
             <name>ZEPPELIN</name>
             <displayName>Zeppelin Notebook</displayName>
             <comment>A web-based notebook that enables interactive data analytics</comment>
-            <version>0.0.2</version>
+            <version>0.0.3</version>
             <components>
                 <component>
                   <name>ZEPPELIN_MASTER</name>
@@ -20,15 +20,16 @@
                   </commandScript>
                 </component>
             </components>
-            <osSpecifics>
+            <!-- <osSpecifics>
               <osSpecific>
                 <osFamily>redhat6</osFamily>
                 <packages>
                    <package><name>git</name></package>                                                 
                 </packages>
               </osSpecific>
-            </osSpecifics> 
+            </osSpecifics> -->
       	    <configuration-dependencies>
+        	<config-type>zeppelin-ambari-config</config-type>      	    
         	<config-type>zeppelin-config</config-type>
       	    </configuration-dependencies>
             <restartRequiredAfterChange>false</restartRequiredAfterChange>

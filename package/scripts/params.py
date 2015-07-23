@@ -20,15 +20,19 @@ config = Script.get_config()
 
 zeppelin_dirname = 'incubator-zeppelin'
 
-install_dir = config['configurations']['zeppelin-config']['zeppelin.install.dir']
-download_prebuilt = config['configurations']['zeppelin-config']['zeppelin.download.prebuilt']
-executor_mem = config['configurations']['zeppelin-config']['zeppelin.executor.mem']
-zeppelin_port = config['configurations']['zeppelin-config']['zeppelin.server.port']
-spark_jar_dir = config['configurations']['zeppelin-config']['zeppelin.spark.jar.dir']
+# params from zeppelin-ambari-config
+install_dir = config['configurations']['zeppelin-ambari-config']['zeppelin.install.dir']
+setup_prebuilt = config['configurations']['zeppelin-ambari-config']['zeppelin.setup.prebuilt']
+executor_mem = config['configurations']['zeppelin-ambari-config']['zeppelin.executor.mem']
+spark_jar_dir = config['configurations']['zeppelin-ambari-config']['zeppelin.spark.jar.dir']
 spark_jar = format("{spark_jar_dir}/zeppelin-spark-0.6.0-SNAPSHOT.jar")
+spark_version = str(config['configurations']['zeppelin-ambari-config']['zeppelin.spark.version'])
+setup_view = config['configurations']['zeppelin-ambari-config']['zeppelin.setup.view']
 
-spark_version = str(config['configurations']['zeppelin-config']['zeppelin.spark.version'])
+# params from zeppelin-config
+zeppelin_port = config['configurations']['zeppelin-config']['zeppelin.server.port']
 
+# params from zeppelin-env
 zeppelin_user= config['configurations']['zeppelin-env']['zeppelin_user']
 zeppelin_group= config['configurations']['zeppelin-env']['zeppelin_group']
 zeppelin_log_dir = config['configurations']['zeppelin-env']['zeppelin_log_dir']
