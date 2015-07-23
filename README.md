@@ -30,7 +30,9 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - No support for secured (kerborized) clusters
     
 ##### Testing:
-  - These steps were tested on HDP 2.3 cluster installed via Ambari 2.1 and latest HDP 2.3 sandbox using both Spark 1.4.1 and 1.3.1
+  - These steps were tested on:
+    - HDP 2.3 cluster installed via Ambari 2.1 with both Spark 1.4.1 and 1.3.1
+    - Latest HDP 2.3 sandbox using with both Spark 1.4.1 and 1.3.1
   
 ##### Videos (from HDP 2.2.4.2):
   - [How to setup zeppelin service](https://www.dropbox.com/s/9s122qbjilw5d2u/zeppelin-1-setup.mp4?dl=0)
