@@ -20,11 +20,11 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Runs zeppelin in yarn-client mode (instead of standalone) 
   - Runs zeppelin as configurable user, by default zeppelin (instead of root)
   - Uploads zeppelin jar to /apps/zeppelin location in HDFS to be accessible from all nodes in cluster
-  - exposes the [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template) and [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template) files in Ambari for easy configuration
-  - deploys sample notebooks (that demo hive, spark and sparksql, shell intepreters)
-  - configures Zeppelin to point to Hive metastore so Spark commands can access Hive tables out of the box
-  - spark, pyspark, sparksql, hive, shell all tested to be working
-  - see [blog](http://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/) for steps on manual setup
+  - Exposes the [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template) and [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template) files in Ambari for easy configuration
+  - Deploys sample notebooks (that demo hive, spark and sparksql, shell intepreters)
+  - Configures Zeppelin to point to Hive metastore so Spark commands can access Hive tables out of the box
+  - Spark, pyspark, sparksql, hive, shell all tested to be working
+  - See [blog](http://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/) for steps on manual setup
 
 ##### Limitations:
   - No support for secured (kerborized) clusters
