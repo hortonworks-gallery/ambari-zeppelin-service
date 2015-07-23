@@ -99,12 +99,13 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 
 - There are three sections:
   - Advanced zeppelin-ambari-config: Parameters specific to Ambari service only
-    - executor memory
-    - install dir
-    - setup prebuilt
-    - setup view
-    - spark jar dir
-    - spark version
+    - install dir: Local dir under which to install component
+    - setup prebuilt: If true, will download previously built package (instead of building from source). To compile from source instead, set to false. If cluster does not have internet access, manually copy the tar.gz to /tmp/zeppelin.tar.gz on Ambari server and set this property to true. 
+    - setup view: Whether the Zeppelin view should be compiled. Set to false if cluster does not have internet access
+    - spark jar dir: Shared location where zeppelin spark jar will be copied to. Should be accesible by all cluster nodes
+    - spark version: Version of Spark installed in location specified in SPARK_HOME. Default with HDP 2.3 is 1.3, but can also be set to 1.4 or 1.2 (if you manually installed Spark 1.2 or 1.4)
+    - executor memory: Executor memory to use (e.g. 512m or 1g)
+    
   - Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
   - Advanced zeppelin-env: Used to populate [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template)
 - (Optional) If you installed Spark 1.4, on the Customize services page:
