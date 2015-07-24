@@ -33,6 +33,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Does not yet support install on secured (kerborized) clusters
   - On cloud envs, Zeppelin view will be setup using internal hostname, so you would need to have a corresponding hosts file entry on local machine
   - After install, Ambari thinks HDFS, YARN, Hive, HBase need restarting (seems like Ambari bug)
+  - Current version of service does not support being installed via Blueprint
     
 ##### Testing:
   - These steps were tested on:
