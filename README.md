@@ -27,13 +27,14 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - See [blog](http://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/) for steps on manual setup
 
 ##### Limitations:
-  - Currently only supports CentOS/RHEL 6
-  - No support for secured (kerborized) clusters
+  - Only tested on CentOS/RHEL 6 so far
+  - Does not yet support install on secured (kerborized) clusters
+  - On cloud envs, Zeppelin view will be setup using internal hostname, you would need to have a corresponding hosts file entry on local machine
     
 ##### Testing:
   - These steps were tested on:
-    - HDP 2.3 cluster installed via Ambari 2.1 with both Spark 1.4.1 and 1.3.1
-    - Latest HDP 2.3 sandbox using with both Spark 1.4.1 and 1.3.1
+    - HDP 2.3 cluster installed via Ambari 2.1 with both Spark 1.4.1 and 1.3.1 on Centos 6
+    - Latest HDP 2.3 sandbox using with both Spark 1.4.1 and 1.3.1 on Centos 6
   
 ##### Videos (from HDP 2.2.4.2):
   - [How to setup zeppelin service](https://www.dropbox.com/s/9s122qbjilw5d2u/zeppelin-1-setup.mp4?dl=0)
@@ -62,8 +63,8 @@ ssh root@sandbox.hortonworks.com
 
 - (Optional) If you want to use Spark 1.4 instead of 1.3 (which comes with HDP 2.3), you can use below commands to download and set it up
 ```
-useradd zeppelin
-su zeppelin
+sudo useradd zeppelin
+sudo su zeppelin
 cd /home/zeppelin
 wget http://d3kbcqa49mib13.cloudfront.net/spark-1.4.1-bin-hadoop2.6.tgz -O spark-1.4.1.tgz
 tar -xzvf spark-1.4.1.tgz
@@ -79,7 +80,7 @@ exit
 - To deploy the Zeppelin service, run below on ambari server
 ```
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
-git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN   
+sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN   
 ```
 
 - Restart Ambari
