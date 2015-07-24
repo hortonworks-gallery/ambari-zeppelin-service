@@ -11,6 +11,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - [Install Ambari view](https://github.com/hortonworks-gallery/ambari-zeppelin-service#install-zeppelin-view)
   - [Run demo zeppelin notebooks](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebook)
   - [Remove zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#remove-zeppelin-service)
+  - [Deploy on clusters without internet access](https://github.com/hortonworks-gallery/ambari-zeppelin-service#deploy-on-clusters-without-internet-access)
 
 ##### Pre-requisites:
   - HDP 2.3 with at least HDFS, YARN, Zookeper, Spark and Hive installed. Instructions for older releases available [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README-22.md)
@@ -26,7 +27,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Deploys sample notebooks (that demo hive, spark and sparksql, shell intepreters)
   - Configures Zeppelin to point to Hive metastore so Spark commands can access Hive tables out of the box
   - Spark, pyspark, sparksql, hive, shell all tested to be working
-  - Offline mode (WIP): can manually copy tar to /tmp/zeppelin.tar.gz to allow service to be installed on clusters without internet access
+  - Offline mode: can manually copy tar to /tmp/zeppelin.tar.gz to allow service to be installed on clusters without internet access
   - Deploy using steps below or via [Ambari Store view](https://github.com/jpplayer/amstore-view)
 
 ##### Limitations:
