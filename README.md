@@ -1,6 +1,8 @@
 #### An Ambari Service for Zeppelin
 Ambari service for easily installing and managing [Apache Zeppelin](http://zeppelin.incubator.apache.org/) on [HDP](http://hortonworks.com/hdp/) cluster
 
+See [blog](http://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/) for steps on manual Zeppelin setup
+
 Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 
 ##### Contents:
@@ -24,12 +26,13 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Deploys sample notebooks (that demo hive, spark and sparksql, shell intepreters)
   - Configures Zeppelin to point to Hive metastore so Spark commands can access Hive tables out of the box
   - Spark, pyspark, sparksql, hive, shell all tested to be working
-  - See [blog](http://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/) for steps on manual setup
+  - Offline mode (WIP): can manually copy tar to /tmp/zeppelin.tar.gz to support clusters without internet access
 
 ##### Limitations:
   - Only tested on CentOS/RHEL 6 so far
   - Does not yet support install on secured (kerborized) clusters
-  - On cloud envs, Zeppelin view will be setup using internal hostname, you would need to have a corresponding hosts file entry on local machine
+  - On cloud envs, Zeppelin view will be setup using internal hostname, so you would need to have a corresponding hosts file entry on local machine
+  - After install, Ambari thinks HDFS, YARN, Hive, HBase need restarting (seems like Ambari bug)
     
 ##### Testing:
   - These steps were tested on:
