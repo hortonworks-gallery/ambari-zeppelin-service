@@ -27,6 +27,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Configures Zeppelin to point to Hive metastore so Spark commands can access Hive tables out of the box
   - Spark, pyspark, sparksql, hive, shell all tested to be working
   - Offline mode (WIP): can manually copy tar to /tmp/zeppelin.tar.gz to allow service to be installed on clusters without internet access
+  - Deploy using steps below or via [Ambari Store view](https://github.com/jpplayer/amstore-view)
 
 ##### Limitations:
   - Only tested on CentOS/RHEL 6 so far
