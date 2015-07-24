@@ -26,7 +26,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Deploys sample notebooks (that demo hive, spark and sparksql, shell intepreters)
   - Configures Zeppelin to point to Hive metastore so Spark commands can access Hive tables out of the box
   - Spark, pyspark, sparksql, hive, shell all tested to be working
-  - Offline mode (WIP): can manually copy tar to /tmp/zeppelin.tar.gz to support clusters without internet access
+  - Offline mode (WIP): can manually copy tar to /tmp/zeppelin.tar.gz to allow service to be installed on clusters without internet access
 
 ##### Limitations:
   - Only tested on CentOS/RHEL 6 so far
