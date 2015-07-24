@@ -4,12 +4,10 @@ from subprocess import call
 
 class Master(Script):
   def install(self, env):
-    # Install packages listed in metainfo.xml
-    self.install_packages(env)
 
     import params
     import status_params
-
+      
     #location of prebuilt package from april 2015
     snapshot_package_12='https://www.dropbox.com/s/nhv5j42qsybldh4/zeppelin-0.5.0-SNAPSHOT.tar.gz'
 
@@ -52,9 +50,10 @@ class Master(Script):
     #Execute('echo spark_version: ' + params.spark_version)
     #Execute('echo full_version:' + params.full_version)
     
-    #depending on whether prebuilt option is selected, follow appropriate steps
+    #User selected option to use prebuilt zeppelin package 
     if params.setup_prebuilt:
 
+      #choose appropriate package based on spark version passes in by user
       if params.spark_version == '1.4':
         Execute('echo Processing with zeppelin tar compiled with spark 1.4')
         snapshot_package = snapshot_package_14
@@ -70,7 +69,12 @@ class Master(Script):
 
       #install maven as root
       if params.setup_view:
-        self.install_el6_packages(params)
+        Execute('echo Installing packages')
+        
+        #Install maven repo if needed      
+        self.install_mvn_repo()
+        # Install packages listed in metainfo.xml
+        self.install_packages(env)    
 
       #Fetch and unzip snapshot build, if no cached zeppelin tar package exists on Ambari server node
       if not os.path.exists('/tmp/zeppelin.tar.gz'):
@@ -93,13 +97,17 @@ class Master(Script):
           Execute('cp /home/'+params.zeppelin_user+'/zeppelin-view/target/*.jar /var/lib/ambari-server/resources/views')
       
     else:
-      #install maven as root
+      #User selected option to build zeppelin from source
+       
       if params.setup_view:
-        self.install_el6_packages(params)
+        #Install maven repo if needed
+        self.install_mvn_repo()      
+        # Install packages listed in metainfo.xml
+        self.install_packages(env)    
     
-      Execute('yum -y install java-1.7.0-openjdk-devel >> ' + params.zeppelin_log_file)
-      if not os.path.exists('/root/.m2'):
-        os.makedirs('/root/.m2')     
+      #Execute('yum -y install java-1.7.0-openjdk-devel >> ' + params.zeppelin_log_file)
+      #if not os.path.exists('/root/.m2'):
+      #  os.makedirs('/root/.m2')     
       #Execute('cp '+service_packagedir+'/files/settings.xml /root/.m2/')
       
       Execute('cd '+params.install_dir+'; git clone https://github.com/apache/incubator-zeppelin >> ' + params.zeppelin_log_file)
@@ -121,10 +129,10 @@ class Master(Script):
           Execute('cp /home/'+params.zeppelin_user+'/zeppelin-view/target/*.jar /var/lib/ambari-server/resources/views')
 
 
-  def install_el6_packages(self, params):
-    Execute('curl -o /etc/yum.repos.d/epel-apache-maven.repo https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo')
-    Execute('yum -y install git >> ' + params.zeppelin_log_file)          
-    Execute('yum -y install apache-maven >> ' + params.zeppelin_log_file)        
+  #def install_el6_packages(self, params):
+    #Execute('curl -o /etc/yum.repos.d/epel-apache-maven.repo https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo')
+    #Execute('yum -y install git >> ' + params.zeppelin_log_file)          
+    #Execute('yum -y install apache-maven >> ' + params.zeppelin_log_file)        
     
   def create_linux_user(self, user, group):
     try: pwd.getpwnam(user)
@@ -194,6 +202,12 @@ class Master(Script):
     pid_file = glob.glob(status_params.zeppelin_pid_dir + '/zeppelin-'+status_params.zeppelin_user+'*.pid')[0]
 
     check_process_status(pid_file)        
+
+  def install_mvn_repo(self):
+    #for centos/RHEL 6/7 maven repo needs to be installed
+    distribution = platform.linux_distribution()[0].lower()
+    if distribution in ['centos', 'redhat'] and not os.path.exists('/etc/yum.repos.d/epel-apache-maven.repo'):
+      Execute('curl -o /etc/yum.repos.d/epel-apache-maven.repo https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo')
 
       
 if __name__ == "__main__":

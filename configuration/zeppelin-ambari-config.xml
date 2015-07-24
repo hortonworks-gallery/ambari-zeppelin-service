@@ -7,7 +7,7 @@
   <property>
     <name>zeppelin.setup.prebuilt</name>
     <value>true</value>
-    <description>If true, will download previously built package (instead of building from source). To compile from source instead, set to false. If cluster does not have internet access, manually copy the tar.gz to /tmp/zeppelin.tar.gz on Ambari server and set this property to true. </description>
+    <description>If true, will download previously built package (instead of building from source). To compile from source instead, set to false.</description>
   </property> 
 
   <property>

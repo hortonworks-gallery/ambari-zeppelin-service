@@ -20,14 +20,25 @@
                   </commandScript>
                 </component>
             </components>
-            <!-- <osSpecifics>
+            <osSpecifics>
               <osSpecific>
                 <osFamily>redhat6</osFamily>
                 <packages>
-                   <package><name>git</name></package>                                                 
+                   <package><name>git</name></package>    
+                   <package><name>java-1.7.0-openjdk-devel</name></package>  
+                   <package><name>apache-maven</name></package>                                           
                 </packages>
               </osSpecific>
-            </osSpecifics> -->
+              
+             <osSpecific>
+                <osFamily>ubuntu12</osFamily>
+                <packages>
+                   <package><name>git</name></package>    
+                   <package><name>java-1.7.0-openjdk-devel</name></package>  
+                   <package><name>maven</name></package>                                           
+                </packages>
+              </osSpecific>                               
+            </osSpecifics> 
       	    <configuration-dependencies>
         	<config-type>zeppelin-ambari-config</config-type>      	    
         	<config-type>zeppelin-config</config-type>
