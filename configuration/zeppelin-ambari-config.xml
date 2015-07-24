@@ -37,7 +37,7 @@
   <property>
     <name>zeppelin.setup.view</name>
     <value>true</value>
-    <description>Whether the Zeppelin view should be compiled. Set to false if cluster does not have internet access</description>
+    <description>Whether the Zeppelin view should be compiled and sample notebooks downloaded. Set to false if cluster does not have internet access</description>
   </property> 
   
 </configuration>  

@@ -66,12 +66,14 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 		rm -rf notebook/2A94M5J1Z
 	fi
 
-	echo "Importing notebooks"
-	cd notebook
-	wget https://www.dropbox.com/s/jlacnbvlzcdhjzf/notebooks.zip?dl=0 -O notebooks.zip
-	unzip notebooks.zip
-	cd ..
-	
+    if [[ $SETUP_VIEW == "true" ]]
+    then
+		echo "Importing notebooks"
+		cd notebook
+		wget https://www.dropbox.com/s/jlacnbvlzcdhjzf/notebooks.zip?dl=0 -O notebooks.zip
+		unzip notebooks.zip
+		cd ..
+	fi
 	
 	echo "<configuration>" > conf/hive-site.xml
 	echo "<property>" >> conf/hive-site.xml

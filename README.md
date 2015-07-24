@@ -287,3 +287,39 @@ VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]
 rm -rf /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN
 service ambari-server restart
 ```
+
+----------------
+
+
+- Get appropriate zeppelin package copied to /tmp/zeppelin.tar.gz
+```
+#package built for spark 1.2.1
+PACKAGE=https://www.dropbox.com/s/nhv5j42qsybldh4/zeppelin-0.5.0-SNAPSHOT.tar.gz
+
+#or package built for spark 1.3.1
+#PACKAGE=https://www.dropbox.com/s/g9ua0no3gmb16uy/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz
+
+#or package built for spark 1.4.1
+#PACKAGE=https://www.dropbox.com/s/0qyvze6t3xhlthn/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz
+
+wget $PACKAGE -O /tmp/zeppelin.tar.gz
+```
+
+- Get Zeppelin service folder copied to Ambari server dir
+```
+VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
+wget https://github.com/hortonworks-gallery/ambari-zeppelin-service/archive/master.zip -O /tmp/ZEPPELIN.zip
+unzip /tmp/ZEPPELIN.zip -d /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services
+```
+
+-Restart ambari: `service ambari-server restart`
+
+- Go through 'Add service' wizard as above making the below config changes:
+  - Advanced zeppelin-ambari-config
+    - zeppelin.setup.view = false 
+    - zeppelin.spark.version = 1.2 (or whatever is the version of package you downloaded)
+
+  - Advanced zeppelin-env (only needs to be changed if you installed your own spark version)
+    - export SPARK_HOME=/your/spark/home
+    
+- Proceed with remaining screens and click Deploy    
