@@ -321,8 +321,8 @@ unzip /tmp/ZEPPELIN.zip -d /var/lib/ambari-server/resources/stacks/HDP/$VERSION/
     - zeppelin.setup.view = false (this ensures it does not try to build the view or download sample notebooks)
     - zeppelin.spark.version = 1.2 (or whatever is the version of package you downloaded)
 
-  - Advanced zeppelin-env (only needs to be changed if you installed your own spark version)
-    - export SPARK_HOME=/your/spark/home
+  - Advanced zeppelin-env 
+    - export SPARK_HOME=/your/spark/home (only needs to be changed if you installed your own spark version)
     
 - Proceed with remaining screens and click Deploy
 
