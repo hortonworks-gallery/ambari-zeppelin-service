@@ -314,7 +314,7 @@ wget https://github.com/hortonworks-gallery/ambari-zeppelin-service/archive/mast
 unzip /tmp/ZEPPELIN.zip -d /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services
 ```
 
--Restart ambari: `service ambari-server restart`
+- Restart ambari: `service ambari-server restart`
 
 - Go through 'Add service' wizard, same as above, making the below config changes:
   - Advanced zeppelin-ambari-config
