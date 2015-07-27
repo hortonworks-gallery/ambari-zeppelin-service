@@ -19,6 +19,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 
 ##### Features:
   - Automates deployment, configuration, management of zeppelin on HDP cluster
+  - Supports both default HDP Spark version (e.g. 1.3 with HDP 2.3) as well as custom installed Spark versions (e.g 1.4, 1.2)
   - Automates deployment of Ambari view to bring up Zeppelin webapp (requires manual ambari-server restart)
   - Runs zeppelin in yarn-client mode (instead of standalone) 
   - Runs zeppelin as configurable user, by default zeppelin (instead of root)
