@@ -184,6 +184,8 @@ tail -f  /var/log/zeppelin/zeppelin-setup.log
 ```
  tail -f /var/log/zeppelin/zeppelin-interpreter-spark--*.log
 ```
+- Now try the AON Demo for an example of displaying data on a map
+![Image](../master/screenshots/map-notebook.png?raw=true)  
 
 - Other things to try
   - Test by creating a new note and enter some arithmetic in the first cell and press Shift-Enter to execute. 
