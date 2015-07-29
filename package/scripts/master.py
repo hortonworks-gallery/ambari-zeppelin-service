@@ -110,6 +110,7 @@ class Master(Script):
       #  os.makedirs('/root/.m2')     
       #Execute('cp '+service_packagedir+'/files/settings.xml /root/.m2/')
       
+      Execute('echo Compiling zeppelin from source')
       Execute('cd '+params.install_dir+'; git clone https://github.com/apache/incubator-zeppelin >> ' + params.zeppelin_log_file)
       Execute('chown -R ' + params.zeppelin_user + ':' + params.zeppelin_group + ' ' + params.zeppelin_dir)
       Execute('cd '+params.install_dir+'/incubator-zeppelin; git checkout -b branch-0.5;')
