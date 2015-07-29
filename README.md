@@ -286,7 +286,7 @@ rm -rf /var/log/zeppelin*
 rm -rf /var/run/zeppelin*
 sudo -u hdfs hadoop fs -rmr /apps/zeppelin
 rm -rf /var/lib/ambari-server/resources/views/zeppelin-view-1.0-SNAPSHOT.jar
-
+userdel -r zeppelin
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
 rm -rf /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN
 service ambari-server restart
