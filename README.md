@@ -297,7 +297,7 @@ service ambari-server restart
 
 #### Deploy on clusters without internet access 
 
-- Get appropriate zeppelin package copied to /tmp/zeppelin.tar.gz on Ambari server node (this location is configurable via temp file)
+- Get appropriate zeppelin package copied to /tmp/zeppelin.tar.gz on Ambari server node (this location is configurable via zeppelin.temp.file property)
 ```
 #package built for spark 1.2.1
 PACKAGE=https://www.dropbox.com/s/nhv5j42qsybldh4/zeppelin-0.5.0-SNAPSHOT.tar.gz
