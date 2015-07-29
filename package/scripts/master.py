@@ -76,10 +76,11 @@ class Master(Script):
         # Install packages listed in metainfo.xml
         self.install_packages(env)    
 
+
       #Fetch and unzip snapshot build, if no cached zeppelin tar package exists on Ambari server node
-      if not os.path.exists('/tmp/zeppelin.tar.gz'):
-        Execute('wget '+snapshot_package+' -O /tmp/zeppelin.tar.gz -a '  + params.zeppelin_log_file, user=params.zeppelin_user)
-      Execute('tar -zxvf /tmp/zeppelin.tar.gz -C ' + params.zeppelin_dir + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+      if not os.path.exists(params.temp_file):
+        Execute('wget '+snapshot_package+' -O '+params.temp_file+' -a '  + params.zeppelin_log_file, user=params.zeppelin_user)
+      Execute('tar -zxvf '+params.temp_file+' -C ' + params.zeppelin_dir + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
       Execute('mv '+params.zeppelin_dir+'/*/* ' + params.zeppelin_dir, user=params.zeppelin_user)
           
       

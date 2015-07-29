@@ -28,6 +28,7 @@ spark_jar_dir = config['configurations']['zeppelin-ambari-config']['zeppelin.spa
 spark_jar = format("{spark_jar_dir}/zeppelin-spark-0.6.0-SNAPSHOT.jar")
 spark_version = str(config['configurations']['zeppelin-ambari-config']['zeppelin.spark.version'])
 setup_view = config['configurations']['zeppelin-ambari-config']['zeppelin.setup.view']
+temp_file = config['configurations']['zeppelin-ambari-config']['zeppelin.temp.file']
 
 # params from zeppelin-config
 zeppelin_port = config['configurations']['zeppelin-config']['zeppelin.server.port']

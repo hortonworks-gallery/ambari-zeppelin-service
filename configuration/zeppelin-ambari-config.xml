@@ -39,5 +39,11 @@
     <value>true</value>
     <description>Whether the Zeppelin view should be compiled and sample notebooks downloaded. Set to false if cluster does not have internet access</description>
   </property> 
-  
+
+  <property>
+    <name>zeppelin.temp.file</name>
+    <value>/tmp/zeppelin.tar.gz</value>
+    <description>Temporary file where pre-built package will be downloaded to. If zeppelin.setup.prebuilt is true, this file will be decompressed to create the Zeppelin dir structure</description>
+  </property>
+    
 </configuration>  
