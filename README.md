@@ -116,6 +116,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - spark jar dir: Shared location where zeppelin spark jar will be copied to. Should be accesible by all cluster nodes
     - spark version: Version of Spark installed in location specified in SPARK_HOME. Default with HDP 2.3 is 1.3, but can also be set to 1.4 or 1.2 (if you manually installed Spark 1.2 or 1.4)
     - executor memory: Executor memory to use (e.g. 512m or 1g)
+    - temp file: Temporary file where pre-built package will be downloaded to. If your env has limited space under /tmp, change this to different location 
     
   - Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
   - Advanced zeppelin-env: Used to populate [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template). See [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/install/install.html) for more info
@@ -235,7 +236,7 @@ select description, salary from default.sample_07
 - Open the ResourceManager UI and notice Spark is running on YARN: http://sandbox.hortonworks.com:8088/cluster
 ![Image](../master/screenshots/RM-UI.png?raw=true)
 
-You can also use this UI for troubleshooting hanging jobs
+You can also use this UI for troubleshooting hanging jobs. For example if Hive job is stuck waiting for Spark to give up YARN resources (or vice versa), you can restart the Spark interpreter via Zeppelin before running the Hive query
 
 - Click on the ApplicationMaster link to access the Spark UI:
 
