@@ -43,7 +43,7 @@
   <property>
     <name>zeppelin.temp.file</name>
     <value>/tmp/zeppelin.tar.gz</value>
-    <description>Temporary file where pre-built package will be downloaded to. If zeppelin.setup.prebuilt is true, this file will be decompressed to create the Zeppelin dir structure</description>
+    <description>Temporary file where pre-built package will be downloaded to. If your env has limited space under /tmp, change this to different location. In this case you must ensure that the zeppelin user must be able to write to this location.</description>
   </property>
     
 </configuration>  

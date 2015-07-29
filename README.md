@@ -116,7 +116,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - spark jar dir: Shared location where zeppelin spark jar will be copied to. Should be accesible by all cluster nodes
     - spark version: Version of Spark installed in location specified in SPARK_HOME. Default with HDP 2.3 is 1.3, but can also be set to 1.4 or 1.2 (if you manually installed Spark 1.2 or 1.4)
     - executor memory: Executor memory to use (e.g. 512m or 1g)
-    - temp file: Temporary file where pre-built package will be downloaded to. If your env has limited space under /tmp, change this to different location 
+    - temp file: Temporary file where pre-built package will be downloaded to. If your env has limited space under /tmp, change this to different location. In this case you must ensure that the zeppelin user must be able to write to this location.
     
   - Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
   - Advanced zeppelin-env: Used to populate [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template). See [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/install/install.html) for more info
@@ -297,7 +297,7 @@ service ambari-server restart
 
 #### Deploy on clusters without internet access 
 
-- Get appropriate zeppelin package copied to /tmp/zeppelin.tar.gz on Ambari server node
+- Get appropriate zeppelin package copied to /tmp/zeppelin.tar.gz on Ambari server node (this location is configurable via temp file)
 ```
 #package built for spark 1.2.1
 PACKAGE=https://www.dropbox.com/s/nhv5j42qsybldh4/zeppelin-0.5.0-SNAPSHOT.tar.gz
