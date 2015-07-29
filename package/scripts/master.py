@@ -137,7 +137,7 @@ class Master(Script):
     
   def create_linux_user(self, user, group):
     try: pwd.getpwnam(user)
-    except KeyError: Execute('useradd ' + user)
+    except KeyError: Execute('adduser ' + user)
     try: grp.getgrnam(group)
     except KeyError: Execute('groupadd ' + group)
 
