@@ -165,6 +165,25 @@ tail -f  /var/log/zeppelin/zeppelin-setup.log
 
 - Now the Zeppelin view should appear under views: http://sandbox.hortonworks.com:8080/#/main/views
 
+- Troubleshooting: By default the view will be setup using the `hostname -f` entry of host where zeppelin will be installed. If the corresponding url(e.g. http://<zeppelin-host-FQDN>:9995) is not reachable from your local browser, you may need to create local entry in your hosts file
+- Otherwise: to reconfigure the view to point to a different url:
+
+```
+#on node where zeppelin is running
+su zeppelin
+cd /home/zeppelin/zeppelin-view
+#change the url to one that you can successfully open zeppelin using
+vi src/main/resources/index.html
+
+mvn clean package
+
+#Now copy the zeppelin view jar from `/home/zeppelin/zeppelin-view/target/zeppelin-view-1.0-SNAPSHOT.jar` on zeppelin node, to `/var/lib/ambari-server/resources/views/` dir on Ambari server node. 
+
+#Then restart Ambari server
+
+```  
+
+
 #### Use zeppelin notebook
 
 - Lauch the notebook either via navigating to http://sandbox.hortonworks.com:9995 or via the view by opening http://sandbox.hortonworks.com:8080/#/main/views/ZEPPELIN/1.0.0/INSTANCE_1 should show Zeppelin as Ambari view
