@@ -186,7 +186,7 @@ class Master(Script):
     import status_params
     self.configure(env) 
     
-    note_osx_dir=notebook_dir+'/__MACOSX'   
+    note_osx_dir=params.notebook_dir+'/__MACOSX'   
     if os.path.exists(note_osx_dir):
       Execute('rm -rf ' + note_osx_dir)
     
