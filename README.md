@@ -289,7 +289,7 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 ```
 export SERVICE=ZEPPELIN
 export PASSWORD=admin
-export AMBARI_HOST=sandbox.hortonworks.com
+export AMBARI_HOST=localhost
 export CLUSTER=Sandbox    
 curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X DELETE http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER/services/$SERVICE
 
