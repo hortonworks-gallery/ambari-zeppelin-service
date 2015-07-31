@@ -43,7 +43,7 @@ zeppelin_hdfs_user_dir = format("/user/{zeppelin_user}")
   
 zeppelin_dir = os.path.join(*[install_dir,zeppelin_dirname]) 
 conf_dir = os.path.join(*[install_dir,zeppelin_dirname,'conf'])
-
+notebook_dir = os.path.join(*[install_dir,zeppelin_dirname,'notebook'])
 
 #zeppelin-env.sh
 zeppelin_env_content = config['configurations']['zeppelin-env']['content']

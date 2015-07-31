@@ -184,7 +184,12 @@ class Master(Script):
   def start(self, env):
     import params
     import status_params
-    self.configure(env)    
+    self.configure(env) 
+    
+    note_osx_dir=notebook_dir+'/__MACOSX'   
+    if os.path.exists(note_osx_dir):
+      Execute('rm -rf ' + note_osx_dir)
+    
     Execute (params.zeppelin_dir+'/bin/zeppelin-daemon.sh start >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
     pidfile=glob.glob(status_params.zeppelin_pid_dir + '/zeppelin-'+params.zeppelin_user+'*.pid')[0]
     Execute('echo pid file is: ' + pidfile, user=params.zeppelin_user)
