@@ -59,10 +59,9 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 ```
 192.168.191.241 sandbox.hortonworks.com sandbox    
 ```
-- Connect to the VM via SSH (password hadoop) and start Ambari server
+- Connect to the VM via SSH (password hadoop)
 ```
 ssh root@sandbox.hortonworks.com
-/root/start_ambari.sh
 ```
 - If you deployed in a VirtualBox Sandbox environment, enable port forwarding on ports 9995 and 9996. If you don't enable port 9996, the Zeppelin UI/Ambari View shows disconnected on the upper right and none of the default tutorials are visible. 
 
