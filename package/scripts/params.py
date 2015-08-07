@@ -58,6 +58,8 @@ java64_home = config['hostLevelParams']['java_home']
 zeppelin_host = str(master_configs['zeppelin_master_hosts'][0])
 ambari_host = str(master_configs['ambari_server_host'][0])
 
+spark_queue = config['configurations']['spark-defaults']['spark.yarn.queue']
+
 
 #e.g. 2.3
 stack_version_unformatted = str(config['hostLevelParams']['stack_version'])
