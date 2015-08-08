@@ -82,6 +82,7 @@ exit
 ```
 
 - (Optional) You can setup/configure a YARN queue to customize what portion of the cluster the Spark job should use.
+
   i. Open the Yarn Queue Manager view to setup a queue for Spark with:
     - Capacity: 50%
     - Max Capacity: 90% (on sandbox, do not reduce below this or the Spark jobs will not run)
