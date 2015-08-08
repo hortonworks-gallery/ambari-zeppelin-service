@@ -267,10 +267,9 @@ select description, salary from default.sample_07
 
 - Open the ResourceManager UI by opening http://sandbox.hortonworks.com:8088/cluster and notice that:
   - Spark (and Tez) jobs launched by Zeppelin are running on YARN
-  - If you setup the spark queue above, Spark job should be running on *spark* queue
-  - Hive/Tez job is running on default queue
+  - Assuming you setup the spark queue above, Spark job should be running on *spark* queue
+  - Hive/Tez job is running on *default* queue
   
-
 ![Image](../master/screenshots/RM-UI.png?raw=true)
 
   - Use the scheduler link to validate the proportion of the cluster used by Spark/Tez. For example, if you setup the Spark YARN queue as above, when only Spark is running, the UI will show Spark taking up 89% of the cluster  
