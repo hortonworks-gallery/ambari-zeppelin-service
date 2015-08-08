@@ -132,7 +132,8 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     
   - Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
   - Advanced zeppelin-env: Used to populate [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template). See [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/install/install.html) for more info
-    - Under `export ZEPPELIN_JAVA_OPTS` notice that the Spark jobs will by default be sent to the default spark queue `-Dspark.yarn.queue={{spark_queue}}`. To have Zeppelin jobs submitted to a different queue instead, just change to `-Dspark.yarn.queue=my_zeppelin_queuename` (based on your queue name)
+    - Under `export ZEPPELIN_JAVA_OPTS` notice that the Spark jobs will by default be sent to the default spark queue `-Dspark.yarn.queue={{spark_queue}}`. 
+    - To have Zeppelin jobs submitted to a different queue instead, just change to `-Dspark.yarn.queue=my_zeppelin_queuename` (based on your queue name)
     
 - (Optional) If you installed Spark 1.4, on the Customize services page:
   - Under 'Advanced zeppelin-config'
