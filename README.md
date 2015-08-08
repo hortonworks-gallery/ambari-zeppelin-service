@@ -265,7 +265,12 @@ select description, salary from default.sample_07
 
 - To enable Dependency loading/Form creation in your notebooks, see [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading)
 
-- Open the ResourceManager UI and notice Spark is running on YARN: http://sandbox.hortonworks.com:8088/cluster
+- Open the ResourceManager UI and notice that:
+  - Spark (and Tez) jobs launched by Zeppelin are running on YARN
+  - If you setup the spark queue above, Spark job should be running on *spark* queue
+  - Hive/Tez job is running on default queue
+  
+http://sandbox.hortonworks.com:8088/cluster
 ![Image](../master/screenshots/RM-UI.png?raw=true)
 
 You can also use this UI for troubleshooting hanging jobs. For example if Hive job is stuck waiting for Spark to give up YARN resources (or vice versa), you can restart the Spark interpreter via Zeppelin before running the Hive query
