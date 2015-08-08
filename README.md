@@ -87,11 +87,11 @@ exit
     - Capacity: 50%
     - Max Capacity: 90% (on sandbox, do not reduce below this or the Spark jobs will not run)
 
-![Image](../master/screenshots/capacity-scheduler-spark-queue.png?raw=true)
+    ![Image](../master/screenshots/capacity-scheduler-spark-queue.png?raw=true)
 
   ii. In Ambari under Spark > Configs, set the default queue for Spark. The Zeppelin Ambari service will autodetect this queue and configure Zeppelin to use the same.
 
-![Image](../master/screenshots/spark-config-view.png?raw=true)
+    ![Image](../master/screenshots/spark-config-view.png?raw=true)
 
 
 #### Setup the Ambari service
