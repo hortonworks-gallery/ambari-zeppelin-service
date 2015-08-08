@@ -26,7 +26,8 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Uploads zeppelin jar to /apps/zeppelin location in HDFS to be accessible from all nodes in cluster
   - Exposes the [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template) and [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template) files in Ambari for easy configuration
   - Deploys sample notebooks (that demo hive, spark and sparksql, shell intepreters)
-  - Configures Zeppelin to point to Hive metastore so Spark commands can access Hive tables out of the box
+  - Autodetects and configures Zeppelin to point to default Spark YARN queue. Users can use this, in conjunction with the [Capacity scheduler/YARN Queue Manager view](http://hortonworks.com/blog/hortonworks-data-platform-2-3-delivering-transformational-outcomes/), to set what percentage of the clusters resources get allocated to Spark.
+  - Autodetects and configures Zeppelin to point to Hive metastore so Spark commands can access Hive tables out of the box
   - Spark, pyspark, sparksql, hive, shell all tested to be working
   - Offline mode: can manually copy tar to /tmp/zeppelin.tar.gz to allow service to be installed on clusters without internet access
   - Deploy using steps below or via [Ambari Store view](https://github.com/jpplayer/amstore-view)
@@ -65,7 +66,7 @@ ssh root@sandbox.hortonworks.com
 ```
 - If you deployed in a VirtualBox Sandbox environment, enable port forwarding on ports 9995 and 9996. If you don't enable port 9996, the Zeppelin UI/Ambari View shows disconnected on the upper right and none of the default tutorials are visible. 
 
-- Ensure Spark and Hive are installed. If not, use Add service wizard to install them
+- Ensure Spark and Hive are installed/started. If not, use Add service wizard to install them. You can also bring down services that are not used by this tutorial (like Oozie/Falcon)
 
 - (Optional) If you want to use Spark 1.4 instead of 1.3 (which comes with HDP 2.3), you can use below commands to download and set it up
 ```
@@ -79,6 +80,16 @@ echo "spark.driver.extraJavaOptions -Dhdp.version=$HDP_VER" >> spark-1.4.1-bin-h
 echo "spark.yarn.am.extraJavaOptions -Dhdp.version=$HDP_VER" >> spark-1.4.1-bin-hadoop2.6/conf/spark-defaults.conf
 exit
 ```
+
+- (Optional) You can setup/configure a YARN queue to customize what portion of the cluster the Spark job should use.
+  - Open the Yarn Queue Manager view to setup a queue for Spark with:
+    - Capacity: 50%
+    - Max Capacity: 90% (on sandbox, do not reduce below this or the Spark jobs will not run)
+
+![Image](../master/screenshots/capacity-scheduler-spark-queue.png?raw=true)
+
+  - In Ambari under Spark > Configs, set the default queue for Spark. The Zeppelin Ambari service will autodetect this queue and configure Zeppelin to use the same.
+![Image](../master/screenshots/spark-config-view.png?raw=true)
 
 
 #### Setup the Ambari service
@@ -256,9 +267,16 @@ select description, salary from default.sample_07
 
 You can also use this UI for troubleshooting hanging jobs. For example if Hive job is stuck waiting for Spark to give up YARN resources (or vice versa), you can restart the Spark interpreter via Zeppelin before running the Hive query
 
-- Click on the ApplicationMaster link to access the Spark UI:
+  - Use the scheduler link to validate the proportion of the cluster used by Spark/Tez. For example, if you setup the Spark YARN queue as above, when only Spark is running, the UI will show Spark taking up 89% of the cluster  
+![Image](../master/screenshots/RM-UI-2.png?raw=true)  
+  - The Ambari metrics on the main dashboard will show the same:
+![Image](../master/screenshots/Ambari-YARN-metric.png?raw=true)  
+
+
+- Click on the ApplicationMaster link in YANR UI to access the Spark UI:
 
 ![Image](../master/screenshots/spark-UI.png?raw=true)
+
 
 
 - One benefit to wrapping the component in Ambari service is that you can now monitor/manage this service remotely via REST API
