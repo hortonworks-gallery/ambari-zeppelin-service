@@ -81,9 +81,9 @@ echo "spark.yarn.am.extraJavaOptions -Dhdp.version=$HDP_VER" >> spark-1.4.1-bin-
 exit
 ```
 
-- (Optional) You can setup/configure a YARN queue to customize what portion of the cluster the Spark job should use.
+- (Optional) You can setup/configure a YARN queue to customize what portion of the cluster the Spark job should use. To do this follow the two steps below:
 
-  i. Open the Yarn Queue Manager view to setup a queue for Spark with:
+  i. Open the Yarn Queue Manager view to setup a queue for Spark with below capacities:
     - Capacity: 50%
     - Max Capacity: 90% (on sandbox, do not reduce below this or the Spark jobs will not run)
 
