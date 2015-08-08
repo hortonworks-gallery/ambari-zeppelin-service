@@ -82,13 +82,13 @@ exit
 ```
 
 - (Optional) You can setup/configure a YARN queue to customize what portion of the cluster the Spark job should use.
-  - Open the Yarn Queue Manager view to setup a queue for Spark with:
+  i. Open the Yarn Queue Manager view to setup a queue for Spark with:
     - Capacity: 50%
     - Max Capacity: 90% (on sandbox, do not reduce below this or the Spark jobs will not run)
 
 ![Image](../master/screenshots/capacity-scheduler-spark-queue.png?raw=true)
 
-    - In Ambari under Spark > Configs, set the default queue for Spark. The Zeppelin Ambari service will autodetect this queue and configure Zeppelin to use the same.
+  ii. In Ambari under Spark > Configs, set the default queue for Spark. The Zeppelin Ambari service will autodetect this queue and configure Zeppelin to use the same.
 
 ![Image](../master/screenshots/spark-config-view.png?raw=true)
 
