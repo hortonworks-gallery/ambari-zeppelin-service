@@ -272,7 +272,7 @@ select description, salary from default.sample_07
 
 - To enable Dependency loading/Form creation in your notebooks, see [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading)
 
-#### Check Zeppelin YARN queue
+#### Zeppelin YARN integration
 
 - Open the ResourceManager UI by opening http://sandbox.hortonworks.com:8088/cluster and notice that:
   - Spark (and Tez) jobs launched by Zeppelin are running on YARN
