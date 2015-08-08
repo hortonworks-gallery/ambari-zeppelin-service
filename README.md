@@ -89,6 +89,7 @@ exit
 ![Image](../master/screenshots/capacity-scheduler-spark-queue.png?raw=true)
 
   - In Ambari under Spark > Configs, set the default queue for Spark. The Zeppelin Ambari service will autodetect this queue and configure Zeppelin to use the same.
+
 ![Image](../master/screenshots/spark-config-view.png?raw=true)
 
 
