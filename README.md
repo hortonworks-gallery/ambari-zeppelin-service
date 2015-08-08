@@ -11,6 +11,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - [Install Ambari view](https://github.com/hortonworks-gallery/ambari-zeppelin-service#install-zeppelin-view)
   - [Run demo zeppelin notebooks](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebook)
   - [Check Zeppelin YARN queue](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#check-zeppelin-yarn-queue)
+  - [Remote management](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#remote-management)
   - [Remove zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#remove-zeppelin-service)
   - [Deploy on clusters without internet access](https://github.com/hortonworks-gallery/ambari-zeppelin-service#deploy-on-clusters-without-internet-access)
 
@@ -292,7 +293,7 @@ select description, salary from default.sample_07
 
 ![Image](../master/screenshots/spark-UI.png?raw=true)
 
-
+---------------------
 
 #### Remote management
 
