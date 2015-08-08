@@ -263,7 +263,8 @@ select description, salary from default.sample_07
 
 ![Image](../master/screenshots/hive-queries.png?raw=true)
 
-- Dependency loading/Form creation: see [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading)
+- To enable Dependency loading/Form creation in your notebooks, see [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading)
+
 - Open the ResourceManager UI and notice Spark is running on YARN: http://sandbox.hortonworks.com:8088/cluster
 ![Image](../master/screenshots/RM-UI.png?raw=true)
 
