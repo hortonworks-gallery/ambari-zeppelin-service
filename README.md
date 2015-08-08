@@ -265,20 +265,20 @@ select description, salary from default.sample_07
 
 - To enable Dependency loading/Form creation in your notebooks, see [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading)
 
-- Open the ResourceManager UI and notice that:
+- Open the ResourceManager UI by opening http://sandbox.hortonworks.com:8088/cluster and notice that:
   - Spark (and Tez) jobs launched by Zeppelin are running on YARN
   - If you setup the spark queue above, Spark job should be running on *spark* queue
   - Hive/Tez job is running on default queue
   
-http://sandbox.hortonworks.com:8088/cluster
-![Image](../master/screenshots/RM-UI.png?raw=true)
 
-You can also use this UI for troubleshooting hanging jobs. For example if Hive job is stuck waiting for Spark to give up YARN resources (or vice versa), you can restart the Spark interpreter via Zeppelin before running the Hive query
+![Image](../master/screenshots/RM-UI.png?raw=true)
 
   - Use the scheduler link to validate the proportion of the cluster used by Spark/Tez. For example, if you setup the Spark YARN queue as above, when only Spark is running, the UI will show Spark taking up 89% of the cluster  
 ![Image](../master/screenshots/RM-UI-2.png?raw=true)  
   - The Ambari metrics on the main dashboard will show the same:
 ![Image](../master/screenshots/Ambari-YARN-metric.png?raw=true)  
+
+  - You can also use this YARN UI for troubleshooting hanging jobs. For example if Hive job is stuck waiting for Spark to give up YARN resources (or vice versa), you can restart the Spark interpreter via Zeppelin before running the Hive query
 
 
 - Click on the ApplicationMaster link in YANR UI to access the Spark UI:
