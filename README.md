@@ -132,6 +132,8 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     
   - Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
   - Advanced zeppelin-env: Used to populate [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template). See [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/install/install.html) for more info
+    - Under `export ZEPPELIN_JAVA_OPTS` notice that the default spark queue is being used `-Dspark.yarn.queue={{spark_queue}}`. To have Zeppelin jobs submitted to its own queue, just change to `-Dspark.yarn.queue=my_zeppelin_queuename` (based on your queue name)
+    
 - (Optional) If you installed Spark 1.4, on the Customize services page:
   - Under 'Advanced zeppelin-config'
     - set `zeppelin.spark.version=1.4`
@@ -264,6 +266,8 @@ select description, salary from default.sample_07
 ![Image](../master/screenshots/hive-queries.png?raw=true)
 
 - To enable Dependency loading/Form creation in your notebooks, see [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading)
+
+#### Check ZeppelinYARN queue
 
 - Open the ResourceManager UI by opening http://sandbox.hortonworks.com:8088/cluster and notice that:
   - Spark (and Tez) jobs launched by Zeppelin are running on YARN
