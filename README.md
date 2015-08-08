@@ -286,7 +286,7 @@ select description, salary from default.sample_07
 
   - You can also use this YARN UI for troubleshooting hanging jobs. For example if Hive job is stuck waiting for Spark to give up YARN resources (or vice versa), you can restart the Spark interpreter via Zeppelin before running the Hive query
 
-- The other benefit to setting up dedicated queue for Spark is that you can install the [Ranger YARN plugin](http://hortonworks.com/blog/announcing-apache-ranger-0-5-0/) and set authorization policies of which users/groups are allowed to submit Spark jobs. These user/groups can synced with the corporate identity management system or LDAP.
+- The other benefit to setting up dedicated queue for Spark is that you can install the [Ranger YARN plugin](http://hortonworks.com/blog/announcing-apache-ranger-0-5-0/) and set authorization policies of which users/groups are allowed to submit Spark jobs, and also see audits of who was allowed or denied access. These user/groups can synced with the corporate identity management system or LDAP.
 ![Image](../master/screenshots/ranger-yarn-policy.png?raw=true) 
 
 - Click on the ApplicationMaster link in YARN UI to access the Spark UI:
