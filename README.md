@@ -294,10 +294,10 @@ select description, salary from default.sample_07
   - Screenshot of how you would create a Ranger policy for 'zeppelin' user to access 'spark' YARN queue:
 ![Image](../master/screenshots/ranger-yarn-policy.png?raw=true) 
   
-- Click on the ApplicationMaster link in YARN UI to access the Spark UI:
+- To access the Spark UI, you can click on the ApplicationMaster link in YARN UI:
 
 ![Image](../master/screenshots/spark-UI.png?raw=true)
-
+  
 ---------------------
 
 #### Remote management
