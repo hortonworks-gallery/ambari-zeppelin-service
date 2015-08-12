@@ -289,8 +289,9 @@ select description, salary from default.sample_07
   - You can also use this YARN UI for troubleshooting hanging jobs. For example if Hive job is stuck waiting for Spark to give up YARN resources (or vice versa), you can restart the Spark interpreter via Zeppelin before running the Hive query
 
 - The other benefit to setting up dedicated queue for Spark is that you can bring up Ranger (http://sandbox.hortonworks.com:6080) and install the [Ranger YARN plugin](http://hortonworks.com/blog/announcing-apache-ranger-0-5-0/) to set authorization policies of which users/groups are allowed to submit Spark jobs, and also see audits of who was allowed or denied access. These user/groups can synced with the corporate identity management system or LDAP.
-  - For more details: see sample steps to [setup Ranger's YARN plugin](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-yarn-plugin-for-ranger) and [setup YARN queue and Ranger policy](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#yarn-audit-exercises-in-ranger) on an Ambari installed cluster.
+  - For more details: see sample steps to [setup Ranger's YARN plugin](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-yarn-plugin-for-ranger) and [setup YARN queue and Ranger policy](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#yarn-audit-exercises-in-ranger) on an Ambari installed HDP 2.3 cluster.
   - Note: on the current version of HDP 2.3 sandbox, Ranger YARN plugin has not been setup
+  - Screenshot of how you would create a Ranger policy for 'zeppelin' user to access 'Spark' queue:
 ![Image](../master/screenshots/ranger-yarn-policy.png?raw=true) 
   
 - Click on the ApplicationMaster link in YARN UI to access the Spark UI:
