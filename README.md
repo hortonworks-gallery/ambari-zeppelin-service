@@ -23,7 +23,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Automates deployment, configuration, management of zeppelin on HDP cluster
   - Runs zeppelin in yarn-client mode (instead of standalone). Why is this important?
     - *Multi-tenancy*: The service autodetects and configures Zeppelin to point to default Spark YARN queue. Users can use this, in conjunction with the [Capacity scheduler/YARN Queue Manager view](http://hortonworks.com/blog/hortonworks-data-platform-2-3-delivering-transformational-outcomes/), to set what percentage of the clusters resources get allocated to Spark.  
-    - *Security*: Ranger YARN plugin can be used to setup authorization policies on which users/groups are allowed to submit spark jobs. Both allowed requests and rejections can also be audited.
+    - *Security*: Ranger YARN plugin can be used to setup authorization policies on which users/groups are allowed to submit spark jobs. Both allowed requests and rejections can also be audited in Ranger.
   - Supports both default HDP Spark version (e.g. 1.3 with HDP 2.3) as well as custom installed Spark versions (e.g 1.4, 1.2)
   - Automates deployment of Ambari view to bring up Zeppelin webapp (requires manual ambari-server restart)
   - Runs zeppelin as configurable user, by default zeppelin (instead of root)
