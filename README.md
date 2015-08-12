@@ -292,6 +292,7 @@ select description, salary from default.sample_07
   - For more details: see sample steps to [setup Ranger's YARN plugin](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-yarn-plugin-for-ranger) and [setup YARN queue and Ranger policy](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#yarn-audit-exercises-in-ranger) on an Ambari installed HDP 2.3 cluster.
   - Note: on the current version of HDP 2.3 sandbox, Ranger YARN plugin has not been setup
   - Screenshot of how you would create a Ranger policy for 'zeppelin' user to access 'spark' YARN queue:
+  
 ![Image](../master/screenshots/ranger-yarn-policy.png?raw=true) 
   
 - To access the Spark UI, you can click on the ApplicationMaster link in YARN UI:
