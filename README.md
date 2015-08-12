@@ -26,7 +26,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
     - *Security*: Ranger YARN plugin can be used to setup authorization policies on which users/groups are allowed to submit spark jobs. Both allowed requests and rejections can also be audited in Ranger.
   - Supports both default HDP Spark version (e.g. 1.3 with HDP 2.3) as well as custom installed Spark versions (e.g 1.4, 1.2)
   - Automates deployment of Ambari view to bring up Zeppelin webapp (requires manual ambari-server restart)
-  - Runs zeppelin as configurable user, by default zeppelin (instead of root)
+  - Runs zeppelin as configurable user (by default zeppelin), instead of root
   - Uploads zeppelin jar to /apps/zeppelin location in HDFS to be accessible from all nodes in cluster
   - Exposes the [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template) and [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template) files in Ambari for easy configuration
   - Deploys sample notebooks (that demo hive, spark and sparksql, shell intepreters)
