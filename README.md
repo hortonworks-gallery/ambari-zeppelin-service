@@ -9,6 +9,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - [Setup Pre-requisites](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-pre-requisites)
   - [Setup YARN queue](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-yarn-queue)
   - [Setup Ambari service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-the-ambari-service)
+  - [Configure Zeppelin](https://github.com/hortonworks-gallery/ambari-zeppelin-service#configure-zeppelin)
   - [Install Ambari view](https://github.com/hortonworks-gallery/ambari-zeppelin-service#install-zeppelin-view)
   - [Run demo zeppelin notebooks](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebooks)
   - [Zeppelin YARN integration](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#zeppelin-yarn-integration)
@@ -124,6 +125,8 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 ![Image](../master/screenshots/install-2.png?raw=true)
 ![Image](../master/screenshots/install-3.png?raw=true)
 
+##### Configure Zeppelin
+
 - This will bring up the Customize Services page where you can configure the Zeppelin service. Note that default configurations will work fine on sandbox.
 ![Image](../master/screenshots/install-4.png?raw=true)
 
@@ -139,7 +142,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - public name: This is used to setup the Ambari view for Zeppelin. Set this to the public host/IP of zeppelin node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. If installing on cloud, set this to public name/IP of zeppelin node. Alternatively, if you already have a local hosts file entry for the internal hostname of the zeppelin node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname
     - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.3.1 with HDP 2.3). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /home/zeppelin/spark-1.4.1-bin-hadoop2.6) 
 
-    - Sample settings for Spark 1.3.1 (no changes needed)
+    - Sample settings for Spark 1.3.1 (no changes needed if you already created the hosts file entry for sandbox.hortonworks.com)
     ![Image](../master/screenshots/install-4.5-spark1.3.png?raw=true)
 
     - Sample settings for Spark 1.4.1 (assuming you manually installed spark 1.4 as described above):
