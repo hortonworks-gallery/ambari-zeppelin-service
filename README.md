@@ -136,25 +136,28 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - spark version: Version of Spark installed in location specified in SPARK_HOME. Default with HDP 2.3 is 1.3, but can also be set to 1.4 or 1.2 (if you manually installed Spark 1.2 or 1.4)
     - executor memory: Executor memory to use (e.g. 512m or 1g)
     - temp file: Temporary file where pre-built package will be downloaded to. If your env has limited space under /tmp, change this to different location. In this case you must ensure that the zeppelin user must be able to write to this location.
-    
+    - public name: This is used to setup the Ambari view for Zeppelin. Set this to the public host/IP of zeppelin node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. If installing on cloud, set this to public name/IP of zeppelin node. Alternatively, if you already have a local hosts file entry for the internal hostname of the zeppelin node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname
+    - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.3.1 with HDP 2.3). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /home/zeppelin/spark-1.4.1-bin-hadoop2.6) 
+
+    - Sample settings for Spark 1.3.1 (no changes needed)
+![Image](../master/screenshots/install-4.5-spark1.3.png?raw=true)
+
+    - Sample settings for Spark 1.4.1 (assuming you manually installed spark 1.4 as described above):
+      - set `zeppelin.spark.version=1.4`
+      - set `spark.home=/home/zeppelin/spark-1.4.1-bin-hadoop2.6`
+      
+![Image](../master/screenshots/install-4.5-spark1.4.png?raw=true)
+
   - ii) Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
+    - If needed you can modify the zeppelin ports here (default to 9995,9996)
+![Image](../master/screenshots/install-5.png?raw=true)
+  
   - iii) Advanced zeppelin-env: Used to populate [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template). See [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/install/install.html) for more info
     - Under `export ZEPPELIN_JAVA_OPTS` notice that the Spark jobs will by default be sent to the default spark queue `-Dspark.yarn.queue={{spark_queue}}`. 
     - To have Zeppelin jobs submitted to a different queue instead, just change to `-Dspark.yarn.queue=my_zeppelin_queuename` (based on your queue name)
-    
-- (Optional) If you installed Spark 1.4, on the Customize services page:
-  - Under 'Advanced zeppelin-config'
-    - set `zeppelin.spark.version=1.4`
-![Image](../master/screenshots/spark-1.4-config.png?raw=true)    
-  - Under 'Advanced zeppelin-env'
-    - set `export SPARK_HOME=/home/zeppelin/spark-1.4.1-bin-hadoop2.6/` 
-![Image](../master/screenshots/spark-1.4-config2.png?raw=true)    
+![Image](../master/screenshots/install-6.png?raw=true)      
 
-- Otherwise, to use Spark 1.3, you should not need to change any default configs. 
-  - ...but here are sample of configurations that you could modify if needed (e.g. executor memory, port etc)
-![Image](../master/screenshots/install-4.5.png?raw=true)
-![Image](../master/screenshots/install-5.png?raw=true)
-![Image](../master/screenshots/install-6.png?raw=true)
+
 - Click Next to accept defaults...
 ![Image](../master/screenshots/install-7.png?raw=true)
 - Click Deploy to start the installation

@@ -93,7 +93,7 @@ class Master(Script):
 
       #if zeppelin installed on ambari server, copy view jar into ambari views dir
       if params.setup_view:
-        if params.ambari_host == params.zeppelin_host and not os.path.exists('/var/lib/ambari-server/resources/views/zeppelin-view-1.0-SNAPSHOT.jar'):
+        if params.ambari_host == params.zeppelin_internalhost and not os.path.exists('/var/lib/ambari-server/resources/views/zeppelin-view-1.0-SNAPSHOT.jar'):
           Execute('echo "Copying zeppelin view jar to ambari views dir"')      
           Execute('cp /home/'+params.zeppelin_user+'/zeppelin-view/target/*.jar /var/lib/ambari-server/resources/views')
       
@@ -126,7 +126,7 @@ class Master(Script):
 
       #if zeppelin installed on ambari server, copy view jar into ambari views dir
       if params.setup_view:
-        if params.ambari_host == params.zeppelin_host and not os.path.exists('/var/lib/ambari-server/resources/views/zeppelin-view-1.0-SNAPSHOT.jar'):
+        if params.ambari_host == params.zeppelin_internalhost and not os.path.exists('/var/lib/ambari-server/resources/views/zeppelin-view-1.0-SNAPSHOT.jar'):
           Execute('echo "Copying zeppelin view jar to ambari views dir"')      
           Execute('cp /home/'+params.zeppelin_user+'/zeppelin-view/target/*.jar /var/lib/ambari-server/resources/views')
 

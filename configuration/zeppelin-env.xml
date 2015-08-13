@@ -12,14 +12,14 @@
   <property>
     <name>zeppelin_user</name>
     <value>zeppelin</value>
-    <!-- <property-type>USER</property-type> -->
+    <property-type>USER</property-type>
     <description>User zeppelin daemon runs as</description>
   </property> 
         
   <property>
     <name>zeppelin_group</name>
     <value>zeppelin</value>
-    <!-- <property-type>USER</property-type> -->
+    <property-type>GROUP</property-type>
     <description>zeppelin group</description>
   </property> 
           
@@ -37,7 +37,7 @@
 # Spark master url. eg. spark://master_addr:7077. Leave empty if you want to use local mode    
 export MASTER=yarn-client        
 export SPARK_YARN_JAR={{spark_jar}}
-export SPARK_HOME=/usr/hdp/current/spark-client/
+export SPARK_HOME={{spark_home}}
 
 # Where log files are stored.  PWD by default.
 export ZEPPELIN_LOG_DIR={{zeppelin_log_dir}}  

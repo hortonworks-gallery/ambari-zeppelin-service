@@ -29,6 +29,8 @@ spark_jar = format("{spark_jar_dir}/zeppelin-spark-0.6.0-SNAPSHOT.jar")
 spark_version = str(config['configurations']['zeppelin-ambari-config']['zeppelin.spark.version'])
 setup_view = config['configurations']['zeppelin-ambari-config']['zeppelin.setup.view']
 temp_file = config['configurations']['zeppelin-ambari-config']['zeppelin.temp.file']
+spark_home = config['configurations']['zeppelin-ambari-config']['spark.home']
+zeppelin_host = config['configurations']['zeppelin-ambari-config']['zeppelin.host.publicname']
 
 # params from zeppelin-config
 zeppelin_port = config['configurations']['zeppelin-config']['zeppelin.server.port']
@@ -55,8 +57,12 @@ hive_metastore_host = str(master_configs['hive_metastore_host'][0])
 hive_metastore_port = str(get_port_from_url(config['configurations']['hive-site']['hive.metastore.uris']))
 
 java64_home = config['hostLevelParams']['java_home']
-zeppelin_host = str(master_configs['zeppelin_master_hosts'][0])
 ambari_host = str(master_configs['ambari_server_host'][0])
+zeppelin_internalhost = str(master_configs['zeppelin_master_hosts'][0])
+
+#if user did not specify public hostname of zeppelin node, proceed with internal name instead
+if zeppelin_host.strip() == '': 
+  zeppelin_host = zeppelin_internalhost
 
 if 'spark.yarn.queue' in config['configurations']['spark-defaults']:
   spark_queue = config['configurations']['spark-defaults']['spark.yarn.queue']
