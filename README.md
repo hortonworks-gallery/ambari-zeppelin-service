@@ -140,14 +140,12 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.3.1 with HDP 2.3). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /home/zeppelin/spark-1.4.1-bin-hadoop2.6) 
 
     - Sample settings for Spark 1.3.1 (no changes needed)
-    
-![Image](../master/screenshots/install-4.5-spark1.3.png?raw=true)
+    ![Image](../master/screenshots/install-4.5-spark1.3.png?raw=true)
 
     - Sample settings for Spark 1.4.1 (assuming you manually installed spark 1.4 as described above):
       - set `zeppelin.spark.version=1.4`
       - set `spark.home=/home/zeppelin/spark-1.4.1-bin-hadoop2.6`
-      
-![Image](../master/screenshots/install-4.5-spark1.4.png?raw=true)
+      ![Image](../master/screenshots/install-4.5-spark1.4.png?raw=true)
 
   - ii) Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
     - If needed you can modify the zeppelin ports here (default to 9995,9996)
