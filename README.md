@@ -140,6 +140,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.3.1 with HDP 2.3). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /home/zeppelin/spark-1.4.1-bin-hadoop2.6) 
 
     - Sample settings for Spark 1.3.1 (no changes needed)
+    
 ![Image](../master/screenshots/install-4.5-spark1.3.png?raw=true)
 
     - Sample settings for Spark 1.4.1 (assuming you manually installed spark 1.4 as described above):
