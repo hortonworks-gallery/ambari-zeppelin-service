@@ -289,6 +289,10 @@ select description, salary from default.sample_07
   
 ![Image](../master/screenshots/RM-UI.png?raw=true)
 
+- To access the Spark UI, you can click on the ApplicationMaster link in YARN UI:
+
+![Image](../master/screenshots/spark-UI.png?raw=true)
+
   - Use the scheduler link to validate the proportion of the cluster used by Spark/Tez. For example, if you setup the Spark YARN queue as above, when only Spark is running, the UI will show Spark taking up 89% of the cluster  
 ![Image](../master/screenshots/RM-UI-2.png?raw=true)  
   - The Ambari metrics on the main Ambari dashboard will show the same:
@@ -303,9 +307,7 @@ select description, salary from default.sample_07
   
 ![Image](../master/screenshots/ranger-yarn-policy.png?raw=true) 
   
-- To access the Spark UI, you can click on the ApplicationMaster link in YARN UI:
-
-![Image](../master/screenshots/spark-UI.png?raw=true)
+- Don't want to take our word for the benefits of Spark on YARN? Check [this Spark Summit talk by Kelvin Chi (Uber)](https://www.youtube.com/watch?v=vdwot545LKA)
   
 ---------------------
 
