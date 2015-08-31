@@ -31,6 +31,8 @@ setup_view = config['configurations']['zeppelin-ambari-config']['zeppelin.setup.
 temp_file = config['configurations']['zeppelin-ambari-config']['zeppelin.temp.file']
 spark_home = config['configurations']['zeppelin-ambari-config']['spark.home']
 zeppelin_host = config['configurations']['zeppelin-ambari-config']['zeppelin.host.publicname']
+python_packages = config['configurations']['zeppelin-ambari-config']['python.packages']
+python_packages.strip()
 
 # params from zeppelin-config
 zeppelin_port = config['configurations']['zeppelin-config']['zeppelin.server.port']

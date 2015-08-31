@@ -43,7 +43,15 @@ class Master(Script):
     Execute('mkdir '+params.zeppelin_dir)
     Execute('chown -R ' + params.zeppelin_user + ':' + params.zeppelin_group + ' ' + params.zeppelin_dir)
     
-
+    #if on CentOS and python packages specified, install them
+    if params.python_packages:
+      distribution = platform.linux_distribution()[0].lower()
+      if distribution in ['centos']:
+        Execute('echo Installing python packages')
+        Execute('yum install -y python-devel python-nose python-setuptools gcc gcc-gfortran gcc-c++ blas-devel lapack-devel atlas-devel') 
+        Execute('easy_install pip', ignore_failures=True)      
+        Execute('pip install ' + params.python_packages)      
+    
     #Execute('echo master config dump: ' + str(', '.join(params.config['hostLevelParams'])))
     #Execute('echo stack_version_unformatted: ' + params.stack_version_unformatted)
     #Execute('echo hdp_stack_version: ' + params.hdp_stack_version)

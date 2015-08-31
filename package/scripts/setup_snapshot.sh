@@ -70,7 +70,7 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
     then
 		echo "Importing notebooks"
 		cd notebook
-		wget https://www.dropbox.com/s/jlacnbvlzcdhjzf/notebooks.zip?dl=0 -O notebooks.zip
+		wget https://www.dropbox.com/s/5eqztenz9ncm4jc/notebooks-150829.zip?dl=0 -O notebooks.zip
 		unzip notebooks.zip
 		cd ..
 	fi
