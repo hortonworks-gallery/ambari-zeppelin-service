@@ -278,7 +278,7 @@ select description, salary from default.sample_07
 
 ![Image](../master/screenshots/hive-queries.png?raw=true)
 
-- To enable Dependency loading/Form creation in your notebooks, see [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading)
+- To enable Dependency loading (e.g. loading jars or maven repo/artifacts) or create a form in your notebook, see [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading)
 
 #### Zeppelin YARN integration
 
