@@ -21,9 +21,9 @@ class Master(Script):
     #snapshot_package_14='https://www.dropbox.com/s/0qyvze6t3xhlthn/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
 
     #location of prebuilt package from Sept 15 2015 using spark 1.3   
-    snapshot_package_13='https://www.dropbox.com/s/shf5lzrtaqwf0at/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
+    snapshot_package_13='https://www.dropbox.com/s/shf5lzrtaqwf0at/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
     #location of prebuilt package from Sept 15 2015 using Spark 1.4    
-    snapshot_package_14='https://www.dropbox.com/s/r9u1f02h7grppjw/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
+    snapshot_package_14='https://www.dropbox.com/s/r9u1f02h7grppjw/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
 
 
     Execute('echo User selected spark_version:' + params.spark_version)
@@ -127,7 +127,7 @@ class Master(Script):
       #Execute('cp '+service_packagedir+'/files/settings.xml /root/.m2/')
       
       Execute('echo Compiling zeppelin from source')
-      Execute('cd '+params.install_dir+'; git clone https://github.com/apache/incubator-zeppelin >> ' + params.zeppelin_log_file)
+      Execute('cd '+params.install_dir+'; git clone https://github.com/rconlinehwx/incubator-zeppelin >> ' + params.zeppelin_log_file)
       Execute('chown -R ' + params.zeppelin_user + ':' + params.zeppelin_group + ' ' + params.zeppelin_dir)
       #Execute('cd '+params.install_dir+'/incubator-zeppelin; git checkout -b branch-0.5;')
       
