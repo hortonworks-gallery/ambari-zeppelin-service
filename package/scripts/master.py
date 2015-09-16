@@ -21,9 +21,9 @@ class Master(Script):
     #snapshot_package_14='https://www.dropbox.com/s/0qyvze6t3xhlthn/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
 
     #location of prebuilt package from Sept 15 2015 using spark 1.3   
-    snapshot_package_13='https://www.dropbox.com/s/shf5lzrtaqwf0at/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
+    snapshot_package_13='https://www.dropbox.com/s/0ii1edjnlpzb394/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
     #location of prebuilt package from Sept 15 2015 using Spark 1.4    
-    snapshot_package_14='https://www.dropbox.com/s/r9u1f02h7grppjw/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
+    snapshot_package_14='https://www.dropbox.com/s/eijrv40rb2rqty0/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
 
 
     Execute('echo User selected spark_version:' + params.spark_version)
