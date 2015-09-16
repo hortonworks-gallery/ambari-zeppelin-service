@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e 
-#e.g. /root/incubator-zeppelin
+#e.g. /opt/incubator-zeppelin
 export INSTALL_DIR=$1
 
 #e.g. sandbox.hortonworks.com
@@ -24,8 +24,22 @@ export ZEPPELIN_PORT=$8
 
 export SETUP_VIEW=$9
 SETUP_VIEW=${SETUP_VIEW,,}
-
 echo "SETUP_VIEW is $SETUP_VIEW"
+
+export ZOOKEEPER_HOST=${10}
+
+echo "ZOOKEEPER_HOST is $ZOOKEEPER_HOST"
+
+
+if ls $INSTALL_DIR/interpreter/spark/dep/zeppelin-spark-*.jar 
+then
+	export LOCAL_SPARK_JAR=$INSTALL_DIR/interpreter/spark/dep/zeppelin-spark-*.jar
+else
+	export LOCAL_SPARK_JAR=$INSTALL_DIR/interpreter/spark/zeppelin-spark-*.jar
+fi
+echo "LOCAL_SPARK_JAR is $LOCAL_SPARK_JAR"
+
+
 
 echo "Setting up zeppelin at $INSTALL_DIR"
 cd $INSTALL_DIR
@@ -48,9 +62,9 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 	set +e 
 	hadoop fs -rm $SPARK_JAR
 	set -e 
-	hadoop fs -put $INSTALL_DIR/interpreter/spark/zeppelin-spark-*.jar $SPARK_JAR
+	hadoop fs -put $LOCAL_SPARK_JAR $SPARK_JAR
 
-        rm -rf notebook/*
+    rm -rf notebook/*
 
 	#clean old notebooks
 	if [ -d "notebook/2AHFKRNDZ" ]; then
@@ -70,7 +84,8 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
     then
 		echo "Importing notebooks"
 		cd notebook
-		wget https://www.dropbox.com/s/5eqztenz9ncm4jc/notebooks-150829.zip?dl=0 -O notebooks.zip
+		#wget https://www.dropbox.com/s/5eqztenz9ncm4jc/notebooks-150829.zip?dl=0 -O notebooks.zip
+		wget https://www.dropbox.com/s/cgrxeaedkg42tcr/notebooks.zip -O notebooks.zip
 		unzip notebooks.zip
 		cd ..
 	fi
@@ -149,9 +164,14 @@ echo "Updating interpreter settings..."
 HDP_VER=`hdp-select status hadoop-client | sed 's/hadoop-client - \(.*\)/\1/'`
 export VER_STRING="-Dhdp.version=$HDP_VER"
 echo "updating interpreter.json..."
-sed -i "s/\"master\": \"yarn-client\",/\"master\": \"yarn-client\",\n\t\"spark.driver.extraJavaOptions\": \"$VER_STRING\",/g" conf/interpreter.json
-sed -i "s/\"master\": \"yarn-client\",/\"master\": \"yarn-client\",\n\t\"spark.yarn.am.extraJavaOptions\": \"$VER_STRING\",/g" conf/interpreter.json
+#sed -i "s/\"master\": \"yarn-client\",/\"master\": \"yarn-client\",\n\t\"spark.driver.extraJavaOptions\": \"$VER_STRING\",/g" conf/interpreter.json
+#sed -i "s/\"master\": \"yarn-client\",/\"master\": \"yarn-client\",\n\t\"spark.yarn.am.extraJavaOptions\": \"$VER_STRING\",/g" conf/interpreter.json
 sed -i "s#\"hive.hiveserver2.url\": \"jdbc:hive2://localhost:10000\",#\"hive.hiveserver2.url\": \"jdbc:hive2://$HIVE_HOST:10000\",#g" conf/interpreter.json
+
+sed -i "s#\"phoenix.jdbc.url\": \"jdbc:phoenix:localhost:2181:/hbase-unsecure\",#\"phoenix.jdbc.url\": \"jdbc:phoenix:$ZOOKEEPER_HOST:2181:/hbase-unsecure\",#g" conf/interpreter.json
+
+
+
 #sed -i "s/\"spark.executor.memory\": \"512m\",/\"spark.executor.memory\": \"$EXECUTOR_MEM\",/g" conf/interpreter.json
 
 

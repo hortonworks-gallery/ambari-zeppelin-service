@@ -61,6 +61,8 @@ hive_metastore_port = str(get_port_from_url(config['configurations']['hive-site'
 java64_home = config['hostLevelParams']['java_home']
 ambari_host = str(master_configs['ambari_server_host'][0])
 zeppelin_internalhost = str(master_configs['zeppelin_master_hosts'][0])
+zookeeper_host = str(master_configs['zookeeper_hosts'][0])
+
 
 #if user did not specify public hostname of zeppelin node, proceed with internal name instead
 if zeppelin_host.strip() == '': 

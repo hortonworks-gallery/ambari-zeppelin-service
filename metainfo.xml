@@ -6,7 +6,7 @@
             <name>ZEPPELIN</name>
             <displayName>Zeppelin Notebook</displayName>
             <comment>A web-based notebook that enables interactive data analytics. It enables you to make beautiful data-driven, interactive and collaborative documents with SQL, Scala and more.</comment>
-            <version>0.0.4</version>
+            <version>0.0.5</version>
             <components>
                 <component>
                   <name>ZEPPELIN_MASTER</name>

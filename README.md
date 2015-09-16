@@ -79,11 +79,29 @@ ssh root@sandbox.hortonworks.com
 sudo useradd zeppelin
 sudo su zeppelin
 cd /home/zeppelin
-wget http://d3kbcqa49mib13.cloudfront.net/spark-1.4.1-bin-hadoop2.6.tgz -O spark-1.4.1.tgz
-tar -xzvf spark-1.4.1.tgz
+mkdir spark-1.4.1
+cd spark-1.4.1
+wget https://s3.amazonaws.com/public-repo-1.hortonworks.com/HDP-LABS/Projects/spark/1.4.1/spark-assembly_2.10-1.4.1.2.3.1.0-8-dist.tar.gz
+#wget http://d3kbcqa49mib13.cloudfront.net/spark-1.4.1-bin-hadoop2.6.tgz -O spark-1.4.1.tgz
+tar -xzvf spark*.gz
 export HDP_VER=`hdp-select status hadoop-client | sed 's/hadoop-client - \(.*\)/\1/'`
-echo "spark.driver.extraJavaOptions -Dhdp.version=$HDP_VER" >> spark-1.4.1-bin-hadoop2.6/conf/spark-defaults.conf
-echo "spark.yarn.am.extraJavaOptions -Dhdp.version=$HDP_VER" >> spark-1.4.1-bin-hadoop2.6/conf/spark-defaults.conf
+echo "spark.driver.extraJavaOptions -Dhdp.version=$HDP_VER" > conf/spark-defaults.conf
+echo "spark.yarn.am.extraJavaOptions -Dhdp.version=$HDP_VER" >> conf/spark-defaults.conf
+echo "spark.yarn.max_executor.failures         3" >> conf/spark-defaults.conf
+echo "spark.yarn.am.waitTime                   10" >> conf/spark-defaults.conf
+echo "spark.history.kerberos.keytab            none" >> conf/spark-defaults.conf
+echo "spark.yarn.preserve.staging.files        False" >> conf/spark-defaults.conf
+echo "spark.yarn.submit.file.replication       3" >> conf/spark-defaults.conf
+echo "spark.history.kerberos.principal         none" >> conf/spark-defaults.conf
+echo "spark.yarn.scheduler.heartbeat.interval-ms       5000" >> conf/spark-defaults.conf
+echo "spark.yarn.queue                         default" >> conf/spark-defaults.conf
+echo "spark.yarn.containerLauncherMaxThreads   25" >> conf/spark-defaults.conf
+echo "spark.yarn.driver.memoryOverhead         384" >> conf/spark-defaults.conf
+echo "spark.history.ui.port                    18080" >> conf/spark-defaults.conf
+echo "spark.yarn.max.executor.failures         3" >> conf/spark-defaults.conf
+echo "spark.yarn.executor.memoryOverhead       384" >> conf/spark-defaults.conf
+echo "-Dhdp.version=$HDP_VER" > conf/java-opts
+touch RELEASE
 exit
 ```
 
@@ -140,14 +158,16 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - executor memory: Executor memory to use (e.g. 512m or 1g)
     - temp file: Temporary file where pre-built package will be downloaded to. If your env has limited space under /tmp, change this to different location. In this case you must ensure that the zeppelin user must be able to write to this location.
     - public name: This is used to setup the Ambari view for Zeppelin. Set this to the public host/IP of zeppelin node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. If installing on cloud, set this to public name/IP of zeppelin node. Alternatively, if you already have a local hosts file entry for the internal hostname of the zeppelin node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname
-    - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.3.1 with HDP 2.3). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /home/zeppelin/spark-1.4.1-bin-hadoop2.6) 
+    - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.3.1 with HDP 2.3). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /home/zeppelin/spark-1.4.1) 
+    - python packages: (Optional) (CentOS only) Space delimited list of python pip packages to install for pyspark e.g. numpy scipy pandas scikit-learn. Can leave empty if not needed, but note that the sample pyspark will not work without it
+
 
     - Sample settings for Spark 1.3.1 (no changes needed if you already created the hosts file entry for sandbox.hortonworks.com)
     ![Image](../master/screenshots/install-4.5-spark1.3.png?raw=true)
 
     - Sample settings for Spark 1.4.1 (assuming you manually installed spark 1.4 as described above):
       - set `zeppelin.spark.version=1.4`
-      - set `spark.home=/home/zeppelin/spark-1.4.1-bin-hadoop2.6`
+      - set `spark.home=/home/zeppelin/spark-1.4.1`
       ![Image](../master/screenshots/install-4.5-spark1.4.png?raw=true)
 
   - ii) Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
@@ -230,22 +250,19 @@ mvn clean package
 
   - The first invocation takes some time as the Spark context is launched. You can tail the interpreter log file to see the details.
 ```
- tail -f /var/log/zeppelin/zeppelin-interpreter-spark--*.log
+ tail -f /var/log/zeppelin/zeppelin-zeppelin-sandbox.hortonworks.com.out
 ```
 - Now try the AON Demo for an example of displaying data on a map
 ![Image](../master/screenshots/map-notebook.png?raw=true)  
 
+  - Once the Spark notebook has completed, you can restart the Spark interpreter via 'Interpreter' tab to free up cluster resources
+  
+- Start Hbase via Ambari and run the Phoenix notebook
+![Image](../master/screenshots/phoenix-notebook.png?raw=true)  
+
 - Other things to try
-  - Test by creating a new note and enter some arithmetic in the first cell and press Shift-Enter to execute. 
-```
-2+2
-```
-  - Test pyspark by entering some python commands in the second cell and press Shift-Enter to execute. 
-```
-%pyspark
-a=(1,2,3,4,5,6)
-print a
-```
+  - If you installed the optional python packages, you can run the pyspark notebook
+  
   - Test settings by checking the spark version and spark home, python path env vars. 
 ```
 sc.version
@@ -254,29 +271,9 @@ System.getenv().get("PYTHONPATH")
 System.getenv().get("SPARK_HOME")
 ``` 
  
-  - If you are using Spark 1.4, `sc.version` should return `String = 1.4.0` and `SPARK_HOME` should be `/home/zeppelin/spark-1.4.1-bin-hadoop2.6/` (or whatever you set)
+  - If you are using Spark 1.4, `sc.version` should return `String = 1.4.0` and `SPARK_HOME` should be `/home/zeppelin/spark-1.4.1` (or whatever you set)
   - If you are using Spark 1.3, `sc.version` should return `String = 1.3.0` and `SPARK_HOME` should be `/usr/hdp/current/spark-client/` 
     
-  - Test scala by pasting the below in the next cell to read/parse a log file from sandbox local disk
-```
-val words = sc.textFile("file:///var/log/ambari-agent/ambari-agent.log").flatMap(line => line.toLowerCase().split(" ")).map(word => (word, 1))
-words.take(5)
-```
-
-  - You can also add a cell as below to read a file from HDFS instead. Prior to running the below cell, you should copy the log file to HDFS by running ```hadoop fs -put /var/log/ambari-agent/ambari-agent.log /tmp``` from your SSH terminal window
-```
-val words = sc.textFile("hdfs:///tmp/ambari-agent.log").flatMap(line => line.toLowerCase().split(" ")).map(word => (word, 1))
-words.take(5)
-```
-![Image](../master/screenshots/3.png?raw=true)
-
-- Now try a hive query and notice how you can view the results as a table and as different charts
-```
-%hive
-select description, salary from default.sample_07
-```
-
-![Image](../master/screenshots/hive-queries.png?raw=true)
 
 - To enable Dependency loading (e.g. loading jars or maven repo/artifacts) or create a form in your notebook, see [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading)
 

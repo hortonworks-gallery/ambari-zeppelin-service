@@ -16,9 +16,15 @@ class Master(Script):
     #location of prebuilt package from July 17 2015
     #snapshot_package='https://www.dropbox.com/s/kthyw8hqgweoo0q/zeppelin-0.5.0-SNAPSHOT.tar.gz'
     #location of prebuilt package from July 21 2015 using spark 1.3   
-    snapshot_package_13='https://www.dropbox.com/s/g9ua0no3gmb16uy/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
+    #snapshot_package_13='https://www.dropbox.com/s/g9ua0no3gmb16uy/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
     #location of prebuilt package from July 21 2015 using Spark 1.4    
-    snapshot_package_14='https://www.dropbox.com/s/0qyvze6t3xhlthn/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
+    #snapshot_package_14='https://www.dropbox.com/s/0qyvze6t3xhlthn/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
+
+    #location of prebuilt package from Sept 15 2015 using spark 1.3   
+    snapshot_package_13='https://www.dropbox.com/s/shf5lzrtaqwf0at/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
+    #location of prebuilt package from Sept 15 2015 using Spark 1.4    
+    snapshot_package_14='https://www.dropbox.com/s/r9u1f02h7grppjw/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
+
 
     Execute('echo User selected spark_version:' + params.spark_version)
         
@@ -97,7 +103,8 @@ class Master(Script):
 
       
       #run setup_snapshot.sh in FIRSTLAUNCH mode
-      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' '+ str(params.setup_view) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' '+ str(params.setup_view) + ' ' + str(params.zookeeper_host) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' CONFIGURE ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' '+ str(params.setup_view) + ' ' + str(params.zookeeper_host) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)    
 
       #if zeppelin installed on ambari server, copy view jar into ambari views dir
       if params.setup_view:
@@ -122,7 +129,7 @@ class Master(Script):
       Execute('echo Compiling zeppelin from source')
       Execute('cd '+params.install_dir+'; git clone https://github.com/apache/incubator-zeppelin >> ' + params.zeppelin_log_file)
       Execute('chown -R ' + params.zeppelin_user + ':' + params.zeppelin_group + ' ' + params.zeppelin_dir)
-      Execute('cd '+params.install_dir+'/incubator-zeppelin; git checkout -b branch-0.5;')
+      #Execute('cd '+params.install_dir+'/incubator-zeppelin; git checkout -b branch-0.5;')
       
       #update the configs specified by user
       self.configure(env)
@@ -130,7 +137,8 @@ class Master(Script):
       Execute('cd '+params.zeppelin_dir+'; mvn -Phadoop-2.6 -Dhadoop.version=2.6.0 -Pspark-'+params.spark_version+' -Ppyspark -Pyarn clean package -P build-distr -DskipTests >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
             
       #run setup_snapshot.sh in FIRSTLAUNCH mode
-      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port)  + ' '+ str(params.setup_view) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port)  + ' '+ str(params.setup_view) + ' ' + str(params.zookeeper_host) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' CONFIGURE ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' '+ str(params.setup_view) + ' ' + str(params.zookeeper_host) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)    
 
       #if zeppelin installed on ambari server, copy view jar into ambari views dir
       if params.setup_view:
@@ -178,9 +186,10 @@ class Master(Script):
     env_content=InlineTemplate(params.zeppelin_env_content)
     File(format("{params.conf_dir}/zeppelin-env.sh"), content=env_content, owner=params.zeppelin_user, group=params.zeppelin_group) # , mode=0777)    
     
-    #run setup_snapshot.sh in configure mode to regenerate interpreter and add back version flags 
-    service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
-    Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' CONFIGURE ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' '+ str(params.setup_view) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)    
+    #during install phase, run setup_snapshot.sh to regenerate interpreter and add hive/phoenix settings
+    #if install: 
+    #  service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
+    #  Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' CONFIGURE ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' '+ str(params.setup_view) + ' ' + str(params.zookeeper_host) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)    
 
   def stop(self, env):
     import params
