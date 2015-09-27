@@ -74,7 +74,7 @@ ssh root@sandbox.hortonworks.com
 
 - Ensure Spark and Hive are installed/started. If not, use Add service wizard to install them. You can also bring down services that are not used by this tutorial (like Oozie/Falcon)
 
-- (Optional) If you want to use Spark 1.4 instead of 1.3 (which comes with HDP 2.3), you can use below commands to download and set it up
+- (Optional) If you want to use Spark 1.4.1 instead of 1.3.1 (which comes with HDP 2.3), you can use below commands to download and set it up using the [official Hortonworks Tech Preview bits](http://hortonworks.com/hadoop-tutorial/apache-spark-1-4-1-technical-preview-with-hdp/)
 ```
 sudo useradd zeppelin
 sudo su zeppelin
@@ -105,6 +105,18 @@ touch RELEASE
 exit
 ```
 
+- (Optional) To download Spark 1.5.0 instead (not supported yet)
+```
+sudo useradd zeppelin
+sudo su zeppelin
+cd /home/zeppelin
+wget http://d3kbcqa49mib13.cloudfront.net/spark-1.5.0-bin-hadoop2.6.tgz -O spark-1.5.0.tgz
+tar -xzvf spark-1.5.0.tgz
+export HDP_VER=`hdp-select status hadoop-client | sed 's/hadoop-client - \(.*\)/\1/'`
+echo "spark.driver.extraJavaOptions -Dhdp.version=$HDP_VER" >> spark-1.5.0-bin-hadoop2.6/conf/spark-defaults.conf
+echo "spark.yarn.am.extraJavaOptions -Dhdp.version=$HDP_VER" >> spark-1.5.0-bin-hadoop2.6/conf/spark-defaults.conf
+exit
+```
 ##### Setup YARN queue:
 
 - (Optional) You can setup/configure a YARN queue to customize what portion of the cluster the Spark job should use. To do this follow the two steps below:

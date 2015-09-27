@@ -24,6 +24,8 @@ class Master(Script):
     snapshot_package_13='https://www.dropbox.com/s/0ii1edjnlpzb394/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
     #location of prebuilt package from Sept 15 2015 using Spark 1.4    
     snapshot_package_14='https://www.dropbox.com/s/eijrv40rb2rqty0/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
+    #location of prebuilt package from Sept 15 2015 using Spark 1.5    
+    snapshot_package_15='https://www.dropbox.com/s/k4sj95jaekeyvak/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
 
 
     Execute('echo User selected spark_version:' + params.spark_version)
@@ -71,6 +73,9 @@ class Master(Script):
       if params.spark_version == '1.4':
         Execute('echo Processing with zeppelin tar compiled with spark 1.4')
         snapshot_package = snapshot_package_14
+      elif params.spark_version == '1.5':
+        Execute('echo Processing with zeppelin tar compiled with spark 1.5')
+        snapshot_package = snapshot_package_15        
       elif params.spark_version == '1.3':
         Execute('echo Processing with zeppelin tar compiled with spark 1.3')
         snapshot_package = snapshot_package_13

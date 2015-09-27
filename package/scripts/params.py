@@ -24,6 +24,9 @@ zeppelin_dirname = 'incubator-zeppelin'
 install_dir = config['configurations']['zeppelin-ambari-config']['zeppelin.install.dir']
 setup_prebuilt = config['configurations']['zeppelin-ambari-config']['zeppelin.setup.prebuilt']
 executor_mem = config['configurations']['zeppelin-ambari-config']['zeppelin.executor.mem']
+executor_instances = config['configurations']['zeppelin-ambari-config']['zeppelin.executor.instances']
+
+
 spark_jar_dir = config['configurations']['zeppelin-ambari-config']['zeppelin.spark.jar.dir']
 spark_jar = format("{spark_jar_dir}/zeppelin-spark-0.5.5-SNAPSHOT.jar")
 spark_version = str(config['configurations']['zeppelin-ambari-config']['zeppelin.spark.version'])
