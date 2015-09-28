@@ -52,13 +52,23 @@ class Master(Script):
     Execute('chown -R ' + params.zeppelin_user + ':' + params.zeppelin_group + ' ' + params.zeppelin_dir)
     
     #if on CentOS and python packages specified, install them
-    if params.python_packages:
+    if params.install_python_packages:
       distribution = platform.linux_distribution()[0].lower()
-      if distribution in ['centos']:
-        Execute('echo Installing python packages')
-        Execute('yum install -y python-devel python-nose python-setuptools gcc gcc-gfortran gcc-c++ blas-devel lapack-devel atlas-devel') 
-        Execute('easy_install pip', ignore_failures=True)      
-        Execute('pip install ' + params.python_packages)      
+      version = str(platform.linux_distribution()[1])
+      #Execute('echo platform.linux_distribution:' + platform.linux_distribution()[0] +'+'+ platform.linux_distribution()[1]+'+'+platform.linux_distribution()[2] )
+
+      #Execute('echo distribution is: ' + distribution)
+      if distribution.startswith('centos'):
+        if version.startswith('7'):
+          Execute('echo Installing python packages for Centos 7')
+          Execute('yum install -y epel-release')
+          Execute('yum install -y python-pip python-matplotlib python-devel numpy scipy python-pandas gcc gcc-c++')
+          Execute('pip install --user --install-option="--prefix=" -U scikit-learn')
+        if version.startswith('6'):
+          Execute('echo Installing python packages for Centos 6')
+          Execute('yum install -y python-devel python-nose python-setuptools gcc gcc-gfortran gcc-c++ blas-devel lapack-devel atlas-devel') 
+          Execute('easy_install pip numpy scipy pandas scikit-learn', ignore_failures=True)      
+          Execute('pip install ' + params.python_packages)      
     
     #Execute('echo master config dump: ' + str(', '.join(params.config['hostLevelParams'])))
     #Execute('echo stack_version_unformatted: ' + params.stack_version_unformatted)

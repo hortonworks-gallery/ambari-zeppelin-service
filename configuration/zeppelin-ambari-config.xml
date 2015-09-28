@@ -67,9 +67,9 @@
   </property>
   
   <property>
-    <name>python.packages</name>
-    <value> </value>
-    <description>(Optional) (CentOS only) Space delimited list of python pip packages to install for pyspark e.g. numpy scipy pandas scikit-learn. Can leave empty if not needed</description>
+    <name>zeppelin.install_python_packages</name>
+    <value>false</value>
+    <description>(Optional) (CentOS only) Whether to install python packages for pyspark. Installs numpy scipy pandas scikit-learn</description>
   </property>
   
     
