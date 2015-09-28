@@ -67,8 +67,8 @@ class Master(Script):
         if version.startswith('6'):
           Execute('echo Installing python packages for Centos 6')
           Execute('yum install -y python-devel python-nose python-setuptools gcc gcc-gfortran gcc-c++ blas-devel lapack-devel atlas-devel') 
-          Execute('easy_install pip numpy scipy pandas scikit-learn', ignore_failures=True)      
-          Execute('pip install ' + params.python_packages)      
+          Execute('easy_install pip', ignore_failures=True)      
+          Execute('pip install numpy scipy pandas scikit-learn')      
     
     #Execute('echo master config dump: ' + str(', '.join(params.config['hostLevelParams'])))
     #Execute('echo stack_version_unformatted: ' + params.stack_version_unformatted)
