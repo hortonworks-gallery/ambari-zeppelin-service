@@ -247,7 +247,7 @@ class Master(Script):
   def install_mvn_repo(self):
     #for centos/RHEL 6/7 maven repo needs to be installed
     distribution = platform.linux_distribution()[0].lower()
-    if distribution in ['centos', 'redhat'] and not os.path.exists('/etc/yum.repos.d/epel-apache-maven.repo'):
+    if distribution.startswith('centos') or distribution.startswith('red hat') and not os.path.exists('/etc/yum.repos.d/epel-apache-maven.repo'):
       Execute('curl -o /etc/yum.repos.d/epel-apache-maven.repo https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo')
 
       
