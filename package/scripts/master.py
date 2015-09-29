@@ -55,9 +55,11 @@ class Master(Script):
     if params.install_python_packages:
       distribution = platform.linux_distribution()[0].lower()
       version = str(platform.linux_distribution()[1])
-      #Execute('echo platform.linux_distribution:' + platform.linux_distribution()[0] +'+'+ platform.linux_distribution()[1]+'+'+platform.linux_distribution()[2] )
+      Execute('echo platform.linux_distribution:' + platform.linux_distribution()[0] +'+'+ platform.linux_distribution()[1]+'+'+platform.linux_distribution()[2] )
 
-      #Execute('echo distribution is: ' + distribution)
+      Execute('echo distribution is: ' + distribution)
+      Execute('echo version is: ' + version)
+      
       if distribution.startswith('centos'):
         if version.startswith('7'):
           Execute('echo Installing python packages for Centos 7')
