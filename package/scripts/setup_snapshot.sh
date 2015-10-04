@@ -89,25 +89,17 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 		unzip notebooks.zip
 		cd ..
 	fi
-	# Setup Hive metadata only if Hive is installed on the cluster
-<<<<<<< HEAD
 	if [[$HIVE_METASTORE_HOST != '0.0.0.0']]
 	then
-=======
-	if $HIVE_METASTORE_HOST != '0.0.0.0':
->>>>>>> 600380203761fe06cb7bd492e85dbfa74dd523e7
-		echo "<configuration>" > conf/hive-site.xml
-		echo "<property>" >> conf/hive-site.xml
-		echo "   <name>hive.metastore.uris</name>" >> conf/hive-site.xml
-		echo "   <value>thrift://$HIVE_METASTORE_HOST:$HIVE_METASTORE_PORT</value>" >> conf/hive-site.xml
-		echo "</property>" >> conf/hive-site.xml		
-		echo "</configuration>" >> conf/hive-site.xml
-<<<<<<< HEAD
+	echo "<configuration>" > conf/hive-site.xml
+	echo "<property>" >> conf/hive-site.xml
+	echo "   <name>hive.metastore.uris</name>" >> conf/hive-site.xml
+	echo "   <value>thrift://$HIVE_METASTORE_HOST:$HIVE_METASTORE_PORT</value>" >> conf/hive-site.xml
+	echo "</property>" >> conf/hive-site.xml		
+	echo "</configuration>" >> conf/hive-site.xml		
+	
 	fi
 	
-=======
-		
->>>>>>> 600380203761fe06cb7bd492e85dbfa74dd523e7
 	#setup view
 	echo "Compiling Zeppelin view..."
 	cd
@@ -177,18 +169,14 @@ export VER_STRING="-Dhdp.version=$HDP_VER"
 echo "updating interpreter.json..."
 #sed -i "s/\"master\": \"yarn-client\",/\"master\": \"yarn-client\",\n\t\"spark.driver.extraJavaOptions\": \"$VER_STRING\",/g" conf/interpreter.json
 #sed -i "s/\"master\": \"yarn-client\",/\"master\": \"yarn-client\",\n\t\"spark.yarn.am.extraJavaOptions\": \"$VER_STRING\",/g" conf/interpreter.json
-if $HIVE_HOST != '0.0.0.0':
-	sed -i "s#\"hive.hiveserver2.url\": \"jdbc:hive2://localhost:10000\",#\"hive.hiveserver2.url\": \"jdbc:hive2://$HIVE_HOST:10000\",#g" conf/interpreter.json
+if [[$HIVE_HOST != '0.0.0.0']]
+then
+sed -i "s#\"hive.hiveserver2.url\": \"jdbc:hive2://localhost:10000\",#\"hive.hiveserver2.url\": \"jdbc:hive2://$HIVE_HOST:10000\",#g" conf/interpreter.json
+fi
 
 sed -i "s#\"phoenix.jdbc.url\": \"jdbc:phoenix:localhost:2181:/hbase-unsecure\",#\"phoenix.jdbc.url\": \"jdbc:phoenix:$ZOOKEEPER_HOST:2181:/hbase-unsecure\",#g" conf/interpreter.json
-
-
-
 #sed -i "s/\"spark.executor.memory\": \"512m\",/\"spark.executor.memory\": \"$EXECUTOR_MEM\",/g" conf/interpreter.json
-
-
 echo "restarting daemon...."
 bin/zeppelin-daemon.sh stop
 sleep 10
-
 echo "Setup complete"
