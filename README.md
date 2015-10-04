@@ -18,7 +18,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - [Deploy on clusters without internet access](https://github.com/hortonworks-gallery/ambari-zeppelin-service#deploy-on-clusters-without-internet-access)
 
 ##### Pre-requisites:
-  - HDP 2.3 with at least HDFS, YARN, Zookeper, Spark and Hive installed. Instructions for older releases available [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README-22.md)
+  - HDP 2.3 with at least HDFS, YARN, Zookeper, Spark installed. Hive installation is optional. Instructions for older releases available [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README-22.md)
   - Have 2 ports available and open for zeppelin and its websocket. These will be defaulted to 9995/9996 (but can be configured in Ambari). If using sandbox on VirtualBox, you need to manually forward these.
 
 ##### Features:
@@ -72,7 +72,7 @@ ssh root@sandbox.hortonworks.com
 ```
 - If you deployed in a VirtualBox Sandbox environment, enable port forwarding on ports 9995 and 9996. If you don't enable port 9996, the Zeppelin UI/Ambari View shows disconnected on the upper right and none of the default tutorials are visible. 
 
-- Ensure Spark and Hive are installed/started. If not, use Add service wizard to install them. You can also bring down services that are not used by this tutorial (like Oozie/Falcon)
+- Ensure Spark is installed/started. If not, use Add service wizard to install Spark. You can also bring down services that are not used by this tutorial (like Oozie/Falcon) and, additionally, install Hive if you want to leverage from Hive tables in Zeppelin Notebook.
 
 - (Optional) If you want to use Spark 1.4.1 instead of 1.3.1 (which comes with HDP 2.3), you can use below commands to download and set it up using the [official Hortonworks Tech Preview bits](http://hortonworks.com/hadoop-tutorial/apache-spark-1-4-1-technical-preview-with-hdp/)
 ```
@@ -248,7 +248,7 @@ mvn clean package
 - Lauch the notebook either via navigating to http://sandbox.hortonworks.com:9995 or via the view by opening http://sandbox.hortonworks.com:8080/#/main/views/ZEPPELIN/1.0.0/INSTANCE_1 should show Zeppelin as Ambari view
 ![Image](../master/screenshots/install-8.png?raw=true)
 
-- There should be a few sample notebooks created. Select the Hive one (make sure Hive service is up first)
+- There should be a few sample notebooks created. Select the Hive one (make sure Hive service is installed and up first)
 - On first launch of a notebook, you will the "Interpreter Binding" settings will be displayed. You will need to click "Save" under the interpreter order.
 ![Image](../master/screenshots/interpreter-binding.png?raw=true)    
 
