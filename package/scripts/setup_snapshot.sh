@@ -90,16 +90,24 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 		cd ..
 	fi
 	# Setup Hive metadata only if Hive is installed on the cluster
+<<<<<<< HEAD
 	if [[$HIVE_METASTORE_HOST != '0.0.0.0']]
 	then
+=======
+	if $HIVE_METASTORE_HOST != '0.0.0.0':
+>>>>>>> 600380203761fe06cb7bd492e85dbfa74dd523e7
 		echo "<configuration>" > conf/hive-site.xml
 		echo "<property>" >> conf/hive-site.xml
 		echo "   <name>hive.metastore.uris</name>" >> conf/hive-site.xml
 		echo "   <value>thrift://$HIVE_METASTORE_HOST:$HIVE_METASTORE_PORT</value>" >> conf/hive-site.xml
 		echo "</property>" >> conf/hive-site.xml		
 		echo "</configuration>" >> conf/hive-site.xml
+<<<<<<< HEAD
 	fi
 	
+=======
+		
+>>>>>>> 600380203761fe06cb7bd492e85dbfa74dd523e7
 	#setup view
 	echo "Compiling Zeppelin view..."
 	cd
