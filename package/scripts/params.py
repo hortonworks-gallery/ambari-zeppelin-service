@@ -57,10 +57,14 @@ zeppelin_env_content = config['configurations']['zeppelin-env']['content']
 
 #detect HS2 details and java home
 master_configs = config['clusterHostInfo']
-hive_server_host = str(master_configs['hive_server_host'][0])
-hive_metastore_host = str(master_configs['hive_metastore_host'][0])
-hive_metastore_port = str(get_port_from_url(config['configurations']['hive-site']['hive.metastore.uris']))
-
+if 'hive_server_host' in master_configs.keys():
+        hive_server_host = str(master_configs['hive_server_host'][0])
+        hive_metastore_host = str(master_configs['hive_metastore_host'][0])
+        hive_metastore_port = str(get_port_from_url(config['configurations']['hive-site']['hive.metastore.uris']))
+else:
+        hive_server_host = '0.0.0.0'
+        hive_metastore_host = '0.0.0.0'
+        hive_metastore_port = '0'
 java64_home = config['hostLevelParams']['java_home']
 ambari_host = str(master_configs['ambari_server_host'][0])
 zeppelin_internalhost = str(master_configs['zeppelin_master_hosts'][0])
