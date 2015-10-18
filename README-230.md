@@ -18,7 +18,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - [Deploy on clusters without internet access](https://github.com/hortonworks-gallery/ambari-zeppelin-service#deploy-on-clusters-without-internet-access)
 
 ##### Pre-requisites:
-  - HDP 2.3.2 with at least HDFS, YARN, Zookeper, Spark installed. Hive installation is optional. Instructions for older releases available [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README-22.md)
+  - HDP 2.3 with at least HDFS, YARN, Zookeper, Spark installed. Hive installation is optional. Instructions for older releases available [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README-22.md)
   - Have 2 ports available and open for zeppelin and its websocket. These will be defaulted to 9995/9996 (but can be configured in Ambari). If using sandbox on VirtualBox, you need to manually forward these.
 
 ##### Features:
@@ -39,7 +39,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 
 
 ##### Limitations:
-  - Only tested on CentOS/RHEL 6 so far
+  - Only tested on CentOS/RHEL 6 and 7 so far
   - Does not yet support install on secured (kerborized) clusters
   - Zeppelin view will be setup using internal hostname, so you would need to have a corresponding hosts file entry on local machine
   - After install, Ambari thinks HDFS, YARN, Hive, HBase need restarting (seems like Ambari bug)
@@ -47,28 +47,20 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
     
 ##### Testing:
   - These steps were tested on:
-    - HDP 2.3.2 cluster installed via Ambari 2.1.2 with both Spark 1.4.1 and 1.5.1 on Centos 6
-    - Latest HDP 2.3.2 sandbox using with both Spark 1.4.1 and 1.5.1 on Centos 6
+    - HDP 2.3 cluster installed via Ambari 2.1 with both Spark 1.4.1 and 1.3.1 on Centos 6
+    - Latest HDP 2.3 sandbox using with both Spark 1.4.1 and 1.3.1 on Centos 6
   
 ##### Videos (from HDP 2.2.4.2):
   - [How to setup zeppelin service](https://www.dropbox.com/s/9s122qbjilw5d2u/zeppelin-1-setup.mp4?dl=0)
   - [How to setup zeppelin view and run sample notebooks](https://www.dropbox.com/s/skhudcy89s7qho1/zeppelin-2-view-demo.mp4?dl=0)
 
-
-##### Note:
-
-- The defaults below work with HDP 2.3.2 which comes with Spark 1.4.1. For other versions, you will have to change the default configs.
-- To check which version of Spark is installed run below:
-```
-cat /usr/hdp/current/spark-client/RELEASE
-```
-
+  
 -------------------
   
 #### Setup Pre-requisites:
 
-- Download HDP 2.3.2 sandbox VM image (Sandbox_HDP_2.3_1_VMWare.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
-- Import Sandbox_HDP_2.3_1_VMWare.ova into VMWare and set the VM memory size to 8GB
+- Download HDP 2.3 sandbox VM image (Sandbox_HDP_2.3_VMWare.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
+- Import Sandbox_HDP_2.3_VMWare.ova into VMWare and set the VM memory size to 8GB
 - Now start the VM
 - After it boots up, find the IP address of the VM and add an entry into your machines hosts file e.g.
 ```
@@ -81,6 +73,37 @@ ssh root@sandbox.hortonworks.com
 - If you deployed in a VirtualBox Sandbox environment, enable port forwarding on ports 9995 and 9996. If you don't enable port 9996, the Zeppelin UI/Ambari View shows disconnected on the upper right and none of the default tutorials are visible. 
 
 - Ensure Spark is installed/started. If not, use Add service wizard to install Spark. You can also bring down services that are not used by this tutorial (like Oozie/Falcon) and, additionally, install Hive if you want to leverage from Hive tables in Zeppelin Notebook.
+
+- (Optional) If you want to use Spark 1.4.1 instead of 1.3.1 (which comes with HDP 2.3), you can use below commands to download and set it up using the [official Hortonworks Tech Preview bits](http://hortonworks.com/hadoop-tutorial/apache-spark-1-4-1-technical-preview-with-hdp/)
+```
+sudo useradd zeppelin
+sudo su zeppelin
+cd /home/zeppelin
+mkdir spark-1.4.1
+cd spark-1.4.1
+wget https://s3.amazonaws.com/public-repo-1.hortonworks.com/HDP-LABS/Projects/spark/1.4.1/spark-assembly_2.10-1.4.1.2.3.1.0-8-dist.tar.gz
+#wget http://d3kbcqa49mib13.cloudfront.net/spark-1.4.1-bin-hadoop2.6.tgz -O spark-1.4.1.tgz
+tar -xzvf spark*.gz
+export HDP_VER=`hdp-select status hadoop-client | sed 's/hadoop-client - \(.*\)/\1/'`
+echo "spark.driver.extraJavaOptions -Dhdp.version=$HDP_VER" > conf/spark-defaults.conf
+echo "spark.yarn.am.extraJavaOptions -Dhdp.version=$HDP_VER" >> conf/spark-defaults.conf
+echo "spark.yarn.max_executor.failures         3" >> conf/spark-defaults.conf
+echo "spark.yarn.am.waitTime                   10" >> conf/spark-defaults.conf
+echo "spark.history.kerberos.keytab            none" >> conf/spark-defaults.conf
+echo "spark.yarn.preserve.staging.files        False" >> conf/spark-defaults.conf
+echo "spark.yarn.submit.file.replication       3" >> conf/spark-defaults.conf
+echo "spark.history.kerberos.principal         none" >> conf/spark-defaults.conf
+echo "spark.yarn.scheduler.heartbeat.interval-ms       5000" >> conf/spark-defaults.conf
+echo "spark.yarn.queue                         default" >> conf/spark-defaults.conf
+echo "spark.yarn.containerLauncherMaxThreads   25" >> conf/spark-defaults.conf
+echo "spark.yarn.driver.memoryOverhead         384" >> conf/spark-defaults.conf
+echo "spark.history.ui.port                    18080" >> conf/spark-defaults.conf
+echo "spark.yarn.max.executor.failures         3" >> conf/spark-defaults.conf
+echo "spark.yarn.executor.memoryOverhead       384" >> conf/spark-defaults.conf
+echo "-Dhdp.version=$HDP_VER" > conf/java-opts
+touch RELEASE
+exit
+```
 
 - (Optional) To download Spark 1.5.0 instead (not supported yet)
 ```
@@ -143,20 +166,20 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - setup prebuilt: If true, will download previously built package (instead of building from source). To compile from source instead, set to false. If cluster does not have internet access, manually copy the tar.gz to /tmp/zeppelin.tar.gz on Ambari server and set this property to true. 
     - setup view: Whether the Zeppelin view should be compiled. Set to false if cluster does not have internet access
     - spark jar dir: Shared location where zeppelin spark jar will be copied to. Should be accesible by all cluster nodes. Its possible to manually host this on object store. For example to point this to WASB, you can set this to `wasb:///apps/zeppelin`
-    - spark version: Version of Spark installed in location specified in SPARK_HOME. Default with HDP 2.3.2 is 1.4, but can also be set to 1.5 (if you manually installed Spark 1.5)
+    - spark version: Version of Spark installed in location specified in SPARK_HOME. Default with HDP 2.3 is 1.3, but can also be set to 1.4 or 1.2 (if you manually installed Spark 1.2 or 1.4)
     - executor memory: Executor memory to use (e.g. 512m or 1g)
     - temp file: Temporary file where pre-built package will be downloaded to. If your env has limited space under /tmp, change this to different location. In this case you must ensure that the zeppelin user must be able to write to this location.
     - public name: This is used to setup the Ambari view for Zeppelin. Set this to the public host/IP of zeppelin node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. If installing on cloud, set this to public name/IP of zeppelin node. Alternatively, if you already have a local hosts file entry for the internal hostname of the zeppelin node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname
-    - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.4.1 with HDP 2.3.2). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /home/zeppelin/spark-1.4.1) 
+    - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.3.1 with HDP 2.3). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /home/zeppelin/spark-1.4.1) 
     - python packages: (Optional) (CentOS only) - Set this to true to install numpy scipy pandas scikit-learn. Note that selecting this option will increase the install time by 5-10 min depending on your connection. Can leave false if not needed, but note that the sample pyspark notebook will not work without it
 
 
-    - Sample settings for Spark 1.4.1 (no changes needed if you already created the hosts file entry for sandbox.hortonworks.com)
+    - Sample settings for Spark 1.3.1 (no changes needed if you already created the hosts file entry for sandbox.hortonworks.com)
     ![Image](../master/screenshots/install-4.5-spark1.3.png?raw=true)
 
-    - Sample settings for Spark 1.5.1 (assuming you manually installed spark 1.5 as described above):
-      - set `zeppelin.spark.version=1.5`
-      - set `spark.home=/home/zeppelin/spark-1.5.1`
+    - Sample settings for Spark 1.4.1 (assuming you manually installed spark 1.4 as described above):
+      - set `zeppelin.spark.version=1.4`
+      - set `spark.home=/home/zeppelin/spark-1.4.1`
       ![Image](../master/screenshots/install-4.5-spark1.4.png?raw=true)
 
   - ii) Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
@@ -260,8 +283,8 @@ System.getenv().get("PYTHONPATH")
 System.getenv().get("SPARK_HOME")
 ``` 
  
-  - If you are using Spark 1.5, `sc.version` should return `String = 1.5.0` and `SPARK_HOME` should be `/home/zeppelin/spark-1.5.1` (or whatever you set)
-  - If you are using Spark 1.4, `sc.version` should return `String = 1.4.0` and `SPARK_HOME` should be `/usr/hdp/current/spark-client/` 
+  - If you are using Spark 1.4, `sc.version` should return `String = 1.4.0` and `SPARK_HOME` should be `/home/zeppelin/spark-1.4.1` (or whatever you set)
+  - If you are using Spark 1.3, `sc.version` should return `String = 1.3.0` and `SPARK_HOME` should be `/usr/hdp/current/spark-client/` 
     
 
 - To enable Dependency loading (e.g. loading jars or maven repo/artifacts) or create a form in your notebook, see [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading)

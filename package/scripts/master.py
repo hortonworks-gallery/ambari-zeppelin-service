@@ -20,11 +20,16 @@ class Master(Script):
     #location of prebuilt package from July 21 2015 using Spark 1.4    
     #snapshot_package_14='https://www.dropbox.com/s/0qyvze6t3xhlthn/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
 
-    #location of prebuilt package from Sept 15 2015 using spark 1.3   
-    snapshot_package_13='https://www.dropbox.com/s/0ii1edjnlpzb394/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
-    #location of prebuilt package from Sept 15 2015 using Spark 1.4    
-    snapshot_package_14='https://www.dropbox.com/s/eijrv40rb2rqty0/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
-    #location of prebuilt package from Sept 15 2015 using Spark 1.5    
+    #location of prebuilt package from Sept 15 2015 using spark 1.3 that comes with HDP 2.3.0
+    snapshot_package_13='https://www.dropbox.com/s/1qxwghnr8xwysh0/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
+    
+    #location of prebuilt package from Sept 15 2015 using Spark 1.4 from Apache  
+    #snapshot_package_14='https://www.dropbox.com/s/eijrv40rb2rqty0/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
+    
+    #location of prebuilt package from Sept 15 2015 using Spark 1.4 that comes with HDP 2.3.2   
+    snapshot_package_14='https://www.dropbox.com/s/vj8uy588u7hiezd/zeppelin-0.5.5-incubating-SNAPSHOT-HDP232.tar.gz'
+    
+    #location of prebuilt package from Sept 15 2015 using Spark 1.5 from Apache   
     snapshot_package_15='https://www.dropbox.com/s/k4sj95jaekeyvak/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
 
 
@@ -151,7 +156,7 @@ class Master(Script):
       #update the configs specified by user
       self.configure(env)
             
-      Execute('cd '+params.zeppelin_dir+'; mvn -Phadoop-2.6 -Dhadoop.version=2.6.0 -Pspark-'+params.spark_version+' -Ppyspark -Pyarn clean package -P build-distr -DskipTests >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
+      Execute('cd '+params.zeppelin_dir+'; mvn -Phadoop-2.6 -Dhadoop.version=2.7.1 -Pspark-'+params.spark_version+' -Ppyspark -Pyarn clean package -P build-distr -DskipTests >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
             
       #run setup_snapshot.sh in FIRSTLAUNCH mode
       Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port)  + ' '+ str(params.setup_view) + ' ' + str(params.zookeeper_host) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
