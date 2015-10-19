@@ -142,10 +142,10 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - python packages: (Optional) (CentOS only) - Set this to true to install numpy scipy pandas scikit-learn. Note that selecting this option will increase the install time by 5-10 min depending on your connection. Can leave false if not needed, but note that the sample pyspark notebook will not work without it
 
 
-    - Sample settings for Spark 1.4.1 (no changes needed if you already created the hosts file entry for sandbox.hortonworks.com)
+    - Sample settings for using the Spark that came installed with HDP (no changes needed if you already created the hosts file entry for sandbox.hortonworks.com)
     ![Image](../master/screenshots/install-4.5-spark1.3.png?raw=true)
 
-    - Sample settings for Spark 1.5.0 (assuming you manually installed spark 1.5 as described above):
+    - Sample settings if you installed custom Spark (e.g. assuming you manually installed spark 1.5 as described above):
       - set `spark.home=/home/zeppelin/spark-1.5.0-bin-hadoop2.6/`
       ![Image](../master/screenshots/install-4.5-spark1.4.png?raw=true)
 
