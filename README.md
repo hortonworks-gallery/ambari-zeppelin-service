@@ -215,7 +215,7 @@ mvn clean package
 - Lauch the notebook either via navigating to http://sandbox.hortonworks.com:9995 or via the view by opening http://sandbox.hortonworks.com:8080/#/main/views/ZEPPELIN/1.0.0/INSTANCE_1 should show Zeppelin as Ambari view
 ![Image](../master/screenshots/install-8.png?raw=true)
 
-- There should be a few sample notebooks created. Select the Hive one (make sure Hive service is installed and up first)
+- There should be a few sample notebooks created. Select the Hive one (*make sure Hive service is installed and started first*)
 - On first launch of a notebook, you will the "Interpreter Binding" settings will be displayed. You will need to click "Save" under the interpreter order.
 ![Image](../master/screenshots/interpreter-binding.png?raw=true)    
 
@@ -236,10 +236,22 @@ mvn clean package
 
   - Once the Spark notebook has completed, you can restart the Spark interpreter via 'Interpreter' tab to free up cluster resources
   
-- Start Hbase via Ambari and run the Phoenix notebook
+- Start Hbase via Ambari and run the Phoenix notebook (*make sure HBase is started and Phoenix is enabled/installed first*)
+  - To check if Phoenix client is installed, run below on Zeppelin node and ensure below dir is not empty
+  ```
+  ls /usr/hdp/current/phoenix-client/*
+  ```
+  - If Phoenix is not installed, follow the below to install:
+    - In Ambari, under Hbase > Configs > Settings > Phoenix SQL > Enabled
+    - Stop Hbase and then start Hbase to invoke the Phoenix install
+    
+  - Once setup, you should be able to run through the sample Phoenix notebook  
 ![Image](../master/screenshots/phoenix-notebook.png?raw=true)  
 
 - Other things to try
+  - Access hive tables from SparkSql
+    - If Hive metastore is installed/started, you should be able to run queries against Hive tables from SparkSql
+    
   - If you installed the optional python packages, you can run the pyspark notebook
   
   - Test settings by checking the spark version and spark home, python path env vars. 
