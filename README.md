@@ -47,8 +47,8 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
     
 ##### Testing:
   - These steps were tested on:
-    - HDP 2.3.2 cluster installed via Ambari 2.1.2 (comes with Spark 1.4.1) on Centos 6. Also tested with manually installed Spark 1.5.1 from Apache
-    - Latest HDP 2.3.0 sandbox (comes with Spark 1.3.1) on Centos 6. Also tested with manually installed Spark 1.5.1 from Apache
+    - HDP 2.3.2 cluster installed via Ambari 2.1.2 (comes with Spark 1.4.1) on Centos 6. Also tested with manually installed Spark 1.5.0 from Apache
+    - Latest HDP 2.3.0 sandbox (comes with Spark 1.3.1) on Centos 6. Also tested with manually installed Spark 1.5.0 from Apache
   
 ##### Videos (from HDP 2.2.4.2):
   - [How to setup zeppelin service](https://www.dropbox.com/s/9s122qbjilw5d2u/zeppelin-1-setup.mp4?dl=0)
@@ -138,16 +138,16 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - executor memory: Executor memory to use (e.g. 512m or 1g)
     - temp file: Temporary file where pre-built package will be downloaded to. If your env has limited space under /tmp, change this to different location. In this case you must ensure that the zeppelin user must be able to write to this location.
     - public name: This is used to setup the Ambari view for Zeppelin. Set this to the public host/IP of zeppelin node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. If installing on cloud, set this to public name/IP of zeppelin node. Alternatively, if you already have a local hosts file entry for the internal hostname of the zeppelin node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname
-    - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.4.1 with HDP 2.3.2). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /home/zeppelin/spark-1.5.10). The service will detect the version of spark installed here (via RELEASE file) and pull appropriate prebuilt Zeppelin package  
+    - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.4.1 with HDP 2.3.2). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /home/zeppelin/spark-1.5.0-bin-hadoop2.6/). The service will detect the version of spark installed here (via RELEASE file) and pull appropriate prebuilt Zeppelin package  
     - python packages: (Optional) (CentOS only) - Set this to true to install numpy scipy pandas scikit-learn. Note that selecting this option will increase the install time by 5-10 min depending on your connection. Can leave false if not needed, but note that the sample pyspark notebook will not work without it
 
 
     - Sample settings for Spark 1.4.1 (no changes needed if you already created the hosts file entry for sandbox.hortonworks.com)
     ![Image](../master/screenshots/install-4.5-spark1.3.png?raw=true)
 
-    - Sample settings for Spark 1.5.1 (assuming you manually installed spark 1.5 as described above):
+    - Sample settings for Spark 1.5.0 (assuming you manually installed spark 1.5 as described above):
       - set `zeppelin.spark.version=1.5`
-      - set `spark.home=/home/zeppelin/spark-1.5.1`
+      - set `spark.home=/home/zeppelin/spark-1.5.0-bin-hadoop2.6/`
       ![Image](../master/screenshots/install-4.5-spark1.4.png?raw=true)
 
   - ii) Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
@@ -251,7 +251,7 @@ System.getenv().get("PYTHONPATH")
 System.getenv().get("SPARK_HOME")
 ``` 
  
-  - If you are using Spark 1.5, `sc.version` should return `String = 1.5.0` and `SPARK_HOME` should be `/home/zeppelin/spark-1.5.1` (or whatever you set)
+  - If you are using Spark 1.5, `sc.version` should return `String = 1.5.0` and `SPARK_HOME` should be `/home/zeppelin/spark-1.5.0-bin-hadoop2.6/` (or whatever you set)
   - If you are using Spark 1.4, `sc.version` should return `String = 1.4.0` and `SPARK_HOME` should be `/usr/hdp/current/spark-client/` 
     
 
