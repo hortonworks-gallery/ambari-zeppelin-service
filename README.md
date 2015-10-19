@@ -18,7 +18,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - [Deploy on clusters without internet access](https://github.com/hortonworks-gallery/ambari-zeppelin-service#deploy-on-clusters-without-internet-access)
 
 ##### Pre-requisites:
-  - HDP 2.3.2 with at least HDFS, YARN, Zookeper, Spark installed. Hive installation is optional. Instructions for older releases available [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README-22.md)
+  - HDP 2.3.x with at least HDFS, YARN, Zookeper, Spark installed. Hive installation is optional. Instructions for older releases available [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README-22.md)
   - Have 2 ports available and open for zeppelin and its websocket. These will be defaulted to 9995/9996 (but can be configured in Ambari). If using sandbox on VirtualBox, you need to manually forward these.
 
 ##### Features:
@@ -47,21 +47,13 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
     
 ##### Testing:
   - These steps were tested on:
-    - HDP 2.3.2 cluster installed via Ambari 2.1.2 with both Spark 1.4.1 and 1.5.1 on Centos 6
-    - Latest HDP 2.3.2 sandbox using with both Spark 1.4.1 and 1.5.1 on Centos 6
+    - HDP 2.3.2 cluster installed via Ambari 2.1.2 (comes with Spark 1.4.1) on Centos 6. Also tested with manually installed Spark 1.5.1 from Apache
+    - Latest HDP 2.3.0 sandbox (comes with Spark 1.3.1) on Centos 6. Also tested with manually installed Spark 1.5.1 from Apache
   
 ##### Videos (from HDP 2.2.4.2):
   - [How to setup zeppelin service](https://www.dropbox.com/s/9s122qbjilw5d2u/zeppelin-1-setup.mp4?dl=0)
   - [How to setup zeppelin view and run sample notebooks](https://www.dropbox.com/s/skhudcy89s7qho1/zeppelin-2-view-demo.mp4?dl=0)
 
-
-##### Note:
-
-- The defaults below work with HDP 2.3.2 which comes with Spark 1.4.1. For other versions, you will have to change the default configs.
-- To check which version of Spark is installed run below:
-```
-cat /usr/hdp/current/spark-client/RELEASE
-```
 
 -------------------
   
@@ -80,7 +72,7 @@ ssh root@sandbox.hortonworks.com
 ```
 - If you deployed in a VirtualBox Sandbox environment, enable port forwarding on ports 9995 and 9996. If you don't enable port 9996, the Zeppelin UI/Ambari View shows disconnected on the upper right and none of the default tutorials are visible. 
 
-- Ensure Spark is installed/started. If not, use Add service wizard to install Spark. You can also bring down services that are not used by this tutorial (like Oozie/Falcon) and, additionally, install Hive if you want to leverage from Hive tables in Zeppelin Notebook.
+- Ensure Spark is installed. If not, use Add service wizard to install Spark. You can also bring down services that are not used by this tutorial (like Oozie/Falcon) and, additionally, install Hive if you want to leverage from Hive tables in Zeppelin Notebook.
 
 - (Optional) To download Spark 1.5.0 instead (not supported yet)
 ```
@@ -143,11 +135,10 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - setup prebuilt: If true, will download previously built package (instead of building from source). To compile from source instead, set to false. If cluster does not have internet access, manually copy the tar.gz to /tmp/zeppelin.tar.gz on Ambari server and set this property to true. 
     - setup view: Whether the Zeppelin view should be compiled. Set to false if cluster does not have internet access
     - spark jar dir: Shared location where zeppelin spark jar will be copied to. Should be accesible by all cluster nodes. Its possible to manually host this on object store. For example to point this to WASB, you can set this to `wasb:///apps/zeppelin`
-    - spark version: Version of Spark installed in location specified in SPARK_HOME. Default with HDP 2.3.2 is 1.4, but can also be set to 1.5 (if you manually installed Spark 1.5)
     - executor memory: Executor memory to use (e.g. 512m or 1g)
     - temp file: Temporary file where pre-built package will be downloaded to. If your env has limited space under /tmp, change this to different location. In this case you must ensure that the zeppelin user must be able to write to this location.
     - public name: This is used to setup the Ambari view for Zeppelin. Set this to the public host/IP of zeppelin node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. If installing on cloud, set this to public name/IP of zeppelin node. Alternatively, if you already have a local hosts file entry for the internal hostname of the zeppelin node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname
-    - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.4.1 with HDP 2.3.2). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /home/zeppelin/spark-1.4.1) 
+    - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.4.1 with HDP 2.3.2). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /home/zeppelin/spark-1.5.10). The service will detect the version of spark installed here (via RELEASE file) and pull appropriate prebuilt Zeppelin package  
     - python packages: (Optional) (CentOS only) - Set this to true to install numpy scipy pandas scikit-learn. Note that selecting this option will increase the install time by 5-10 min depending on your connection. Can leave false if not needed, but note that the sample pyspark notebook will not work without it
 
 

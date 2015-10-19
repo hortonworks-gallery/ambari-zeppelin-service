@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from resource_management import *
 from resource_management.libraries.script.script import Script
-import sys, os
+import sys, os, re
 from resource_management.libraries.functions.version import format_hdp_stack_version
 from resource_management.libraries.functions.default import default
 #from resource_management.libraries.functions import conf_select
@@ -31,13 +31,15 @@ setup_prebuilt = 'true'
 
 spark_jar_dir = config['configurations']['zeppelin-ambari-config']['zeppelin.spark.jar.dir']
 spark_jar = format("{spark_jar_dir}/zeppelin-spark-0.5.5-SNAPSHOT.jar")
-spark_version = str(config['configurations']['zeppelin-ambari-config']['zeppelin.spark.version'])
 setup_view = config['configurations']['zeppelin-ambari-config']['zeppelin.setup.view']
 temp_file = config['configurations']['zeppelin-ambari-config']['zeppelin.temp.file']
 spark_home = config['configurations']['zeppelin-ambari-config']['spark.home']
 zeppelin_host = config['configurations']['zeppelin-ambari-config']['zeppelin.host.publicname']
 install_python_packages = config['configurations']['zeppelin-ambari-config']['zeppelin.install_python_packages']
 
+#spark_version = str(config['configurations']['zeppelin-ambari-config']['zeppelin.spark.version'])
+fline=open(spark_home + "/RELEASE").readline().rstrip()
+spark_version = re.search('Spark (\d\.\d).+',fline).group(1)
 
 # params from zeppelin-config
 zeppelin_port = config['configurations']['zeppelin-config']['zeppelin.server.port']

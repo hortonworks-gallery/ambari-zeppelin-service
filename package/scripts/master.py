@@ -32,8 +32,6 @@ class Master(Script):
     #location of prebuilt package from Sept 15 2015 using Spark 1.5 from Apache   
     snapshot_package_15='https://www.dropbox.com/s/k4sj95jaekeyvak/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
 
-
-    Execute('echo User selected spark_version:' + params.spark_version)
         
     #e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.2/services/zeppelin-stack/package
     service_packagedir = os.path.realpath(__file__).split('/scripts')[0] 
@@ -41,20 +39,27 @@ class Master(Script):
     Execute('find '+service_packagedir+' -iname "*.sh" | xargs chmod +x')
 
     #Create user and group if they don't exist
-    self.create_linux_user(params.zeppelin_user, params.zeppelin_group)
+    self.create_linux_user(params.zeppelin_user, params.zeppelin_group)                              
     self.create_hdfs_user(params.zeppelin_user, params.spark_jar_dir)
+
+    #remove /opt/incubator-zeppelin if already exists        
+    Execute('rm -rf ' + params.zeppelin_dir, ignore_failures=True)
         
-    #create the log dir if it not already present
-    Directory([params.zeppelin_pid_dir, params.zeppelin_log_dir],
+    #create the log, pid, zeppelin dirs
+    Directory([params.zeppelin_pid_dir, params.zeppelin_log_dir, params.zeppelin_dir],
             owner=params.zeppelin_user,
             group=params.zeppelin_group,
             recursive=True
     )   
-         
-    Execute('touch ' +  params.zeppelin_log_file, user=params.zeppelin_user)    
-    Execute('rm -rf ' + params.zeppelin_dir, ignore_failures=True)
-    Execute('mkdir '+params.zeppelin_dir)
-    Execute('chown -R ' + params.zeppelin_user + ':' + params.zeppelin_group + ' ' + params.zeppelin_dir)
+
+    File(params.zeppelin_log_file,
+            mode=0644,
+            owner=params.zeppelin_user,
+            group=params.zeppelin_group,
+            content=''
+    )
+             
+    Execute('echo spark_version:' + params.spark_version + ' detected for spark_home: ' + params.spark_home + ' >> ' + params.zeppelin_log_file)
     
     #if on CentOS and python packages specified, install them
     if params.install_python_packages:
