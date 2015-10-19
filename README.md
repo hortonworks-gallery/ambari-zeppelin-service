@@ -146,7 +146,6 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     ![Image](../master/screenshots/install-4.5-spark1.3.png?raw=true)
 
     - Sample settings for Spark 1.5.0 (assuming you manually installed spark 1.5 as described above):
-      - set `zeppelin.spark.version=1.5`
       - set `spark.home=/home/zeppelin/spark-1.5.0-bin-hadoop2.6/`
       ![Image](../master/screenshots/install-4.5-spark1.4.png?raw=true)
 
@@ -252,7 +251,7 @@ System.getenv().get("SPARK_HOME")
 ``` 
  
   - If you are using Spark 1.5, `sc.version` should return `String = 1.5.0` and `SPARK_HOME` should be `/home/zeppelin/spark-1.5.0-bin-hadoop2.6/` (or whatever you set)
-  - If you are using Spark 1.4, `sc.version` should return `String = 1.4.0` and `SPARK_HOME` should be `/usr/hdp/current/spark-client/` 
+  - If you are using Spark 1.3 or 1.4, `sc.version` should return appropriately and `SPARK_HOME` should be `/usr/hdp/current/spark-client/` 
     
 
 - To enable Dependency loading (e.g. loading jars or maven repo/artifacts) or create a form in your notebook, see [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading)
@@ -377,10 +376,7 @@ unzip /tmp/ZEPPELIN.zip -d /var/lib/ambari-server/resources/stacks/HDP/$VERSION/
 - Go through 'Add service' wizard, same as above, making the below config changes:
   - Advanced zeppelin-ambari-config
     - zeppelin.setup.view = false (this ensures it does not try to build the view or download sample notebooks)
-    - zeppelin.spark.version = 1.2 (or whatever is the version of package you downloaded)
-
-  - Advanced zeppelin-env 
-    - export SPARK_HOME=/your/spark/home (only needs to be changed if you installed your own spark version)
+    - zeppelin.spark.home = /your/spark/home (only needs to be changed if you installed your own spark version)
     
 - Proceed with remaining screens and click Deploy
 
