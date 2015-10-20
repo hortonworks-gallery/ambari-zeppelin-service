@@ -21,7 +21,9 @@ class Master(Script):
     #snapshot_package_14='https://www.dropbox.com/s/0qyvze6t3xhlthn/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
 
     #location of prebuilt package from Sept 15 2015 using spark 1.3 that comes with HDP 2.3.0
-    snapshot_package_13='https://www.dropbox.com/s/1qxwghnr8xwysh0/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
+    #snapshot_package_13='https://www.dropbox.com/s/1qxwghnr8xwysh0/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
+    snapshot_package_13='https://www.dropbox.com/s/k4dvmmxzd08q3h9/zeppelin-0.5.5-incubating-SNAPSHOT-repackage.tar.gz'
+    
     
     #location of prebuilt package from Sept 15 2015 using Spark 1.4 from Apache  
     #snapshot_package_14='https://www.dropbox.com/s/eijrv40rb2rqty0/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
