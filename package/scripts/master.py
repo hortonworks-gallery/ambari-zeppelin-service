@@ -29,8 +29,9 @@ class Master(Script):
     #snapshot_package_14='https://www.dropbox.com/s/eijrv40rb2rqty0/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
     
     #location of prebuilt package from Sept 15 2015 using Spark 1.4 that comes with HDP 2.3.2   
-    snapshot_package_14='https://www.dropbox.com/s/vj8uy588u7hiezd/zeppelin-0.5.5-incubating-SNAPSHOT-HDP232.tar.gz'
-    
+    #snapshot_package_14='https://www.dropbox.com/s/vj8uy588u7hiezd/zeppelin-0.5.5-incubating-SNAPSHOT-HDP232.tar.gz'
+    snapshot_package_14='http://public-repo-1.hortonworks.com/HDP-LABS/Projects/zeppelin/0.6.0-incubating-1.4.1.2.3.2.0-2950/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
+
     #location of prebuilt package from Sept 15 2015 using Spark 1.5 from Apache   
     snapshot_package_15='https://www.dropbox.com/s/k4sj95jaekeyvak/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
 
@@ -156,7 +157,7 @@ class Master(Script):
       #Execute('cp '+service_packagedir+'/files/settings.xml /root/.m2/')
       
       Execute('echo Compiling zeppelin from source')
-      Execute('cd '+params.install_dir+'; git clone https://github.com/rconlinehwx/incubator-zeppelin >> ' + params.zeppelin_log_file)
+      Execute('cd '+params.install_dir+'; git clone https://github.com/apache/incubator-zeppelin  >> ' + params.zeppelin_log_file)
       Execute('chown -R ' + params.zeppelin_user + ':' + params.zeppelin_group + ' ' + params.zeppelin_dir)
       #Execute('cd '+params.install_dir+'/incubator-zeppelin; git checkout -b branch-0.5;')
       
