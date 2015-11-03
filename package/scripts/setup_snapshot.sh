@@ -84,9 +84,13 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
     then
 		echo "Importing notebooks"
 		cd notebook
-		#wget https://www.dropbox.com/s/5eqztenz9ncm4jc/notebooks-150829.zip?dl=0 -O notebooks.zip
-		wget https://www.dropbox.com/s/cgrxeaedkg42tcr/notebooks.zip -O notebooks.zip
+		#wget https://www.dropbox.com/s/cgrxeaedkg42tcr/notebooks.zip -O notebooks.zip
+		wget https://github.com/hortonworks-gallery/zeppelin-notebooks/archive/master.zip -O notebooks.zip
 		unzip notebooks.zip
+		if [ -d "zeppelin-notebooks-master" ]; then
+			mv zeppelin-notebooks-master/* .
+			rm -rf zeppelin-notebooks-master
+		fi
 		cd ..
 	fi
 	if [[$HIVE_METASTORE_HOST != '0.0.0.0']]
