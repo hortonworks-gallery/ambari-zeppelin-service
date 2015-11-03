@@ -31,7 +31,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Runs zeppelin as configurable user (by default zeppelin), instead of root
   - Uploads zeppelin jar to /apps/zeppelin location in HDFS to be accessible from all nodes in cluster
   - Exposes the [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template) and [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template) files in Ambari for easy configuration
-  - Deploys sample notebooks (that demo hive, spark and sparksql, shell intepreters)
+  - Deploys [sample notebooks from Hortonworks Gallery](https://github.com/hortonworks-gallery/zeppelin-notebooks) that demo hive, spark and sparksql, shell intepreters
   - Autodetects and configures Zeppelin to point to Hive metastore so Spark commands can access Hive tables out of the box
   - Spark, pyspark, sparksql, hive, shell interpreters were tested to be working
   - Offline mode: can manually copy tar to /tmp/zeppelin.tar.gz to allow service to be installed on clusters without internet access
