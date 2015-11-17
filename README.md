@@ -1,9 +1,12 @@
 #### An Ambari Service for Zeppelin
 Ambari service for easily installing and managing [Apache Zeppelin](http://zeppelin.incubator.apache.org/) on [HDP](http://hortonworks.com/hdp/) cluster
 
-See [blog](http://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/) for steps on manual Zeppelin setup
-
 Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
+
+##### Other ways to use Zeppelin on HDP:
+  - Manually download/run Zeppelin using TechPreview instructions [here](http://hortonworks.com/hadoop/zeppelin/#section_3)
+  - Latest Sandbox also comes with Zeppelin managed as Ambari service and view
+
 
 ##### Contents:
   - [Setup Pre-requisites](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-pre-requisites)
@@ -55,6 +58,8 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - [How to setup zeppelin view and run sample notebooks](https://www.dropbox.com/s/skhudcy89s7qho1/zeppelin-2-view-demo.mp4?dl=0)
 
 
+
+  
 -------------------
   
 #### Setup Pre-requisites:
