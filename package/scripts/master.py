@@ -39,11 +39,16 @@ class Master(Script):
     snapshot_package_13='https://www.dropbox.com/s/k4dvmmxzd08q3h9/zeppelin-0.5.5-incubating-SNAPSHOT-repackage.tar.gz'
 
     #location of prebuilt package from Oct 23 2015 using spark 1.4.1 that comes with HDP 2.3.2 - this is the TP build
-    snapshot_package_14='http://public-repo-1.hortonworks.com/HDP-LABS/Projects/zeppelin/0.6.0-incubating-1.4.1.2.3.2.0-2950/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
+    #snapshot_package_14='http://public-repo-1.hortonworks.com/HDP-LABS/Projects/zeppelin/0.6.0-incubating-1.4.1.2.3.2.0-2950/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
 
-    #location of prebuilt package from Oct 23 2015 using Apache spark 1.5.1  
-    snapshot_package_15='https://www.dropbox.com/s/7ysykb4blzpcffy/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
+    #location of prebuilt 0.5.5 package compiled using HDP Spark 1.4.1 TP that comes with HDP 2.3.2
+    snapshot_package_14='https://www.dropbox.com/s/nwpv7dr1a724vtv/zeppelin-0.5.5-incubating-HDP232.tar.gz?dl=0'
     
+    #location of prebuilt package from Oct 23 2015 using Apache spark 1.5.1  
+    #snapshot_package_15='https://www.dropbox.com/s/7ysykb4blzpcffy/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
+
+    #location of prebuilt 0.5.5 package compiled using HDP Spark 1.5.1 TP
+    snapshot_package_15='https://dl.dropboxusercontent.com/u/114020/zeppelin-snapshots/spark-1.5.1TP-HDP2.3.2/zeppelin-0.5.5-incubating-spark151-tp.tar.gz'
     
     #e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.2/services/zeppelin-stack/package
     service_packagedir = os.path.realpath(__file__).split('/scripts')[0] 
