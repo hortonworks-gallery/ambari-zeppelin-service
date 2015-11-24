@@ -51,7 +51,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 ##### Testing:
   - These steps were tested on:
     - HDP 2.3.2 cluster installed via Ambari 2.1.2 (comes with Spark 1.4.1) on Centos 6. Also tested with manually installed Spark 1.5.1 from [HDP Tech preview](https://hortonworks.com/hadoop-tutorial/apache-spark-1-5-1-technical-preview-with-hdp-2-3/)
-    - Latest HDP 2.3.0 sandbox (comes with Spark 1.3.1) on Centos 6. Also tested with manually installed Spark 1.5.1 from [HDP Tech preview](https://hortonworks.com/hadoop-tutorial/apache-spark-1-5-1-technical-preview-with-hdp-2-3/)
+    - Latest HDP 2.3.2 sandbox (comes with Spark 1.4.1) on Centos 6. Also tested with manually installed Spark 1.5.1 from [HDP Tech preview](https://hortonworks.com/hadoop-tutorial/apache-spark-1-5-1-technical-preview-with-hdp-2-3/)
   
 ##### Videos (from HDP 2.2.4.2):
   - [How to setup zeppelin service](https://www.dropbox.com/s/9s122qbjilw5d2u/zeppelin-1-setup.mp4?dl=0)
