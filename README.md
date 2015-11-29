@@ -296,7 +296,7 @@ wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-servi
 curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/blueprints/zeppelinBP -d @blueprint-4node-zeppelin.json
 
 
-wget https://raw.githubusercontent.com/abajwa-hw/logsearch-service/master/cluster-4node.json
+wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-service/master/cluster-4node.json
 curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/clusters/zeppelinCluster -d @cluster-4node.json
 ```
 - You can monitor the progress of the deployment via Ambari (e.g. http://node1:8080). 
