@@ -4,67 +4,29 @@ set -e
 export INSTALL_DIR=$1
 
 #e.g. sandbox.hortonworks.com
-export HIVE_HOST=$2
-
-#e.g. sandbox.hortonworks.com
-export HIVE_METASTORE_HOST=$3
+export HIVE_METASTORE_HOST=$2
 
 #e.g. 9083
-export HIVE_METASTORE_PORT=$4
+export HIVE_METASTORE_PORT=$3
 
-#e.g. FIRSTLAUNCH
-export MODE=$5
+export ZEPPELIN_HOST=$4
 
-#e.g. hdfs:///tmp/.zeppelin/zeppelin-spark-0.5.0-SNAPSHOT.jar
-export SPARK_JAR=$6
+export ZEPPELIN_PORT=$5
 
-export ZEPPELIN_HOST=$7
-
-export ZEPPELIN_PORT=$8
-
-export SETUP_VIEW=$9
+#if true, will setup Ambari view and import notebooks
+export SETUP_VIEW=$6
 SETUP_VIEW=${SETUP_VIEW,,}
 echo "SETUP_VIEW is $SETUP_VIEW"
 
-export ZOOKEEPER_HOST=${10}
-
-echo "ZOOKEEPER_HOST is $ZOOKEEPER_HOST"
-
-
-if ls $INSTALL_DIR/interpreter/spark/dep/zeppelin-spark-*.jar 
-then
-	export LOCAL_SPARK_JAR=$INSTALL_DIR/interpreter/spark/dep/zeppelin-spark-*.jar
-else
-	export LOCAL_SPARK_JAR=$INSTALL_DIR/interpreter/spark/zeppelin-spark-*.jar
-fi
-echo "LOCAL_SPARK_JAR is $LOCAL_SPARK_JAR"
 
 
 
-echo "Setting up zeppelin at $INSTALL_DIR"
-cd $INSTALL_DIR
+SetupZeppelin () {
 
-#Stop daemon if started
-set +e
-bin/zeppelin-daemon.sh status
-STATUS=$?
-if [ $STATUS -eq 0 ]; then
-    echo "Stopping zeppelin daemon..."
-	bin/zeppelin-daemon.sh stop
-else
-	echo "Zeppelin was not running."	
-fi
-set -e
-
-if [ "$MODE" = "FIRSTLAUNCH" ]; then
-
-	echo "Copying zeppelin-spark jar to HDFS"
-	set +e 
-	hadoop fs -rm $SPARK_JAR
-	set -e 
-	hadoop fs -put $LOCAL_SPARK_JAR $SPARK_JAR
-
-    rm -rf notebook/*
+	echo "Setting up zeppelin at $INSTALL_DIR"
+	cd $INSTALL_DIR
+	
+	rm -rf notebook/*
 
 	#clean old notebooks
 	if [ -d "notebook/2AHFKRNDZ" ]; then
@@ -80,11 +42,23 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 		rm -rf notebook/2A94M5J1Z
 	fi
 
+	if [ "$HIVE_METASTORE_HOST" != "0.0.0.0" ]
+	then
+		echo "Hive metastore detected: $HIVE_METASTORE_HOST. Setting up conf/hive-site.xml"
+		echo "<configuration>" > conf/hive-site.xml
+		echo "<property>" >> conf/hive-site.xml
+		echo "   <name>hive.metastore.uris</name>" >> conf/hive-site.xml
+		echo "   <value>thrift://$HIVE_METASTORE_HOST:$HIVE_METASTORE_PORT</value>" >> conf/hive-site.xml
+		echo "</property>" >> conf/hive-site.xml		
+		echo "</configuration>" >> conf/hive-site.xml
+	else
+		echo "HIVE_METASTORE_HOST is $HIVE_METASTORE_HOST: Skipping hive-site.xml setup as Hive does not seem to be installed"	
+	fi
+	
     if [[ $SETUP_VIEW == "true" ]]
     then
 		echo "Importing notebooks"
 		cd notebook
-		#wget https://www.dropbox.com/s/cgrxeaedkg42tcr/notebooks.zip -O notebooks.zip
 		wget https://github.com/hortonworks-gallery/zeppelin-notebooks/archive/master.zip -O notebooks.zip
 		unzip notebooks.zip
 		if [ -d "zeppelin-notebooks-master" ]; then
@@ -92,17 +66,10 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 			rm -rf zeppelin-notebooks-master
 		fi
 		cd ..
+	else
+		echo "Skipping import of sample notebooks"	
 	fi
-	if [[$HIVE_METASTORE_HOST != '0.0.0.0']]
-	then
-	echo "<configuration>" > conf/hive-site.xml
-	echo "<property>" >> conf/hive-site.xml
-	echo "   <name>hive.metastore.uris</name>" >> conf/hive-site.xml
-	echo "   <value>thrift://$HIVE_METASTORE_HOST:$HIVE_METASTORE_PORT</value>" >> conf/hive-site.xml
-	echo "</property>" >> conf/hive-site.xml		
-	echo "</configuration>" >> conf/hive-site.xml		
-	
-	fi
+
 	
 	#setup view
 	echo "Compiling Zeppelin view..."
@@ -126,61 +93,14 @@ if [ "$MODE" = "FIRSTLAUNCH" ]; then
 		sed -i "s/Ambari iFrame View/Zeppelin View/g" iframe-view/pom.xml	
 		mv iframe-view zeppelin-view
 		cd zeppelin-view
-		mvn clean package		
+		mvn clean package	
+	else
+		echo "Skipping setup of Ambari view"	
 	fi	
 
-	cd $INSTALL_DIR	
 	
-	#Start daemon to create the interpreter.json
-	echo "Starting zeppelin to generate interpreter"
-	bin/zeppelin-daemon.sh start	
-	exit 0
-	
-else
-	if [ ! -f conf/interpreter.json ]
-	then
-		echo 'Did not find interpreter so skipping rest of setup'
-		exit 0
-	fi	
-fi
+}
 
 
-
-#archive old interpreter
-if [ -f conf/interpreter.json ] 
-then
-	mv conf/interpreter.json conf/interpreter_$(date +%d-%m-%Y).json
-#else
-#    echo 'Did not find interpreter so exiting setup'
-#	exit 0	
-fi	
-
-
-
-#Start daemon to re-create the interpreter.json
-echo "Starting zeppelin..."
-bin/zeppelin-daemon.sh start
-while [ ! -f conf/interpreter.json ]
-do
-  sleep 2
-  echo "Waiting for interpreter.json to be created...."
-done
-
-echo "Updating interpreter settings..."
-#update interpreter.json with settings that can't be added via zeppelin_env.sh
-HDP_VER=`hdp-select status hadoop-client | sed 's/hadoop-client - \(.*\)/\1/'`
-export VER_STRING="-Dhdp.version=$HDP_VER"
-echo "updating interpreter.json..."
-#sed -i "s/\"master\": \"yarn-client\",/\"master\": \"yarn-client\",\n\t\"spark.driver.extraJavaOptions\": \"$VER_STRING\",/g" conf/interpreter.json
-#sed -i "s/\"master\": \"yarn-client\",/\"master\": \"yarn-client\",\n\t\"spark.yarn.am.extraJavaOptions\": \"$VER_STRING\",/g" conf/interpreter.json
-if [[$HIVE_HOST != '0.0.0.0']]
-then
-sed -i "s#\"hive.hiveserver2.url\": \"jdbc:hive2://localhost:10000\",#\"hive.hiveserver2.url\": \"jdbc:hive2://$HIVE_HOST:10000\",#g" conf/interpreter.json
-fi
-
-sed -i "s#\"phoenix.jdbc.url\": \"jdbc:phoenix:localhost:2181:/hbase-unsecure\",#\"phoenix.jdbc.url\": \"jdbc:phoenix:$ZOOKEEPER_HOST:2181:/hbase-unsecure\",#g" conf/interpreter.json
-#sed -i "s/\"spark.executor.memory\": \"512m\",/\"spark.executor.memory\": \"$EXECUTOR_MEM\",/g" conf/interpreter.json
-echo "restarting daemon...."
-bin/zeppelin-daemon.sh stop
-sleep 10
+SetupZeppelin
 echo "Setup complete"

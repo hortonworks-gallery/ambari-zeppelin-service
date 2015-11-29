@@ -212,6 +212,96 @@ mvn clean package
 
 ```  
 
+#### Option 2: Automated deployment of fresh cluster via blueprint
+
+- Bring up 4 VMs imaged with RHEL/CentOS 6.x (e.g. node1-4 in this case)
+
+- On non-ambari nodes, install ambari-agents and point them to ambari node (e.g. node1 in this case)
+```
+export ambari_server=node1
+curl -sSL https://raw.githubusercontent.com/seanorama/ambari-bootstrap/master/ambari-bootstrap.sh | sudo -E sh
+```
+
+- On Ambari node, install ambari-server
+```
+export install_ambari_server=true
+curl -sSL https://raw.githubusercontent.com/seanorama/ambari-bootstrap/master/ambari-bootstrap.sh | sudo -E sh
+yum install -y git
+git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git /var/lib/ambari-server/resources/stacks/HDP/2.3/services/ZEPPELIN
+```
+
+
+- Edit the `/var/lib/ambari-server/resources/stacks/HDP/2.3/role_command_order.json` file to include below:
+```
+  "ZEPPELIN_MASTER-START": ["NAMENODE-START", "DATANODE-START"],
+```    
+
+- Restart Ambari
+```
+service ambari-server restart
+service ambari-agent restart    
+```
+
+- Confirm 4 agents were registered and agent remained up
+```
+curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/hosts
+service ambari-agent status
+```
+
+- (Optional) - In general you can generate BP and cluster file using Ambari recommendations API using these steps. However in this example we are providing some sample blueprints which you can edit, so this is not needed
+For more details, on the bootstrap scripts see bootstrap script git
+
+```
+yum install -y python-argparse
+git clone https://github.com/seanorama/ambari-bootstrap.git
+
+#optional - limit the services for faster deployment
+
+#for minimal services
+export ambari_services="HDFS MAPREDUCE2 YARN ZOOKEEPER HIVE ZEPPELIN"
+
+#for most services
+#export ambari_services="ACCUMULO FALCON FLUME HBASE HDFS HIVE KAFKA KNOX MAHOUT OOZIE PIG SLIDER SPARK SQOOP MAPREDUCE2 STORM TEZ YARN ZOOKEEPER ZEPPELIN"
+
+export deploy=false
+cd ambari-bootstrap/deploy
+bash ./deploy-recommended-cluster.bash
+
+cd tmpdir*
+
+#edit the blueprint to customize as needed. You can use sample blueprints provided below to see how to add the custom services.
+vi blueprint.json
+
+#edit cluster file if needed
+vi cluster.json
+```
+
+
+- Download either minimal or full blueprint
+```
+#Pick one of the below blueprints
+#for minimal services download this one
+wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-service/master/blueprint-4node-zeppelin-minimal.json -O blueprint-4node-zeppelin.json
+
+#for most services download this one
+wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-service/master/blueprint-4node-zeppelin-all.json -O blueprint-4node-zeppelin.json
+
+
+#if needed change the numshards, replicas based on your setup (default is 2 for each)
+#vi blueprint-4node-zeppelin.json
+```
+
+- Upload selected blueprint and deploy cluster called zeppelinCluster
+```
+curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/blueprints/zeppelinBP -d @blueprint-4node-zeppelin.json
+
+
+wget https://raw.githubusercontent.com/abajwa-hw/logsearch-service/master/cluster-4node.json
+curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/clusters/zeppelinCluster -d @cluster-4node.json
+```
+- You can monitor the progress of the deployment via Ambari (e.g. http://node1:8080). 
+
+
 
 #### Use zeppelin notebooks
 

@@ -1,0 +1,126 @@
+{
+  "Blueprints": {
+    "stack_name": "HDP",
+    "stack_version": "2.3"
+  },
+  "host_groups": [
+    {
+      "name": "host-group-3",
+      "components": [
+        {
+          "name": "NODEMANAGER"
+        },
+        {
+          "name": "JOURNALNODE"
+        },
+        {
+          "name": "ZOOKEEPER_SERVER"
+        },               
+        {
+          "name": "DATANODE"
+        }
+
+      ]
+    },
+    {
+      "name": "host-group-2",
+      "components": [
+        {
+          "name": "NODEMANAGER"
+        },
+        {
+          "name": "JOURNALNODE"
+        },
+        {
+          "name": "ZOOKEEPER_SERVER"
+        },          
+        {
+          "name": "DATANODE"
+        }
+      ]
+    },
+    {
+      "name": "host-group-1",
+      "components": [
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "NAMENODE"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name": "ZOOKEEPER_SERVER"
+        },
+        {
+          "name": "APP_TIMELINE_SERVER"
+        },
+        {
+          "name": "HISTORYSERVER"
+        },
+        {
+          "name": "RESOURCEMANAGER"
+        },
+        {
+          "name": "SECONDARY_NAMENODE"
+        },
+        {
+          "name": "ZEPPELIN_MASTER"
+        },
+        {
+          "name": "SPARK_CLIENT"
+        },            
+        { 
+	      "name": "HIVE_METASTORE" 
+        },
+        { 
+          "name": "MYSQL_SERVER" 
+        },
+        { 
+          "name": "HIVE_SERVER" 
+        },
+        { 
+          "name": "WEBHCAT_SERVER" 
+        },
+        { 
+          "name": "HIVE_CLIENT" 
+        },
+        {
+          "name": "SPARK_JOBHISTORYSERVER"
+        },        
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        }
+      ]
+    },
+    {
+      "name": "host-group-4",
+      "components": [
+        {
+          "name": "NODEMANAGER"
+        },
+        {
+          "name": "JOURNALNODE"
+        },
+        {
+          "name": "DATANODE"
+        }
+      ]
+    }
+  ],
+
+ "configurations": [
+    {
+      "zeppelin-ambari-config": {
+        "zeppelin.executor.mem": "512m",
+        "zeppelin.executor.instances": "2",
+        "zeppelin.install.dir": "/opt"        
+      }
+    } 
+  ]  
+}          

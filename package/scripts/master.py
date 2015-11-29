@@ -7,57 +7,28 @@ class Master(Script):
 
     import params
     import status_params
-      
+
+    env.set_params(params)
+          
     #location of prebuilt package from april 2015
     snapshot_package_12='https://www.dropbox.com/s/nhv5j42qsybldh4/zeppelin-0.5.0-SNAPSHOT.tar.gz'
-
-    #location of prebuilt package from June 14 2015
-    #snapshot_package='https://www.dropbox.com/s/s16oicpljugltjj/zeppelin-0.5.0-SNAPSHOT.tar.gz'
-    #location of prebuilt package from July 17 2015
-    #snapshot_package='https://www.dropbox.com/s/kthyw8hqgweoo0q/zeppelin-0.5.0-SNAPSHOT.tar.gz'
-    #location of prebuilt package from July 21 2015 using spark 1.3   
-    #snapshot_package_13='https://www.dropbox.com/s/g9ua0no3gmb16uy/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
-    #location of prebuilt package from July 21 2015 using Spark 1.4    
-    #snapshot_package_14='https://www.dropbox.com/s/0qyvze6t3xhlthn/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
-
-    #location of prebuilt package from Sept 15 2015 using spark 1.3 that comes with HDP 2.3.0
-    #snapshot_package_13='https://www.dropbox.com/s/1qxwghnr8xwysh0/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
-    #snapshot_package_13='https://www.dropbox.com/s/k4dvmmxzd08q3h9/zeppelin-0.5.5-incubating-SNAPSHOT-repackage.tar.gz'
-    
-    
-    #location of prebuilt package from Sept 15 2015 using Spark 1.4 from Apache  
-    #snapshot_package_14='https://www.dropbox.com/s/eijrv40rb2rqty0/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
-    
-    #location of prebuilt package from Sept 15 2015 using Spark 1.4 that comes with HDP 2.3.2   
-    #snapshot_package_14='https://www.dropbox.com/s/vj8uy588u7hiezd/zeppelin-0.5.5-incubating-SNAPSHOT-HDP232.tar.gz'
-
-    #location of prebuilt package from Sept 15 2015 using Spark 1.5 from Apache   
-    #snapshot_package_15='https://www.dropbox.com/s/k4sj95jaekeyvak/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
 
 
     #location of prebuilt package from Oct 23 2015 using spark 1.3.1 that comes with HDP 2.3.0    
     snapshot_package_13='https://www.dropbox.com/s/k4dvmmxzd08q3h9/zeppelin-0.5.5-incubating-SNAPSHOT-repackage.tar.gz'
 
-    #location of prebuilt package from Oct 23 2015 using spark 1.4.1 that comes with HDP 2.3.2 - this is the TP build
-    #snapshot_package_14='http://public-repo-1.hortonworks.com/HDP-LABS/Projects/zeppelin/0.6.0-incubating-1.4.1.2.3.2.0-2950/zeppelin-0.6.0-incubating-SNAPSHOT.tar.gz'
-
     #location of prebuilt 0.5.5 package compiled using HDP Spark 1.4.1 TP that comes with HDP 2.3.2
     snapshot_package_14='https://www.dropbox.com/s/nwpv7dr1a724vtv/zeppelin-0.5.5-incubating-HDP232.tar.gz?dl=0'
-    
-    #location of prebuilt package from Oct 23 2015 using Apache spark 1.5.1  
-    #snapshot_package_15='https://www.dropbox.com/s/7ysykb4blzpcffy/zeppelin-0.5.5-incubating-SNAPSHOT.tar.gz'
 
     #location of prebuilt 0.5.5 package compiled using HDP Spark 1.5.1 TP
     snapshot_package_15='https://dl.dropboxusercontent.com/u/114020/zeppelin-snapshots/spark-1.5.1TP-HDP2.3.2/zeppelin-0.5.5-incubating-spark151-tp.tar.gz'
     
-    #e.g. /var/lib/ambari-agent/cache/stacks/HDP/2.2/services/zeppelin-stack/package
-    service_packagedir = os.path.realpath(__file__).split('/scripts')[0] 
-            
-    Execute('find '+service_packagedir+' -iname "*.sh" | xargs chmod +x')
+                
+    Execute('find '+params.service_packagedir+' -iname "*.sh" | xargs chmod +x')
 
     #Create user and group if they don't exist
     self.create_linux_user(params.zeppelin_user, params.zeppelin_group)                              
-    self.create_hdfs_user(params.zeppelin_user, params.spark_jar_dir)
+    #self.create_hdfs_user(params.zeppelin_user, params.spark_jar_dir)
 
     #remove /opt/incubator-zeppelin if already exists        
     Execute('rm -rf ' + params.zeppelin_dir, ignore_failures=True)
@@ -98,13 +69,7 @@ class Master(Script):
           Execute('yum install -y python-devel python-nose python-setuptools gcc gcc-gfortran gcc-c++ blas-devel lapack-devel atlas-devel') 
           Execute('easy_install pip', ignore_failures=True)      
           Execute('pip install numpy scipy pandas scikit-learn')      
-    
-    #Execute('echo master config dump: ' + str(', '.join(params.config['hostLevelParams'])))
-    #Execute('echo stack_version_unformatted: ' + params.stack_version_unformatted)
-    #Execute('echo hdp_stack_version: ' + params.hdp_stack_version)
-    #Execute('echo spark_version: ' + params.spark_version)
-    #Execute('echo full_version:' + params.full_version)
-    
+        
     #User selected option to use prebuilt zeppelin package 
     if params.setup_prebuilt:
 
@@ -144,17 +109,18 @@ class Master(Script):
       
       #update the configs specified by user
       self.configure(env)
-
       
-      #run setup_snapshot.sh in FIRSTLAUNCH mode
-      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' '+ str(params.setup_view) + ' ' + str(params.zookeeper_host) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
-      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' CONFIGURE ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' '+ str(params.setup_view) + ' ' + str(params.zookeeper_host) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)    
+      #run setup_snapshot.sh
+      Execute(format("{service_packagedir}/scripts/setup_snapshot.sh {zeppelin_dir} {hive_metastore_host} {hive_metastore_port} {zeppelin_host} {zeppelin_port} {setup_view}  >> {zeppelin_log_file}"), user=params.zeppelin_user)
 
       #if zeppelin installed on ambari server, copy view jar into ambari views dir
       if params.setup_view:
         if params.ambari_host == params.zeppelin_internalhost and not os.path.exists('/var/lib/ambari-server/resources/views/zeppelin-view-1.0-SNAPSHOT.jar'):
           Execute('echo "Copying zeppelin view jar to ambari views dir"')      
           Execute('cp /home/'+params.zeppelin_user+'/zeppelin-view/target/*.jar /var/lib/ambari-server/resources/views')
+
+
+      Execute('cp ' + params.zeppelin_dir+'/interpreter/spark/dep/zeppelin-spark-dependencies-*.jar /tmp', user=params.zeppelin_user)
       
     else:
       #User selected option to build zeppelin from source
@@ -168,7 +134,7 @@ class Master(Script):
       #Execute('yum -y install java-1.7.0-openjdk-devel >> ' + params.zeppelin_log_file)
       #if not os.path.exists('/root/.m2'):
       #  os.makedirs('/root/.m2')     
-      #Execute('cp '+service_packagedir+'/files/settings.xml /root/.m2/')
+      #Execute('cp '+params.service_packagedir+'/files/settings.xml /root/.m2/')
       
       Execute('echo Compiling zeppelin from source')
       Execute('cd '+params.install_dir+'; git clone https://github.com/apache/incubator-zeppelin  >> ' + params.zeppelin_log_file)
@@ -180,9 +146,8 @@ class Master(Script):
             
       Execute('cd '+params.zeppelin_dir+'; mvn -Phadoop-2.6 -Dhadoop.version=2.7.1 -Pspark-'+params.spark_version+' -Ppyspark -Pyarn clean package -P build-distr -DskipTests >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
             
-      #run setup_snapshot.sh in FIRSTLAUNCH mode
-      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' FIRSTLAUNCH ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port)  + ' '+ str(params.setup_view) + ' ' + str(params.zookeeper_host) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
-      Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' CONFIGURE ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' '+ str(params.setup_view) + ' ' + str(params.zookeeper_host) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)    
+      #run setup_snapshot.sh
+      Execute(format("{service_packagedir}/scripts/setup_snapshot.sh {zeppelin_dir} {hive_metastore_host} {hive_metastore_port} {zeppelin_host} {zeppelin_port} {setup_view}  >> {zeppelin_log_file}"), user=params.zeppelin_user)
 
       #if zeppelin installed on ambari server, copy view jar into ambari views dir
       if params.setup_view:
@@ -230,10 +195,6 @@ class Master(Script):
     env_content=InlineTemplate(params.zeppelin_env_content)
     File(format("{params.conf_dir}/zeppelin-env.sh"), content=env_content, owner=params.zeppelin_user, group=params.zeppelin_group) # , mode=0777)    
     
-    #during install phase, run setup_snapshot.sh to regenerate interpreter and add hive/phoenix settings
-    #if install: 
-    #  service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
-    #  Execute(service_packagedir + '/scripts/setup_snapshot.sh '+params.zeppelin_dir+' '+params.hive_server_host+' '+params.hive_metastore_host+' '+params.hive_metastore_port+' CONFIGURE ' + params.spark_jar + ' ' + params.zeppelin_host + ' ' + str(params.zeppelin_port) + ' '+ str(params.setup_view) + ' ' + str(params.zookeeper_host) + ' >> ' + params.zeppelin_log_file, user=params.zeppelin_user)    
 
   def stop(self, env):
     import params
@@ -247,9 +208,19 @@ class Master(Script):
     import status_params
     self.configure(env) 
     
+    first_setup=False
+    
+    #cleanup temp dirs
     note_osx_dir=params.notebook_dir+'/__MACOSX'   
     if os.path.exists(note_osx_dir):
       Execute('rm -rf ' + note_osx_dir)
+    
+        
+    if glob.glob('/tmp/zeppelin-spark-dependencies-*.jar') and os.path.exists(glob.glob('/tmp/zeppelin-spark-dependencies-*.jar')[0]):
+        first_setup=True
+        self.create_hdfs_user(params.zeppelin_user, params.spark_jar_dir)
+        Execute ('hadoop fs -put /tmp/zeppelin-spark-dependencies-*.jar ' + params.spark_jar, user=params.zeppelin_user, ignore_failures=True) 
+        Execute ('rm /tmp/zeppelin-spark-dependencies-*.jar')
     
     Execute (params.zeppelin_dir+'/bin/zeppelin-daemon.sh start >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
     pidfile=glob.glob(status_params.zeppelin_pid_dir + '/zeppelin-'+params.zeppelin_user+'*.pid')[0]
@@ -257,18 +228,16 @@ class Master(Script):
     contents = open(pidfile).read()
     Execute('echo pid is ' + contents, user=params.zeppelin_user)
 
-
+    #if first_setup:
+    import time
+    time.sleep(5) 
+    self.update_zeppelin_interpreter()
+    
   def status(self, env):
     import status_params
-    #import params
     env.set_params(status_params) 
-
     
-    #pid_file = glob.glob(status_params.zeppelin_piddir + '/zeppelin--*.pid')[0]
-    #pid_file = glob.glob(status_params.zeppelin_pid_dir + '/zeppelin-zeppelin*.pid')[0]
-    #pid_file='/var/run/zeppelin-notebook/zeppelin-zeppelin-sandbox.hortonworks.com.pid'
     pid_file = glob.glob(status_params.zeppelin_pid_dir + '/zeppelin-'+status_params.zeppelin_user+'*.pid')[0]
-
     check_process_status(pid_file)        
 
   def install_mvn_repo(self):
@@ -277,6 +246,45 @@ class Master(Script):
     if distribution.startswith('centos') or distribution.startswith('red hat') and not os.path.exists('/etc/yum.repos.d/epel-apache-maven.repo'):
       Execute('curl -o /etc/yum.repos.d/epel-apache-maven.repo https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo')
 
-      
+  def update_zeppelin_interpreter(self):
+    import params
+    import json,urllib,urllib2
+    zeppelin_int_url='http://'+params.zeppelin_host+':'+str(params.zeppelin_port)+'/api/interpreter/setting/'
+    
+    #fetch current interpreter settings for spark, hive, phoenix
+    data = json.load(urllib2.urlopen(zeppelin_int_url))
+    print data
+    for body in data['body']:
+      if body['group'] == 'spark':
+        sparkbody = body
+      elif  body['group'] == 'hive':
+        hivebody = body
+      elif  body['group'] == 'phoenix':
+        phoenixbody = body
+        
+    #if hive installed, update hive settings and post to hive interpreter
+    if (params.hive_server_host):
+      hivebody['properties']['hive.hiveserver2.url']='jdbc:hive2://'+params.hive_server_host+':10000'
+      self.post_request(zeppelin_int_url + hivebody['id'], hivebody)
+
+    #if hbase installed, update hbase settings and post to phoenix interpreter
+    if (params.zookeeper_znode_parent and params.hbase_zookeeper_quorum):
+      phoenixbody['properties']['phoenix.jdbc.url']='jdbc:phoenix:'+params.hbase_zookeeper_quorum+':'+params.zookeeper_znode_parent
+      self.post_request(zeppelin_int_url + phoenixbody['id'], phoenixbody)
+
+  def post_request(self, url, body):
+    import json,urllib,urllib2  
+    encoded_body=json.dumps(body)
+    req = urllib2.Request(str(url),encoded_body)
+    req.get_method = lambda: 'PUT'
+    try:
+      response = urllib2.urlopen(req, encoded_body).read()
+    except urllib2.HTTPError, error:
+        print 'Exception: ' + error.read()
+
+    jsonresp=json.loads(response.decode('utf-8'))  
+    print jsonresp['status']
+  
+        
 if __name__ == "__main__":
   Master().execute()
