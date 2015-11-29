@@ -67,12 +67,12 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 ##### Deployment options:
 
 - There are two options to deploy Zeppelin from Ambari:
-  - Option 1: [Deploy Logsearch on existing cluster](https://github.com/hortonworks-gallery/ambari-zeppelin-service#option-1-deploy-logsearch-on-existing-cluster)
+  - Option 1: [Deploy Zeppelin on existing cluster](https://github.com/hortonworks-gallery/ambari-zeppelin-service#option-1-deploy-zeppelin-on-existing-cluster)
   - Option 2: [Automated deployment of a fresh HDP cluster that includes Zeppelin (via blueprints)](https://github.com/hortonworks-gallery/ambari-zeppelin-service#option-2-automated-deployment-of-a-fresh-hdp-cluster-that-includes-zeppelin-via-blueprints)
   
 -------------------
 
-#### Option 1: Deploy Logsearch on existing cluster:  
+#### Option 1: Deploy Zeppelin on existing cluster:  
 
 ##### Setup Pre-requisites:
 
