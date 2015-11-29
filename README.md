@@ -29,24 +29,30 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Runs zeppelin in yarn-client mode (instead of standalone). Why is this important?
     - *Multi-tenancy*: The service autodetects and configures Zeppelin to point to default Spark YARN queue. Users can use this, in conjunction with the [Capacity scheduler/YARN Queue Manager view](http://hortonworks.com/blog/hortonworks-data-platform-2-3-delivering-transformational-outcomes/), to set what percentage of the clusters resources get allocated to Spark.  
     - *Security*: Ranger YARN plugin can be used to setup authorization policies on which users/groups are allowed to submit spark jobs. Both allowed requests and rejections can also be audited in Ranger.
-  - Supports both default HDP Spark version (e.g. 1.3 with HDP 2.3) as well as custom installed Spark versions (e.g 1.4, 1.2)
+  - Supports both default HDP Spark version (e.g. 1.3.1 with HDP 2.3.0 or 1.4.1 with HDP 2.3.2) as well as custom installed Spark versions e.g. [HDP Spark 1.5.1 TP on HDP 2.3.2](http://hortonworks.com/hadoop-tutorial/apache-spark-1-5-1-technical-preview-with-hdp-2-3/)
   - Automates deployment of Ambari view to bring up Zeppelin webapp (requires manual ambari-server restart)
   - Runs zeppelin as configurable user (by default zeppelin), instead of root
   - Uploads zeppelin jar to /apps/zeppelin location in HDFS to be accessible from all nodes in cluster
   - Exposes the [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template) and [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template) files in Ambari for easy configuration
   - Deploys [sample notebooks from Hortonworks Gallery](https://github.com/hortonworks-gallery/zeppelin-notebooks) that demo hive, spark and sparksql, shell intepreters
-  - Autodetects and configures Zeppelin to point to Hive metastore so Spark commands can access Hive tables out of the box
-  - Spark, pyspark, sparksql, hive, shell interpreters were tested to be working
+  - Use Ambari APIs to autodetect and configure Zeppelin interpreter to point to:
+    - HiveServer2 to enable Zeppelin hive interpreter (if Hive is installed)
+    - Hive metastore so Spark commands can access Hive tables out of the box (if Hive is installed)
+    - Phoenix JDBC connect url to enable Zeppelin Phoenix interpreter (if Hbase is installed). 
   - Offline mode: can manually copy tar to /tmp/zeppelin.tar.gz to allow service to be installed on clusters without internet access
   - Deploy using steps below or via [Ambari Store view](https://github.com/jpplayer/amstore-view)
+  - (11/29/15): changed to allow automated install on HDP via Ambari Blueprint  
 
 
 ##### Limitations:
   - Only tested on CentOS/RHEL 6 so far
   - Does not yet support install on secured (kerborized) clusters
-  - Zeppelin view will be setup using internal hostname, so you would need to have a corresponding hosts file entry on local machine
+  - Unless otherwise configured, Zeppelin view will be setup using internal hostname, so you would need to have a corresponding hosts file entry on local machine to access.
+    - Use 'public name' property of 'Advanced zeppelin-ambari-config' to change this on cloud setups
   - After install, Ambari thinks HDFS, YARN, Hive, HBase need restarting (seems like Ambari bug)
-  - Current version of service does not support being installed via Blueprint
+
+##### Known issues:
+  - [Error running hive queries on Zeppelin setup with Spark 1.4/1.5](https://community.hortonworks.com/questions/4905/error-while-running-hive-queries-from-zeppelin.html)
     
 ##### Testing:
   - These steps were tested on:
@@ -58,11 +64,17 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - [How to setup zeppelin view and run sample notebooks](https://www.dropbox.com/s/skhudcy89s7qho1/zeppelin-2-view-demo.mp4?dl=0)
 
 
+##### Deployment options:
 
+- There are two options to deploy Zeppelin from Ambari:
+  - Option 1: Deploy Logsearch on existing cluster
+  - Option 2: Automated deployment of a fresh HDP cluster that includes Zeppelin (via blueprints)
   
 -------------------
-  
-#### Setup Pre-requisites:
+
+#### Option 1: Deploy Logsearch on existing cluster:  
+
+##### Setup Pre-requisites:
 
 - Download HDP 2.3.2 sandbox VM image (Sandbox_HDP_2.3_1_VMWare.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
 - Import Sandbox_HDP_2.3_1_VMWare.ova into VMWare and set the VM memory size to 8GB
@@ -104,7 +116,7 @@ sed -i /spark.yarn.services/s/^/#/ /usr/hdp/2.3.2.1-12/spark/conf/spark-defaults
     ![Image](../master/screenshots/spark-config-view.png?raw=true)
 
 
-#### Setup the Ambari service
+##### Setup the Ambari service
 
 - To deploy the Zeppelin service, run below on ambari server
 ```
@@ -186,7 +198,7 @@ tail -f  /var/log/zeppelin/zeppelin-setup.log
 ![Image](../master/screenshots/2.png?raw=true)
 
 
-#### Install Zeppelin view
+##### Install Zeppelin view
 
 - If Zeppelin was installed on the Ambari server host, simply restart Ambari server
 
@@ -212,17 +224,19 @@ mvn clean package
 
 ```  
 
-#### Option 2: Automated deployment of fresh cluster via blueprint
+#### Option 2: Automated deployment of a fresh HDP cluster that includes Zeppelin (via blueprints)
 
-- Bring up 4 VMs imaged with RHEL/CentOS 6.x (e.g. node1-4 in this case)
+- Sample steps below for installing a 4-node HDP cluster that includes Zeppelin, using [Ambari blueprint](https://cwiki.apache.org/confluence/display/AMBARI/Blueprints) and [Ambari boostrap](https://github.com/seanorama/ambari-bootstrap)
 
-- On non-ambari nodes, install ambari-agents and point them to ambari node (e.g. node1 in this case)
+- Pre-reqs: Bring up 4 VMs imaged with RHEL/CentOS 6.x (e.g. called node1-4 in this case)
+
+- On non-ambari nodes (e.g. nodes2-4), use bootstrap script to run pre-reqs, install ambari-agents and point them to ambari node (e.g. node1 in this case)
 ```
 export ambari_server=node1
 curl -sSL https://raw.githubusercontent.com/seanorama/ambari-bootstrap/master/ambari-bootstrap.sh | sudo -E sh
 ```
 
-- On Ambari node, install ambari-server
+- On Ambari node (e.g. node1), use bootstrap script to run pre-reqs and install ambari-server
 ```
 export install_ambari_server=true
 curl -sSL https://raw.githubusercontent.com/seanorama/ambari-bootstrap/master/ambari-bootstrap.sh | sudo -E sh
@@ -230,11 +244,11 @@ yum install -y git
 git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git /var/lib/ambari-server/resources/stacks/HDP/2.3/services/ZEPPELIN
 ```
 
-
 - Edit the `/var/lib/ambari-server/resources/stacks/HDP/2.3/role_command_order.json` file to include below:
 ```
   "ZEPPELIN_MASTER-START": ["NAMENODE-START", "DATANODE-START"],
 ```    
+  - Note that comma at the end. If you insert the above as the last line, you need to remove the comma
 
 - Restart Ambari
 ```
@@ -248,7 +262,7 @@ curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/hosts
 service ambari-agent status
 ```
 
-- (Optional) - In general you can generate BP and cluster file using Ambari recommendations API using these steps. However in this example we are providing some sample blueprints which you can edit, so this is not needed
+- (Optional) - In general, you can generate BP and cluster file using Ambari recommendations API using these steps. However in this example we are providing some sample blueprints which you can edit, so this is not needed. These for reference only
 For more details, on the bootstrap scripts see bootstrap script git
 
 ```
@@ -285,11 +299,16 @@ wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-servi
 
 #for most services download this one
 wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-service/master/blueprint-4node-zeppelin-all.json -O blueprint-4node-zeppelin.json
-
-
-#if needed change the numshards, replicas based on your setup (default is 2 for each)
-#vi blueprint-4node-zeppelin.json
 ```
+
+
+- (optional) If needed, change the Zeppelin configs based on your setup by modifying [these lines](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/blueprint-4node-zeppelin-minimal.json#L120-L122)
+```
+vi blueprint-4node-zeppelin.json
+```
+  - if deploying on public cloud, you will want to add `"zeppelin.host.publicname":"<public IP or hostname of zeppelin node>"` so the Zeppelin Ambari view is pointing to external hostname (instead of the internal name, which is the default)
+
+  
 
 - Upload selected blueprint and deploy cluster called zeppelinCluster
 ```
@@ -301,6 +320,7 @@ curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/clust
 ```
 - You can monitor the progress of the deployment via Ambari (e.g. http://node1:8080). 
 
+- Once install completes, you will have a 4 node HDP cluster including Zeppelin
 
 
 #### Use zeppelin notebooks
