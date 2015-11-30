@@ -290,12 +290,17 @@ vi blueprint-4node-zeppelin.json
 
   
 
-- Upload selected blueprint and deploy cluster called zeppelinCluster
+- Upload selected blueprint and download a sample cluster.json that provides your host FQDN's. Modify the host FQDN's in the cluster.json file your own env. Finally deploy cluster and call it zeppelinCluster
 ```
+#upload the blueprint to Ambari
 curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/blueprints/zeppelinBP -d @blueprint-4node-zeppelin.json
 
-
+#download sample cluster.json
 wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-service/master/cluster-4node.json
+#modify the host FQDNs in the cluster json file with your own
+vi cluster-4node.json
+
+#deploy the cluster
 curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/clusters/zeppelinCluster -d @cluster-4node.json
 ```
 - You can monitor the progress of the deployment via Ambari (e.g. http://node1:8080). 
