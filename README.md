@@ -9,16 +9,20 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 
 
 ##### Contents:
-  - [Setup Pre-requisites](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-pre-requisites)
-  - [Setup YARN queue](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-yarn-queue)
-  - [Setup Ambari service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-the-ambari-service)
-  - [Configure Zeppelin](https://github.com/hortonworks-gallery/ambari-zeppelin-service#configure-zeppelin)
-  - [Install Ambari view](https://github.com/hortonworks-gallery/ambari-zeppelin-service#install-zeppelin-view)
-  - [Run demo zeppelin notebooks](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebooks)
-  - [Zeppelin YARN integration](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#zeppelin-yarn-integration)
-  - [Remote management](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#remote-management)
-  - [Remove zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#remove-zeppelin-service)
-  - [Deploy on clusters without internet access](https://github.com/hortonworks-gallery/ambari-zeppelin-service#deploy-on-clusters-without-internet-access)
+  -  Option 1: [Deploy Zeppelin on existing cluster/sandbox](https://github.com/hortonworks-gallery/ambari-zeppelin-service#option-1-deploy-zeppelin-on-existing-cluster)
+    - [Setup Pre-requisites](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-pre-requisites)
+    - [Setup YARN queue](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-yarn-queue)
+    - [Setup Ambari service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-the-ambari-service)
+    - [Configure Zeppelin](https://github.com/hortonworks-gallery/ambari-zeppelin-service#configure-zeppelin)
+  - Option 2: [Automated deployment of a fresh HDP cluster that includes Zeppelin (via blueprints)](https://github.com/hortonworks-gallery/ambari-zeppelin-service#option-2-automated-deployment-of-a-fresh-hdp-cluster-that-includes-zeppelin-via-blueprints)
+  - Getting started with Zeppelin after deployment:
+    - [Install Ambari view](https://github.com/hortonworks-gallery/ambari-zeppelin-service#install-zeppelin-view)  
+    - [Run demo zeppelin notebooks](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebooks)
+    - [Zeppelin YARN integration](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#zeppelin-yarn-integration)
+  - Other:  
+    - [Remote management](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#remote-management)
+    - [Remove zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#remove-zeppelin-service)
+    - [Deploy on clusters without internet access](https://github.com/hortonworks-gallery/ambari-zeppelin-service#deploy-on-clusters-without-internet-access)
 
 ##### Pre-requisites:
   - HDP 2.3.x with at least HDFS, YARN, Zookeper, Spark installed. Hive installation is optional. Instructions for older releases available [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README-22.md)
@@ -197,32 +201,7 @@ tail -f  /var/log/zeppelin/zeppelin-setup.log
 - You can see the parameters you configured under 'Configs' tab
 ![Image](../master/screenshots/2.png?raw=true)
 
-
-##### Install Zeppelin view
-
-- If Zeppelin was installed on the Ambari server host, simply restart Ambari server
-
-- Otherwise copy the zeppelin view jar from `/home/zeppelin/zeppelin-view/target/zeppelin-view-1.0-SNAPSHOT.jar` on zeppelin node, to `/var/lib/ambari-server/resources/views/` dir on Ambari server node. Then restart Ambari server
-
-- Now the Zeppelin view should appear under views: http://sandbox.hortonworks.com:8080/#/main/views
-
-- Troubleshooting: By default the view will be setup using the `hostname -f` entry of host where zeppelin will be installed. If the corresponding url(e.g. http://<zeppelin-host-FQDN>:9995) is not reachable from your local browser, you may need to create local entry in your hosts file
-- Otherwise: to reconfigure the view to point to a different url:
-
-```
-#on node where zeppelin is running
-su zeppelin
-cd /home/zeppelin/zeppelin-view
-#change the url to one that you can successfully open zeppelin using
-vi src/main/resources/index.html
-
-mvn clean package
-
-#Now copy the zeppelin view jar from `/home/zeppelin/zeppelin-view/target/zeppelin-view-1.0-SNAPSHOT.jar` on zeppelin node, to `/var/lib/ambari-server/resources/views/` dir on Ambari server node. 
-
-#Then restart Ambari server
-
-```  
+ 
 
 #### Option 2: Automated deployment of a fresh HDP cluster that includes Zeppelin (via blueprints)
 
@@ -322,6 +301,33 @@ curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/clust
 
 - Once install completes, you will have a 4 node HDP cluster including Zeppelin
 
+#### Getting started with Zeppelin
+
+##### Install Zeppelin view
+
+- If Zeppelin was installed on the Ambari server host, simply restart Ambari server
+
+- Otherwise copy the zeppelin view jar from `/home/zeppelin/zeppelin-view/target/zeppelin-view-1.0-SNAPSHOT.jar` on zeppelin node, to `/var/lib/ambari-server/resources/views/` dir on Ambari server node. Then restart Ambari server
+
+- Now the Zeppelin view should appear under views: http://sandbox.hortonworks.com:8080/#/main/views
+
+- Troubleshooting: By default the view will be setup using the `hostname -f` entry of host where zeppelin will be installed. If the corresponding url(e.g. http://<zeppelin-host-FQDN>:9995) is not reachable from your local browser, you may need to create local entry in your hosts file
+- Otherwise: to reconfigure the view to point to a different url:
+
+```
+#on node where zeppelin is running
+su zeppelin
+cd /home/zeppelin/zeppelin-view
+#change the url to one that you can successfully open zeppelin using
+vi src/main/resources/index.html
+
+mvn clean package
+
+#Now copy the zeppelin view jar from `/home/zeppelin/zeppelin-view/target/zeppelin-view-1.0-SNAPSHOT.jar` on zeppelin node, to `/var/lib/ambari-server/resources/views/` dir on Ambari server node. 
+
+#Then restart Ambari server
+
+``` 
 
 #### Use zeppelin notebooks
 
