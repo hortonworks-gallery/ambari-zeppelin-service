@@ -1,0 +1,224 @@
+{
+  "Blueprints": {
+    "stack_name": "HDP",
+    "stack_version": "2.3"
+  },
+  "host_groups": [
+    {
+      "name": "host-group-3",
+      "components": [
+        {
+          "name": "NODEMANAGER"
+        },
+        {
+          "name": "ACCUMULO_TSERVER"
+        },        
+        {
+          "name": "JOURNALNODE"
+        },
+        {
+          "name": "HBASE_REGIONSERVER"
+        },        
+        {
+          "name": "ZOOKEEPER_SERVER"
+        },        
+        {
+          "name": "DATANODE"
+        }
+
+      ]
+    },
+    {
+      "name": "host-group-2",
+      "components": [
+      
+        {
+          "name": "APP_TIMELINE_SERVER"
+        },
+        {
+          "name": "HISTORYSERVER"
+        },
+        {
+          "name": "RESOURCEMANAGER"
+        },
+        {
+          "name": "SECONDARY_NAMENODE"
+        },      
+        {
+          "name": "ACCUMULO_TSERVER"
+        },        
+        {
+          "name": "FLUME_HANDLER"
+        },
+        {
+          "name": "MAHOUT"
+        },
+        {
+          "name": "SUPERVISOR"
+        },
+        {
+          "name": "DRPC_SERVER"
+        },
+        {
+          "name": "NIMBUS"
+        },
+        {
+          "name": "STORM_UI_SERVER"
+        },
+        
+        {
+          "name": "OOZIE_SERVER"
+        },
+        {
+          "name": "FALCON_SERVER"
+        },
+        
+        {
+          "name": "HBASE_MASTER"
+        },
+        {
+          "name": "KAFKA_BROKER"
+        },
+       {
+          "name": "SPARK_JOBHISTORYSERVER"
+        },
+        {
+          "name": "SQOOP"
+        },
+        { 
+	      "name": "HIVE_METASTORE" 
+        },
+        { 
+          "name": "MYSQL_SERVER" 
+        },
+        { 
+          "name": "HIVE_SERVER" 
+        },
+        { 
+          "name": "WEBHCAT_SERVER" 
+        },        
+        {
+          "name": "JOURNALNODE"
+        },
+        {
+          "name": "ZOOKEEPER_SERVER"
+        },        
+        {
+          "name": "SLIDER"
+        }
+      ]
+    },
+    {
+      "name": "host-group-1",
+      "components": [
+        {
+          "name": "ACCUMULO_MONITOR"
+        },
+        {
+          "name": "ACCUMULO_MASTER"
+        },
+        {
+          "name": "ACCUMULO_TSERVER"
+        },
+        {
+          "name": "ACCUMULO_TRACER"
+        },
+      
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "HBASE_CLIENT"
+        },
+        {
+          "name": "OOZIE_CLIENT"
+        },
+        {
+          "name": "PIG"
+        },
+        {
+          "name": "KNOX_GATEWAY"
+        },
+        {
+          "name": "HCAT"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        
+        {
+          "name": "SPARK_CLIENT"
+        },        
+        {
+          "name": "NAMENODE"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name": "ZOOKEEPER_SERVER"
+        },
+        {
+          "name": "ACCUMULO_CLIENT"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name": "ACCUMULO_GC"
+        },
+        {
+          "name": "ZEPPELIN_MASTER"
+        },
+        { 
+          "name": "HIVE_CLIENT" 
+        },
+        {
+          "name": "TEZ_CLIENT"
+        },
+        {
+          "name": "FALCON_CLIENT"
+        },
+        {
+          "name": "PHOENIX_QUERY_SERVER"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        }
+      ]
+    },
+    {
+      "name": "host-group-4",
+      "components": [
+        {
+          "name": "NODEMANAGER"
+        },
+        {
+          "name": "JOURNALNODE"
+        },
+        {
+          "name": "ACCUMULO_TSERVER"
+        },
+        {
+          "name": "HBASE_REGIONSERVER"
+        },
+        {
+          "name": "DATANODE"
+        }
+      ]
+    }
+  ],
+
+ "configurations": [
+    {
+      "zeppelin-ambari-config": {
+        "zeppelin.executor.mem": "512m",
+        "zeppelin.executor.instances": "2",
+        "zeppelin.install.dir": "/opt"        
+      }
+    } 
+  ]  
+}          
