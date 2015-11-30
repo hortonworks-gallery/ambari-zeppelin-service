@@ -201,7 +201,8 @@ tail -f  /var/log/zeppelin/zeppelin-setup.log
 - You can see the parameters you configured under 'Configs' tab
 ![Image](../master/screenshots/2.png?raw=true)
 
- 
+
+- Now you can skip to the section on ['Getting started with Zeppelin'](https://github.com/hortonworks-gallery/ambari-zeppelin-service#getting-started-with-zeppelin)
 
 #### Option 2: Automated deployment of a fresh HDP cluster that includes Zeppelin (via blueprints)
 
@@ -300,6 +301,9 @@ curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/clust
 - You can monitor the progress of the deployment via Ambari (e.g. http://node1:8080). 
 
 - Once install completes, you will have a 4 node HDP cluster including Zeppelin
+
+- Now you can proceed to the section on ['Getting started with Zeppelin'](https://github.com/hortonworks-gallery/ambari-zeppelin-service#getting-started-with-zeppelin)
+
 
 #### Getting started with Zeppelin
 
