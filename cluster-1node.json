@@ -1,0 +1,14 @@
+{
+  "blueprint": "zeppelinBP",
+  "default_password": "admin",
+  "host_groups": [
+    {
+      "hosts": [
+        {
+          "fqdn": "node1"
+        }
+      ],
+      "name": "host-group-1"
+    }
+  ]
+}
