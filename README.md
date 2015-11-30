@@ -271,20 +271,28 @@ vi cluster.json
 ```
 
 
-- Download either minimal or full blueprint
+- Download either minimal or full blueprint for 4 node setup
 ```
 #Pick one of the below blueprints
 #for minimal services download this one
-wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-service/master/blueprint-4node-zeppelin-minimal.json -O blueprint-4node-zeppelin.json
+wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-service/master/blueprint-4node-zeppelin-minimal.json -O blueprint-zeppelin.json
 
 #for most services download this one
-wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-service/master/blueprint-4node-zeppelin-all.json -O blueprint-4node-zeppelin.json
+wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-service/master/blueprint-4node-zeppelin-all.json -O blueprint-zeppelin.json
 ```
+
+  - If running on single node, download minimal blueprint for 1 node setup
+```
+#Pick one of the below blueprints
+#for minimal services download this one
+wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-service/master/blueprint-1node-zeppelin-minimal.json -O blueprint-zeppelin.json
+```
+
 
 
 - (optional) If needed, change the Zeppelin configs based on your setup by modifying [these lines](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/blueprint-4node-zeppelin-minimal.json#L120-L122)
 ```
-vi blueprint-4node-zeppelin.json
+vi blueprint-zeppelin.json
 ```
   - if deploying on public cloud, you will want to add `"zeppelin.host.publicname":"<public IP or hostname of zeppelin node>"` so the Zeppelin Ambari view is pointing to external hostname (instead of the internal name, which is the default)
 
@@ -293,15 +301,26 @@ vi blueprint-4node-zeppelin.json
 - Upload selected blueprint and download a sample cluster.json that provides your host FQDN's. Modify the host FQDN's in the cluster.json file your own env. Finally deploy cluster and call it zeppelinCluster
 ```
 #upload the blueprint to Ambari
-curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/blueprints/zeppelinBP -d @blueprint-4node-zeppelin.json
+curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/blueprints/zeppelinBP -d @blueprint-zeppelin.json
+```
 
-#download sample cluster.json
-wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-service/master/cluster-4node.json
-#modify the host FQDNs in the cluster json file with your own
-vi cluster-4node.json
+- download sample cluster.json
+```
+#for 4 node setup
+wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-service/master/cluster-4node.json -O cluster.json
 
-#deploy the cluster
-curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/clusters/zeppelinCluster -d @cluster-4node.json
+#for single node setup
+wget https://raw.githubusercontent.com/hortonworks-gallery/ambari-zeppelin-service/master/cluster-1node.json -O cluster.json
+```
+
+- modify the host FQDNs in the cluster json file with your own. Also change the default_password to set the password for hive
+```
+vi cluster.json
+```
+
+- deploy the cluster
+```
+curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/clusters/zeppelinCluster -d @cluster.json
 ```
 - You can monitor the progress of the deployment via Ambari (e.g. http://node1:8080). 
 
