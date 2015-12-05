@@ -252,7 +252,7 @@ git clone https://github.com/seanorama/ambari-bootstrap.git
 #optional - limit the services for faster deployment
 
 #for minimal services
-export ambari_services="HDFS MAPREDUCE2 YARN ZOOKEEPER HIVE ZEPPELIN"
+export ambari_services="HDFS MAPREDUCE2 YARN ZOOKEEPER HIVE ZEPPELIN SPARK"
 
 #for most services
 #export ambari_services="ACCUMULO FALCON FLUME HBASE HDFS HIVE KAFKA KNOX MAHOUT OOZIE PIG SLIDER SPARK SQOOP MAPREDUCE2 STORM TEZ YARN ZOOKEEPER ZEPPELIN"
