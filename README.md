@@ -27,7 +27,6 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 ##### Pre-requisites:
   - HDP 2.3.x with at least HDFS, YARN, Zookeper, Spark installed. Hive installation is optional. Instructions for older releases available [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README-22.md)
   - Have 2 ports available and open for zeppelin and its websocket. These will be defaulted to 9995/9996 (but can be configured in Ambari). If using sandbox on VirtualBox, you need to manually forward these.
-  - Maven is required to set up Zeppelin View.
 
 ##### Features:
   - Automates deployment, configuration, management of zeppelin on HDP cluster
