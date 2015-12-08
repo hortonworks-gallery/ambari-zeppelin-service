@@ -16,10 +16,10 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
     - [Configure Zeppelin](https://github.com/hortonworks-gallery/ambari-zeppelin-service#configure-zeppelin)
   - Option 2: [Automated deployment of a fresh HDP cluster that includes Zeppelin (via blueprints)](https://github.com/hortonworks-gallery/ambari-zeppelin-service#option-2-automated-deployment-of-a-fresh-hdp-cluster-that-includes-zeppelin-via-blueprints)
   - Getting started with Zeppelin after deployment:
-    - [Install Ambari view](https://github.com/hortonworks-gallery/ambari-zeppelin-service#install-zeppelin-view)  
+    - [Install Ambari view](https://github.com/hortonworks-gallery/ambari-zeppelin-service#install-zeppelin-view)
     - [Run demo zeppelin notebooks](https://github.com/hortonworks-gallery/ambari-zeppelin-service#use-zeppelin-notebooks)
     - [Zeppelin YARN integration](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#zeppelin-yarn-integration)
-  - Other:  
+  - Other:
     - [Remote management](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#remote-management)
     - [Remove zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#remove-zeppelin-service)
     - [Deploy on clusters without internet access](https://github.com/hortonworks-gallery/ambari-zeppelin-service#deploy-on-clusters-without-internet-access)
@@ -31,7 +31,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 ##### Features:
   - Automates deployment, configuration, management of zeppelin on HDP cluster
   - Runs zeppelin in yarn-client mode (instead of standalone). Why is this important?
-    - *Multi-tenancy*: The service autodetects and configures Zeppelin to point to default Spark YARN queue. Users can use this, in conjunction with the [Capacity scheduler/YARN Queue Manager view](http://hortonworks.com/blog/hortonworks-data-platform-2-3-delivering-transformational-outcomes/), to set what percentage of the clusters resources get allocated to Spark.  
+    - *Multi-tenancy*: The service autodetects and configures Zeppelin to point to default Spark YARN queue. Users can use this, in conjunction with the [Capacity scheduler/YARN Queue Manager view](http://hortonworks.com/blog/hortonworks-data-platform-2-3-delivering-transformational-outcomes/), to set what percentage of the clusters resources get allocated to Spark.
     - *Security*: Ranger YARN plugin can be used to setup authorization policies on which users/groups are allowed to submit spark jobs. Both allowed requests and rejections can also be audited in Ranger.
   - Supports both default HDP Spark version (e.g. 1.3.1 with HDP 2.3.0 or 1.4.1 with HDP 2.3.2) as well as custom installed Spark versions e.g. [HDP Spark 1.5.1 TP on HDP 2.3.2](http://hortonworks.com/hadoop-tutorial/apache-spark-1-5-1-technical-preview-with-hdp-2-3/)
   - Automates deployment of Ambari view to bring up Zeppelin webapp (requires manual ambari-server restart)
@@ -42,10 +42,10 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Use Ambari APIs to autodetect and configure Zeppelin interpreter to point to:
     - HiveServer2 to enable Zeppelin hive interpreter (if Hive is installed)
     - Hive metastore so Spark commands can access Hive tables out of the box (if Hive is installed)
-    - Phoenix JDBC connect url to enable Zeppelin Phoenix interpreter (if Hbase is installed). 
+    - Phoenix JDBC connect url to enable Zeppelin Phoenix interpreter (if Hbase is installed).
   - Offline mode: can manually copy tar to /tmp/zeppelin.tar.gz to allow service to be installed on clusters without internet access
   - Deploy using steps below or via [Ambari Store view](https://github.com/jpplayer/amstore-view)
-  - (11/29/15): changed to allow automated install on HDP via Ambari Blueprint  
+  - (11/29/15): changed to allow automated install on HDP via Ambari Blueprint
 
 
 ##### Limitations:
@@ -57,12 +57,12 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 
 ##### Known issues:
   - [Error running hive queries on Zeppelin setup with Spark 1.4/1.5](https://community.hortonworks.com/questions/4905/error-while-running-hive-queries-from-zeppelin.html)
-    
+
 ##### Testing:
   - These steps were tested on:
     - HDP 2.3.2 cluster installed via Ambari 2.1.2 (comes with Spark 1.4.1) on Centos 6. Also tested with manually installed Spark 1.5.1 from [HDP Tech preview](https://hortonworks.com/hadoop-tutorial/apache-spark-1-5-1-technical-preview-with-hdp-2-3/)
     - Latest HDP 2.3.2 sandbox (comes with Spark 1.4.1) on Centos 6. Also tested with manually installed Spark 1.5.1 from [HDP Tech preview](https://hortonworks.com/hadoop-tutorial/apache-spark-1-5-1-technical-preview-with-hdp-2-3/)
-  
+
 ##### Videos (from HDP 2.2.4.2):
   - [How to setup zeppelin service](https://www.dropbox.com/s/9s122qbjilw5d2u/zeppelin-1-setup.mp4?dl=0)
   - [How to setup zeppelin view and run sample notebooks](https://www.dropbox.com/s/skhudcy89s7qho1/zeppelin-2-view-demo.mp4?dl=0)
@@ -73,10 +73,10 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 - There are two options to deploy Zeppelin from Ambari:
   - Option 1: [Deploy Zeppelin on existing cluster](https://github.com/hortonworks-gallery/ambari-zeppelin-service#option-1-deploy-zeppelin-on-existing-cluster)
   - Option 2: [Automated deployment of a fresh HDP cluster that includes Zeppelin (via blueprints)](https://github.com/hortonworks-gallery/ambari-zeppelin-service#option-2-automated-deployment-of-a-fresh-hdp-cluster-that-includes-zeppelin-via-blueprints)
-  
+
 -------------------
 
-#### Option 1: Deploy Zeppelin on existing cluster:  
+#### Option 1: Deploy Zeppelin on existing cluster:
 
 ##### Setup Pre-requisites:
 
@@ -85,13 +85,13 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 - Now start the VM
 - After it boots up, find the IP address of the VM and add an entry into your machines hosts file e.g.
 ```
-192.168.191.241 sandbox.hortonworks.com sandbox    
+192.168.191.241 sandbox.hortonworks.com sandbox
 ```
 - Connect to the VM via SSH (password hadoop)
 ```
 ssh root@sandbox.hortonworks.com
 ```
-- If you deployed in a VirtualBox Sandbox environment, enable port forwarding on ports 9995 and 9996. If you don't enable port 9996, the Zeppelin UI/Ambari View shows disconnected on the upper right and none of the default tutorials are visible. 
+- If you deployed in a VirtualBox Sandbox environment, enable port forwarding on ports 9995 and 9996. If you don't enable port 9996, the Zeppelin UI/Ambari View shows disconnected on the upper right and none of the default tutorials are visible.
 
 - Ensure Spark is installed. If not, use Add service wizard to install Spark. You can also bring down services that are not used by this tutorial (like Oozie/Falcon) and, additionally, install Hive if you want to leverage from Hive tables in Zeppelin Notebook.
 
@@ -125,7 +125,7 @@ sed -i /spark.yarn.services/s/^/#/ /usr/hdp/2.3.2.1-12/spark/conf/spark-defaults
 - To deploy the Zeppelin service, run below on ambari server
 ```
 VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
-sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN   
+sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git   /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN
 ```
 
 - Restart Ambari
@@ -138,7 +138,7 @@ sudo service ambari-server restart
 ```
 - Once Ambari comes back up and the services turn green, you can click on 'Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
 
-On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Next -> Next -> Deploy. 
+On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Next -> Next -> Deploy.
 ![Image](../master/screenshots/install-1.png?raw=true)
 ![Image](../master/screenshots/install-2.png?raw=true)
 ![Image](../master/screenshots/install-3.png?raw=true)
@@ -151,13 +151,13 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
 - There are three sections of configuration:
   - i) Advanced zeppelin-ambari-config: Parameters specific to Ambari service only (will not be written to zeppelin-site.xml or zeppelin-env.sh)
     - install dir: Local dir under which to install component
-    - setup prebuilt: If true, will download previously built package (instead of building from source). To compile from source instead, set to false. If cluster does not have internet access, manually copy the tar.gz to /tmp/zeppelin.tar.gz on Ambari server and set this property to true. 
+    - setup prebuilt: If true, will download previously built package (instead of building from source). To compile from source instead, set to false. If cluster does not have internet access, manually copy the tar.gz to /tmp/zeppelin.tar.gz on Ambari server and set this property to true.
     - setup view: Whether the Zeppelin view should be compiled. Set to false if cluster does not have internet access
     - spark jar dir: Shared location where zeppelin spark jar will be copied to. Should be accesible by all cluster nodes. Its possible to manually host this on object store. For example to point this to WASB, you can set this to `wasb:///apps/zeppelin`
     - executor memory: Executor memory to use (e.g. 512m or 1g)
     - temp file: Temporary file where pre-built package will be downloaded to. If your env has limited space under /tmp, change this to different location. In this case you must ensure that the zeppelin user must be able to write to this location.
     - public name: This is used to setup the Ambari view for Zeppelin. Set this to the public host/IP of zeppelin node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. If installing on cloud, set this to public name/IP of zeppelin node. Alternatively, if you already have a local hosts file entry for the internal hostname of the zeppelin node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname
-    - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.4.1 with HDP 2.3.2). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /usr/hdp/2.3.2.1-12/spark/). The service will detect the version of spark installed here (via RELEASE file) and pull appropriate prebuilt Zeppelin package  
+    - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.4.1 with HDP 2.3.2). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g. /usr/hdp/2.3.2.1-12/spark/). The service will detect the version of spark installed here (via RELEASE file) and pull appropriate prebuilt Zeppelin package
     - python packages: (Optional) (CentOS only) - Set this to true to install numpy scipy pandas scikit-learn. Note that selecting this option will increase the install time by 5-10 min depending on your connection. Can leave false if not needed, but note that the sample pyspark notebook will not work without it
 
 
@@ -171,11 +171,11 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
   - ii) Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
     - If needed you can modify the zeppelin ports here (default to 9995,9996)
 ![Image](../master/screenshots/install-5.png?raw=true)
-  
+
   - iii) Advanced zeppelin-env: Used to populate [zeppelin-env.sh](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-env.sh.template). See [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/install/install.html) for more info
-    - Under `export ZEPPELIN_JAVA_OPTS` notice that the Spark jobs will by default be sent to the default spark queue `-Dspark.yarn.queue={{spark_queue}}`. 
+    - Under `export ZEPPELIN_JAVA_OPTS` notice that the Spark jobs will by default be sent to the default spark queue `-Dspark.yarn.queue={{spark_queue}}`.
     - To have Zeppelin jobs submitted to a different queue instead, just change to `-Dspark.yarn.queue=my_zeppelin_queuename` (based on your queue name)
-![Image](../master/screenshots/install-6.png?raw=true)      
+![Image](../master/screenshots/install-6.png?raw=true)
 
 
 - Click Next to accept defaults...
@@ -186,7 +186,7 @@ Note that:
 
 - The default mode of the service sets up Zeppelin in yarn-client mode by downloading a tarball of precompiled bits (ETA: < 5min)
 
-- (Optional) To instead pull/compile the latest Zeppelin code from the [git page](https://github.com/apache/incubator-zeppelin) (ETA: < 40min depending on internet connection):  
+- (Optional) To instead pull/compile the latest Zeppelin code from the [git page](https://github.com/apache/incubator-zeppelin) (ETA: < 40min depending on internet connection):
   - While adding zeppelin service, in the configuration step of the wizard:
     - set zeppelin.setup.prebuilt to false
 
@@ -227,13 +227,13 @@ git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git /va
 - Edit the `/var/lib/ambari-server/resources/stacks/HDP/2.3/role_command_order.json` file to include below:
 ```
   "ZEPPELIN_MASTER-START": ["NAMENODE-START", "DATANODE-START"],
-```    
+```
   - Note that comma at the end. If you insert the above as the last line, you need to remove the comma
 
 - Restart Ambari
 ```
 service ambari-server restart
-service ambari-agent restart    
+service ambari-agent restart
 ```
 
 - Confirm 4 agents were registered and agent remained up
@@ -296,7 +296,7 @@ vi blueprint-zeppelin.json
 ```
   - if deploying on public cloud, you will want to add `"zeppelin.host.publicname":"<public IP or hostname of zeppelin node>"` so the Zeppelin Ambari view is pointing to external hostname (instead of the internal name, which is the default)
 
-  
+
 
 - Upload selected blueprint and download a sample cluster.json that provides your host FQDN's. Modify the host FQDN's in the cluster.json file your own env. Finally deploy cluster and call it zeppelinCluster
 ```
@@ -322,7 +322,7 @@ vi cluster.json
 ```
 curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/clusters/zeppelinCluster -d @cluster.json
 ```
-- You can monitor the progress of the deployment via Ambari (e.g. http://node1:8080). 
+- You can monitor the progress of the deployment via Ambari (e.g. http://node1:8080).
 
 - Once install completes, you will have a 4 node HDP cluster including Zeppelin
 
@@ -351,10 +351,10 @@ vi src/main/resources/index.html
 
 mvn clean package
 
-#Now copy the zeppelin view jar from `/home/zeppelin/zeppelin-view/target/zeppelin-view-1.0-SNAPSHOT.jar` on zeppelin node, to `/var/lib/ambari-server/resources/views/` dir on Ambari server node. 
+#Now copy the zeppelin view jar from `/home/zeppelin/zeppelin-view/target/zeppelin-view-1.0-SNAPSHOT.jar` on zeppelin node, to `/var/lib/ambari-server/resources/views/` dir on Ambari server node.
 
 #Then restart Ambari server
-  ``` 
+  ```
 
 #### Use zeppelin notebooks
 
@@ -363,9 +363,9 @@ mvn clean package
 
 - There should be a few sample notebooks created. Select the Hive one (*make sure Hive service is installed and started first*)
 - On first launch of a notebook, you will the "Interpreter Binding" settings will be displayed. You will need to click "Save" under the interpreter order.
-![Image](../master/screenshots/interpreter-binding.png?raw=true)    
+![Image](../master/screenshots/interpreter-binding.png?raw=true)
 
-- Now you will see the list of executable cells laid out in a sequence 
+- Now you will see the list of executable cells laid out in a sequence
 ![Image](../master/screenshots/install-9.png?raw=true)
 
 - Execute the cells one by one, by clicking the 'Play' (triangular) button on top right of each cell or just highlight a cell then press Shift-Enter
@@ -378,10 +378,10 @@ mvn clean package
  tail -f /var/log/zeppelin/zeppelin-zeppelin-sandbox.hortonworks.com.out
 ```
 - Now try the AON Demo for an example of displaying data on a map
-![Image](../master/screenshots/map-notebook.png?raw=true)  
+![Image](../master/screenshots/map-notebook.png?raw=true)
 
   - Once the Spark notebook has completed, you can restart the Spark interpreter via 'Interpreter' tab to free up cluster resources
-  
+
 - Start Hbase via Ambari and run the Phoenix notebook (*make sure HBase is started and Phoenix is enabled/installed first*)
   - To check if Phoenix client is installed, run below on Zeppelin node and ensure below dir is not empty
   ```
@@ -390,27 +390,27 @@ mvn clean package
   - If Phoenix is not installed, follow the below to install:
     - In Ambari, under Hbase > Configs > Settings > Phoenix SQL > Enabled
     - Stop Hbase and then start Hbase to invoke the Phoenix install
-    
-  - Once setup, you should be able to run through the sample Phoenix notebook  
-![Image](../master/screenshots/phoenix-notebook.png?raw=true)  
+
+  - Once setup, you should be able to run through the sample Phoenix notebook
+![Image](../master/screenshots/phoenix-notebook.png?raw=true)
 
 - Other things to try
   - Access hive tables from SparkSql
     - If Hive metastore is installed/started, you should be able to run queries against Hive tables from SparkSql
-    
+
   - If you installed the optional python packages, you can run the pyspark notebook
-  
-  - Test settings by checking the spark version and spark home, python path env vars. 
+
+  - Test settings by checking the spark version and spark home, python path env vars.
 ```
 sc.version
 sc.getConf.get("spark.home")
 System.getenv().get("PYTHONPATH")
 System.getenv().get("SPARK_HOME")
-``` 
- 
+```
+
   - If you are using Spark 1.5, `sc.version` should return `String = 1.5.1` and `SPARK_HOME` should be `/usr/hdp/2.3.2.1-12/spark/` (or whatever you set)
-  - If you are using Spark 1.3 or 1.4, `sc.version` should return appropriately and `SPARK_HOME` should be `/usr/hdp/current/spark-client/` 
-    
+  - If you are using Spark 1.3 or 1.4, `sc.version` should return appropriately and `SPARK_HOME` should be `/usr/hdp/current/spark-client/`
+
 
 - To enable Dependency loading (e.g. loading jars or maven repo/artifacts) or create a form in your notebook, see [Zeppelin docs](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading)
 
@@ -420,17 +420,17 @@ System.getenv().get("SPARK_HOME")
   - Spark (and Tez) jobs launched by Zeppelin are running on YARN
   - Assuming you setup the spark queue above, Spark job should be running on *spark* queue
   - Hive/Tez job is running on *default* queue
-  
+
 ![Image](../master/screenshots/RM-UI.png?raw=true)
 
 - To access the Spark UI, you can click on the ApplicationMaster link in YARN UI:
 
 ![Image](../master/screenshots/spark-UI.png?raw=true)
 
-  - Use the scheduler link to validate the proportion of the cluster used by Spark/Tez. For example, if you setup the Spark YARN queue as above, when only Spark is running, the UI will show Spark taking up 89% of the cluster  
-![Image](../master/screenshots/RM-UI-2.png?raw=true)  
+  - Use the scheduler link to validate the proportion of the cluster used by Spark/Tez. For example, if you setup the Spark YARN queue as above, when only Spark is running, the UI will show Spark taking up 89% of the cluster
+![Image](../master/screenshots/RM-UI-2.png?raw=true)
   - The Ambari metrics on the main Ambari dashboard will show the same:
-![Image](../master/screenshots/Ambari-YARN-metric.png?raw=true)  
+![Image](../master/screenshots/Ambari-YARN-metric.png?raw=true)
 
   - You can also use this YARN UI for troubleshooting hanging jobs. For example if Hive job is stuck waiting for Spark to give up YARN resources (or vice versa), you can restart the Spark interpreter via Zeppelin before running the Hive query
 
@@ -438,11 +438,11 @@ System.getenv().get("SPARK_HOME")
   - For more details: see sample steps to [setup Ranger's YARN plugin](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-yarn-plugin-for-ranger) and [setup YARN queue and Ranger policy](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#yarn-audit-exercises-in-ranger) on an Ambari installed HDP 2.3 cluster.
   - Note: on the current version of HDP 2.3 sandbox, Ranger YARN plugin has not been setup
   - Screenshot of how you would create a Ranger policy for 'zeppelin' user to access 'spark' YARN queue:
-  
-![Image](../master/screenshots/ranger-yarn-policy.png?raw=true) 
-  
+
+![Image](../master/screenshots/ranger-yarn-policy.png?raw=true)
+
 - Don't want to take our word for the benefits of Spark on YARN? Check [this Spark Summit talk by Kelvin Chi (Uber)](https://www.youtube.com/watch?v=vdwot545LKA)
-  
+
 ---------------------
 
 #### Remote management
@@ -467,10 +467,10 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 
 #### Remove zeppelin service
 
-- In case you need to remove the Zeppelin service: 
+- In case you need to remove the Zeppelin service:
 
   - Stop the service and delete it. Then restart Ambari
-  
+
 ```
 export SERVICE=ZEPPELIN
 export PASSWORD=admin
@@ -488,8 +488,8 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X DELETE http://$AMBARI_
 
 service ambari-server restart
 ```
-  - Remove artifacts 
-  
+  - Remove artifacts
+
 ```
 rm -rf /opt/incubator-zeppelin
 rm -rf /var/log/zeppelin*
@@ -505,17 +505,17 @@ service ambari-server restart
 
 ----------------
 
-#### Deploy on clusters without internet access 
+#### Deploy on clusters without internet access
 
 - Get appropriate zeppelin package copied to /tmp/zeppelin.tar.gz on Ambari server node (this location is configurable via zeppelin.temp.file property)
-```   
+```
 #package built for spark 1.3.1 packaged with HDP 2.3.0
 #PACKAGE=https://www.dropbox.com/s/k4dvmmxzd08q3h9/zeppelin-0.5.5-incubating-SNAPSHOT-repackage.tar.gz
 
 #or package built for spark 1.4.1 packaged with HDP 2.3.2
 #PACKAGE=https://www.dropbox.com/s/nwpv7dr1a724vtv/zeppelin-0.5.5-incubating-HDP232.tar.gz
 
-#or package built for HDP spark 1.5.1 TP 
+#or package built for HDP spark 1.5.1 TP
 #PACKAGE=https://dl.dropboxusercontent.com/u/114020/zeppelin-snapshots/spark-1.5.1TP-HDP2.3.2/zeppelin-0.5.5-incubating-spark151-tp.tar.gz
 
 wget $PACKAGE -O /tmp/zeppelin.tar.gz
@@ -534,6 +534,6 @@ unzip /tmp/ZEPPELIN.zip -d /var/lib/ambari-server/resources/stacks/HDP/$VERSION/
   - Advanced zeppelin-ambari-config
     - zeppelin.setup.view = false (this ensures it does not try to build the view or download sample notebooks)
     - zeppelin.spark.home = /your/spark/home (only needs to be changed if you installed your own spark version)
-    
+
 - Proceed with remaining screens and click Deploy
 
