@@ -107,7 +107,8 @@ export HADOOP_CONF_DIR=/etc/hadoop/conf
 # path to the python command. must be the same path on the driver(Zeppelin) and all workers.
 # export PYSPARK_PYTHON                        
 
-export PYTHONPATH=${SPARK_HOME}/python
+export PYTHONPATH="${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-0.8.2.1-src.zip"
+export SPARK_YARN_USER_ENV="PYTHONPATH=${PYTHONPATH}"
 
 ## Spark interpreter options ##
 ##
