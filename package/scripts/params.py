@@ -34,7 +34,7 @@ setup_prebuilt = config['configurations']['zeppelin-ambari-config']['zeppelin.se
 
 spark_jar_dir = config['configurations']['zeppelin-ambari-config']['zeppelin.spark.jar.dir']
 spark_jar = format("{spark_jar_dir}/zeppelin-spark-0.5.5-SNAPSHOT.jar")
-setup_view = str(config['configurations']['zeppelin-ambari-config']['zeppelin.setup.view'])
+setup_view = config['configurations']['zeppelin-ambari-config']['zeppelin.setup.view']
 temp_file = config['configurations']['zeppelin-ambari-config']['zeppelin.temp.file']
 spark_home = config['configurations']['zeppelin-ambari-config']['spark.home']
 zeppelin_host = config['configurations']['zeppelin-ambari-config']['zeppelin.host.publicname']
