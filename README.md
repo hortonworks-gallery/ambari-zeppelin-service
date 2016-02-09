@@ -222,13 +222,8 @@ export install_ambari_server=true
 curl -sSL https://raw.githubusercontent.com/seanorama/ambari-bootstrap/master/ambari-bootstrap.sh | sudo -E sh
 yum install -y git
 git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git /var/lib/ambari-server/resources/stacks/HDP/2.3/services/ZEPPELIN
+sed -i.bak '/dependencies for all/a \    "ZEPPELIN_MASTER-START": ["NAMENODE-START", "DATANODE-START"],' /var/lib/ambari-server/resources/stacks/HDP/2.3/role_command_order.json
 ```
-
-- Edit the `/var/lib/ambari-server/resources/stacks/HDP/2.3/role_command_order.json` file to include below:
-```
-  "ZEPPELIN_MASTER-START": ["NAMENODE-START", "DATANODE-START"],
-```
-  - Note that comma at the end. If you insert the above as the last line, you need to remove the comma
 
 - Restart Ambari
 ```
