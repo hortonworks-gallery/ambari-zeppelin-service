@@ -509,14 +509,15 @@ service ambari-server restart
 
 - Get appropriate zeppelin package copied to /tmp/zeppelin.tar.gz on Ambari server node (this location is configurable via zeppelin.temp.file property)
 ```
-#package built for spark 1.3.1 packaged with HDP 2.3.0
-#PACKAGE=https://www.dropbox.com/s/k4dvmmxzd08q3h9/zeppelin-0.5.5-incubating-SNAPSHOT-repackage.tar.gz
 
-#or package built for spark 1.4.1 packaged with HDP 2.3.2
-#PACKAGE=https://www.dropbox.com/s/nwpv7dr1a724vtv/zeppelin-0.5.5-incubating-HDP232.tar.gz
+#location of prebuilt package from Oct 23 2015 using spark 1.3.1 that comes with HDP 2.3.0
+#PACKAGE='https://www.dropbox.com/s/k4dvmmxzd08q3h9/zeppelin-0.5.5-incubating-SNAPSHOT-repackage.tar.gz'
 
-#or package built for HDP spark 1.5.1 TP
-#PACKAGE=https://dl.dropboxusercontent.com/u/114020/zeppelin-snapshots/spark-1.5.1TP-HDP2.3.2/zeppelin-0.5.5-incubating-spark151-tp.tar.gz
+#location of prebuilt 0.5.5 package compiled using HDP Spark 1.4.1 TP that comes with HDP 2.3.2
+#PACKAGE='https://www.dropbox.com/s/nwpv7dr1a724vtv/zeppelin-0.5.5-incubating-HDP232.tar.gz?dl=0'
+
+#location of prebuilt 0.5.5 package compiled using HDP Spark 1.5.1 TP
+#PACKAGE='https://dl.dropboxusercontent.com/u/114020/zeppelin-snapshots/spark-1.5.1TP-HDP2.3.2/zeppelin-0.5.5-incubating-spark151-tp.tar.gz'
 
 wget $PACKAGE -O /tmp/zeppelin.tar.gz
 ```
