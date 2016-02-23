@@ -26,8 +26,11 @@ class Master(Script):
     snapshot_package_14='https://www.dropbox.com/s/nwpv7dr1a724vtv/zeppelin-0.5.5-incubating-HDP232.tar.gz?dl=0'
 
     #location of prebuilt 0.5.5 package compiled using HDP Spark 1.5.1 TP
-    snapshot_package_15='https://dl.dropboxusercontent.com/u/114020/zeppelin-snapshots/spark-1.5.1TP-HDP2.3.2/zeppelin-0.5.5-incubating-spark151-tp.tar.gz'
+    #snapshot_package_15='https://dl.dropboxusercontent.com/u/114020/zeppelin-snapshots/spark-1.5.1TP-HDP2.3.2/zeppelin-0.5.5-incubating-spark151-tp.tar.gz'
+ 
+    snapshot_package_15='http://www.us.apache.org/dist/incubator/zeppelin/0.5.6-incubating/zeppelin-0.5.6-incubating-bin-all.tgz'
 
+    snapshot_package_16='http://www.us.apache.org/dist/incubator/zeppelin/0.5.6-incubating/zeppelin-0.5.6-incubating-bin-all.tgz'
 
     Execute('find '+params.service_packagedir+' -iname "*.sh" | xargs chmod +x')
 
@@ -83,8 +86,11 @@ class Master(Script):
         Execute('echo Processing with zeppelin tar compiled with spark 1.4')
         snapshot_package = snapshot_package_14
       elif params.spark_version == '1.5':
-        Execute('echo Processing with zeppelin tar compiled with spark 1.5')
+        Execute('echo Processing with 0.5.6 zeppelin tar from https://zeppelin.incubator.apache.org/download.html')
         snapshot_package = snapshot_package_15
+      elif params.spark_version == '1.6':
+        Execute('echo Processing with 0.5.6 zeppelin tar from https://zeppelin.incubator.apache.org/download.html')
+        snapshot_package = snapshot_package_16
       elif params.spark_version == '1.3':
         Execute('echo Processing with zeppelin tar compiled with spark 1.3')
         snapshot_package = snapshot_package_13
