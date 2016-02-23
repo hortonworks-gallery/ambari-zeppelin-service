@@ -160,7 +160,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     - executor memory: Executor memory to use (e.g. 512m or 1g)
     - temp file: Temporary file where pre-built package will be downloaded to. If your env has limited space under /tmp, change this to different location. In this case you must ensure that the zeppelin user must be able to write to this location.
     - public name: This is used to setup the Ambari view for Zeppelin. Set this to the public host/IP of zeppelin node (which must must be reachable from your local machine). If installing on sandbox (or local VM), change this to the IP address of VM. If installing on cloud, set this to public name/IP of zeppelin node. Alternatively, if you already have a local hosts file entry for the internal hostname of the zeppelin node (e.g. sandbox.hortonworks.com), you can leave this empty - it will default to internal hostname
-    - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.4.1 with HDP 2.3.2). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g./usr/hdp/2.3.4.0-3485/spark/). The service will detect the version of spark installed here (via RELEASE file) and pull appropriate prebuilt Zeppelin package
+    - spark home: Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.4.1 with HDP 2.3.2). To point Zeppelin to different Spark build, change this to location of where you downloaded Spark to (e.g./usr/hdp/2.3.4.1-3485/spark/). The service will detect the version of spark installed here (via RELEASE file) and pull appropriate prebuilt Zeppelin package
     - python packages: (Optional) (CentOS only) - Set this to true to install numpy scipy pandas scikit-learn. Note that selecting this option will increase the install time by 5-10 min depending on your connection. Can leave false if not needed, but note that the sample pyspark notebook will not work without it
 
 
@@ -168,7 +168,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     ![Image](../master/screenshots/install-4.5-spark1.3.png?raw=true)
 
     - Sample settings if you installed custom Spark (e.g. assuming you manually installed spark 1.5 as described above):
-      - set `spark.home=/usr/hdp/2.3.4.0-3485/spark/`
+      - set `spark.home=/usr/hdp/2.3.4.1-3485/spark/`
       ![Image](../master/screenshots/install-4.5-spark1.4.png?raw=true)
 
   - ii) Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
