@@ -122,7 +122,7 @@ class Master(Script):
       self.configure(env)
 
       #run setup_snapshot.sh
-      Execute(format("{service_packagedir}/scripts/setup_snapshot.sh {zeppelin_dir} {hive_metastore_host} {hive_metastore_port} {zeppelin_host} {zeppelin_port} {setup_view}  >> {zeppelin_log_file}"), user=params.zeppelin_user)
+      Execute(format("{service_packagedir}/scripts/setup_snapshot.sh {zeppelin_dir} {hive_metastore_host} {hive_metastore_port} {zeppelin_host} {zeppelin_port} {setup_view_str}  >> {zeppelin_log_file}"), user=params.zeppelin_user)
 
       #if zeppelin installed on ambari server, copy view jar into ambari views dir
       if params.setup_view:
@@ -158,7 +158,7 @@ class Master(Script):
       Execute('cd '+params.zeppelin_dir+'; mvn -Phadoop-2.6 -Dhadoop.version=2.7.1 -Pspark-'+params.spark_version+' -Ppyspark -Pyarn clean package -P build-distr -DskipTests >> ' + params.zeppelin_log_file, user=params.zeppelin_user)
 
       #run setup_snapshot.sh
-      Execute(format("{service_packagedir}/scripts/setup_snapshot.sh {zeppelin_dir} {hive_metastore_host} {hive_metastore_port} {zeppelin_host} {zeppelin_port} {setup_view}  >> {zeppelin_log_file}"), user=params.zeppelin_user)
+      Execute(format("{service_packagedir}/scripts/setup_snapshot.sh {zeppelin_dir} {hive_metastore_host} {hive_metastore_port} {zeppelin_host} {zeppelin_port} {setup_view_str}  >> {zeppelin_log_file}"), user=params.zeppelin_user)
 
       #if zeppelin installed on ambari server, copy view jar into ambari views dir
       if params.setup_view:

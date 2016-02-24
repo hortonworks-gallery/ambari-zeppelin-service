@@ -15,7 +15,7 @@ export ZEPPELIN_PORT=$5
 
 #if true, will setup Ambari view and import notebooks
 export SETUP_VIEW=$6
-SETUP_VIEW=${SETUP_VIEW,,}
+#SETUP_VIEW=${SETUP_VIEW,,}
 echo "SETUP_VIEW is $SETUP_VIEW"
 
 

@@ -40,6 +40,9 @@ spark_home = config['configurations']['zeppelin-ambari-config']['spark.home']
 zeppelin_host = config['configurations']['zeppelin-ambari-config']['zeppelin.host.publicname']
 install_python_packages = config['configurations']['zeppelin-ambari-config']['zeppelin.install_python_packages']
 
+setup_view_str=str(setup_view)
+setup_view_str=setup_view_str.lower()
+
 #spark_version = str(config['configurations']['zeppelin-ambari-config']['zeppelin.spark.version'])
 fline=open(spark_home + "/RELEASE").readline().rstrip()
 spark_version = re.search('Spark (\d\.\d).+',fline).group(1)
