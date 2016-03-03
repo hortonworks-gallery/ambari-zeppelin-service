@@ -3,12 +3,9 @@ Ambari service for easily installing and managing [Apache Zeppelin](http://zeppe
 
 Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 
-##### Other ways to use Zeppelin on HDP:
-  - Manually download/run Zeppelin using TechPreview instructions [here](http://hortonworks.com/hadoop/zeppelin/#section_3)
-  - Latest Sandbox also comes with Zeppelin managed as Ambari service and view
-
 
 ##### Contents:
+  -  [Quick start](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-the-ambari-service) 
   -  Option 1: [Deploy Zeppelin on existing cluster/sandbox](https://github.com/hortonworks-gallery/ambari-zeppelin-service#option-1-deploy-zeppelin-on-existing-cluster)
     - [Setup Pre-requisites](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-pre-requisites)
     - [Setup YARN queue](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-yarn-queue)
@@ -22,7 +19,6 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Other:
     - [Remote management](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#remote-management)
     - [Remove zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#remove-zeppelin-service)
-    - [Deploy on clusters without internet access](https://github.com/hortonworks-gallery/ambari-zeppelin-service#deploy-on-clusters-without-internet-access)
 
 ##### Pre-requisites:
   - HDP 2.4.x with at least HDFS, YARN, Zookeper, Spark installed. Hive installation is optional. Instructions for older releases available [here](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README-22.md)
@@ -33,7 +29,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Runs zeppelin in yarn-client mode (instead of standalone). Why is this important?
     - *Multi-tenancy*: The service autodetects and configures Zeppelin to point to default Spark YARN queue. Users can use this, in conjunction with the [Capacity scheduler/YARN Queue Manager view](http://hortonworks.com/blog/hortonworks-data-platform-2-3-delivering-transformational-outcomes/), to set what percentage of the clusters resources get allocated to Spark.
     - *Security*: Ranger YARN plugin can be used to setup authorization policies on which users/groups are allowed to submit spark jobs. Both allowed requests and rejections can also be audited in Ranger.
-  - Supports both default HDP Spark version (e.g. 1.3.1 with HDP 2.3.0 or 1.4.1 with HDP 2.4.x) as well as custom installed Spark versions e.g. [HDP Spark 1.5.1 TP on HDP 2.4.x](http://hortonworks.com/hadoop-tutorial/apache-spark-1-5-1-technical-preview-with-hdp-2-3/)
+  - Supports both default HDP Spark version (e.g. 1.6.0 with HDP 2.4.x)
   - Automates deployment of Ambari view to bring up Zeppelin webapp (requires manual ambari-server restart)
   - Runs zeppelin as configurable user (by default zeppelin), instead of root
   - Uploads zeppelin jar to /apps/zeppelin location in HDFS to be accessible from all nodes in cluster
@@ -44,8 +40,6 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
     - Hive metastore so Spark commands can access Hive tables out of the box (if Hive is installed)
     - Phoenix JDBC connect url to enable Zeppelin Phoenix interpreter (if Hbase is installed).
   - Offline mode: can manually copy tar to /tmp/zeppelin.tar.gz to allow service to be installed on clusters without internet access
-  - Deploy using steps below or via [Ambari Store view](https://github.com/jpplayer/amstore-view)
-  - (11/29/15): changed to allow automated install on HDP via Ambari Blueprint
 
 
 ##### Limitations:
@@ -55,13 +49,11 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
     - Use 'public name' property of 'Advanced zeppelin-ambari-config' to change this on cloud setups
   - After install, Ambari thinks HDFS, YARN, Hive, HBase need restarting (seems like Ambari bug)
 
-##### Known issues:
-  - [Error running hive queries on Zeppelin setup with Spark 1.4/1.5](https://community.hortonworks.com/questions/4905/error-while-running-hive-queries-from-zeppelin.html)
 
 ##### Testing:
   - These steps were tested on:
-    - HDP 2.4.x cluster installed via Ambari 2.1.2 (comes with Spark 1.4.1) on Centos 6. Also tested with manually installed Spark 1.5.1 from [HDP Tech preview](https://hortonworks.com/hadoop-tutorial/apache-spark-1-5-1-technical-preview-with-hdp-2-3/)
-    - Latest HDP 2.4.x sandbox (comes with Spark 1.4.1) on Centos 6. Also tested with manually installed Spark 1.5.1 from [HDP Tech preview](https://hortonworks.com/hadoop-tutorial/apache-spark-1-5-1-technical-preview-with-hdp-2-3/)
+    - HDP 2.4.x cluster installed via Ambari 2.2.0 (comes with Spark 1.6.0) on Centos 6.
+    - Latest HDP 2.4.x sandbox (comes with Spark 1.6.0) on Centos 6.
 
 ##### Videos (from HDP 2.2.4.2):
   - [How to setup zeppelin service](https://www.dropbox.com/s/9s122qbjilw5d2u/zeppelin-1-setup.mp4?dl=0)
@@ -80,8 +72,8 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 
 ##### Setup Pre-requisites:
 
-- Download HDP 2.4.x sandbox VM image (Sandbox_HDP_2.3_1_VMWare.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
-- Import Sandbox_HDP_2.3_1_VMWare.ova into VMWare and set the VM memory size to 8GB
+- Download HDP 2.4.x sandbox VM image (Hortonworks_sanbox_with_hdp_2_4_virtualbox.ova) from [Hortonworks website](http://hortonworks.com/products/hortonworks-sandbox/)
+- Import Hortonworks_sanbox_with_hdp_2_4_virtualbox.ova into VMWare and set the VM memory size to 8GB
 - Now start the VM
 - After it boots up, find the IP address of the VM and add an entry into your machines hosts file e.g.
 ```
@@ -156,8 +148,7 @@ On bottom left -> Actions -> Add service -> check Zeppelin service -> Next -> Ne
     ![Image](../master/screenshots/install-4.5-spark1.3.png?raw=true)
 
     - Sample settings if you installed custom Spark (e.g. assuming you manually installed spark 1.5 as described above):
-      - set `spark.home=/usr/hdp/2.3.4.1-3485/spark/`
-      ![Image](../master/screenshots/install-4.5-spark1.4.png?raw=true)
+      - set `spark.home=/usr/hdp/current/spark/`
 
   - ii) Advanced zeppelin-config: Used to populate [zeppelin-site.xml](https://github.com/apache/incubator-zeppelin/blob/master/conf/zeppelin-site.xml.template)
     - If needed you can modify the zeppelin ports here (default to 9995,9996)
@@ -490,37 +481,3 @@ service ambari-server restart
 ```
 
 ----------------
-
-#### Deploy on clusters without internet access
-
-- Get appropriate zeppelin package copied to /tmp/zeppelin.tar.gz on Ambari server node (this location is configurable via zeppelin.temp.file property)
-```
-
-#location of prebuilt package from Oct 23 2015 using spark 1.3.1 that comes with HDP 2.3.0
-#PACKAGE='https://www.dropbox.com/s/k4dvmmxzd08q3h9/zeppelin-0.5.5-incubating-SNAPSHOT-repackage.tar.gz'
-
-#location of prebuilt 0.5.5 package compiled using HDP Spark 1.4.1 TP that comes with HDP 2.4.x
-#PACKAGE='https://www.dropbox.com/s/nwpv7dr1a724vtv/zeppelin-0.5.5-incubating-HDP232.tar.gz?dl=0'
-
-#location of prebuilt 0.5.5 package compiled using HDP Spark 1.5.1 TP
-#PACKAGE='https://dl.dropboxusercontent.com/u/114020/zeppelin-snapshots/spark-1.5.1TP-HDP2.4.x/zeppelin-0.5.5-incubating-spark151-tp.tar.gz'
-
-wget $PACKAGE -O /tmp/zeppelin.tar.gz
-```
-
-- Get Zeppelin service folder copied to Ambari server dir on Ambari server node
-```
-VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
-wget https://github.com/hortonworks-gallery/ambari-zeppelin-service/archive/master.zip -O /tmp/ZEPPELIN.zip
-unzip /tmp/ZEPPELIN.zip -d /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services
-```
-
-- Restart ambari: `service ambari-server restart`
-
-- Go through 'Add service' wizard, same as above, making the below config changes:
-  - Advanced zeppelin-ambari-config
-    - zeppelin.setup.view = false (this ensures it does not try to build the view or download sample notebooks)
-    - zeppelin.spark.home = /your/spark/home (only needs to be changed if you installed your own spark version)
-
-- Proceed with remaining screens and click Deploy
-
