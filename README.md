@@ -103,7 +103,7 @@ ssh root@sandbox.hortonworks.com
     ![Image](../master/screenshots/spark-config-view.png?raw=true)
 
 
-##### Setup the Ambari service
+##### Setup the Ambari service (Quick start)
 
 - To deploy the Zeppelin service, run below on ambari server
 ```
