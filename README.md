@@ -3,6 +3,9 @@ Ambari service for easily installing and managing [Apache Zeppelin](http://zeppe
 
 Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 
+Special thanks: [Prabhjyot Singh](https://github.com/prabhjyotsingh) for adding install via rpm in HDP 2.4
+
+
 
 ##### Contents:
   -  [Quick start](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-the-ambari-service-quick-start) 
@@ -25,7 +28,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
   - Have 2 ports available and open for zeppelin and its websocket. These will be defaulted to 9995/9996 (but can be configured in Ambari). If using sandbox on VirtualBox, you need to manually forward these.
 
 ##### Features:
-  - Automates deployment, configuration, management of zeppelin on HDP cluster
+  - Automates deployment, configuration, management of zeppelin 0.5.6 on HDP cluster
   - Runs zeppelin in yarn-client mode (instead of standalone). Why is this important?
     - *Multi-tenancy*: The service autodetects and configures Zeppelin to point to default Spark YARN queue. Users can use this, in conjunction with the [Capacity scheduler/YARN Queue Manager view](http://hortonworks.com/blog/hortonworks-data-platform-2-3-delivering-transformational-outcomes/), to set what percentage of the clusters resources get allocated to Spark.
     - *Security*: Ranger YARN plugin can be used to setup authorization policies on which users/groups are allowed to submit spark jobs. Both allowed requests and rejections can also be audited in Ranger.
