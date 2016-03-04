@@ -1,66 +1,107 @@
 <?xml version="1.0"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
 <metainfo>
     <schemaVersion>2.0</schemaVersion>
     <services>
         <service>
             <name>ZEPPELIN</name>
             <displayName>Zeppelin Notebook</displayName>
-            <comment>A web-based notebook that enables interactive data analytics. It enables you to make beautiful data-driven, interactive and collaborative documents with SQL, Scala and more.</comment>
+            <comment>A web-based notebook that enables interactive data analytics. It enables you to
+                make beautiful data-driven, interactive and collaborative documents with SQL, Scala
+                and more.
+            </comment>
             <version>0.0.5</version>
             <requiredServices>
                 <service>SPARK</service>
             </requiredServices>
             <components>
                 <component>
-                  <name>ZEPPELIN_MASTER</name>
-                  <displayName>Zeppelin Notebook</displayName>
-                  <category>MASTER</category>
-                  <cardinality>1</cardinality>
-                  <commandScript>
-                    <script>scripts/master.py</script>
-                    <scriptType>PYTHON</scriptType>
-                    <timeout>10000</timeout>
-                  </commandScript>
+                    <name>ZEPPELIN_MASTER</name>
+                    <displayName>Zeppelin Notebook</displayName>
+                    <category>MASTER</category>
+                    <cardinality>1</cardinality>
+                    <commandScript>
+                        <script>scripts/master.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>10000</timeout>
+                    </commandScript>
                 </component>
             </components>
+
             <osSpecifics>
-              <osSpecific>
-                <osFamily>redhat6</osFamily>
-                <packages>
-                   <package><name>nss</name></package>
-                   <package><name>git</name></package>
-                   <package><name>java-1.7.0-openjdk-devel</name></package>
-                   <package><name>apache-maven-3.2*</name></package>
-                </packages>
-              </osSpecific>
-              <osSpecific>
-                <osFamily>redhat7</osFamily>
-                <packages>
-                   <package><name>nss</name></package>
-                   <package><name>git</name></package>
-                   <package><name>java-1.7.0-openjdk-devel</name></package>
-                   <package><name>maven</name></package>
-                </packages>
-              </osSpecific>
-             <osSpecific>
-                <osFamily>ubuntu12</osFamily>
-                <packages>
-                   <package><name>git</name></package>
-                   <package><name>maven</name></package>
-                </packages>
-              </osSpecific>
-             <osSpecific>
-                <osFamily>ubuntu14</osFamily>
-                <packages>
-                   <package><name>git</name></package>
-                   <package><name>maven</name></package>
-                </packages>
-              </osSpecific>
+                <osSpecific>
+                    <osFamily>debian7,ubuntu12,ubuntu14</osFamily>
+                    <packages>
+                        <package>
+                            <name>liblapack-dev</name>
+                        </package>
+                        <package>
+                            <name>gfortran</name>
+                        </package>
+                        <package>
+                            <name>python-dev</name>
+                        </package>
+                        <package>
+                            <name>g++</name>
+                        </package>
+                        <package>
+                            <name>python-pip</name>
+                        </package>
+                        <package>
+                            <name>zeppelin</name>
+                        </package>
+                    </packages>
+                </osSpecific>
+
+                <osSpecific>
+                    <osFamily>redhat7,redhat6,redhat5,suse11</osFamily>
+                    <packages>
+                        <package>
+                            <name>gcc-gfortran</name>
+                        </package>
+                        <package>
+                            <name>blas-devel</name>
+                        </package>
+                        <package>
+                            <name>lapack-devel</name>
+                        </package>
+                        <package>
+                            <name>python-devel</name>
+                        </package>
+                        <package>
+                            <name>python-pip</name>
+                        </package>
+                        <package>
+                            <name>zeppelin</name>
+                        </package>
+                    </packages>
+                </osSpecific>
+
             </osSpecifics>
-      	    <configuration-dependencies>
-        	<config-type>zeppelin-ambari-config</config-type>
-        	<config-type>zeppelin-config</config-type>
-      	    </configuration-dependencies>
+
+            <requiredServices>
+                <service>SPARK</service>
+            </requiredServices>
+
+            <configuration-dependencies>
+                <config-type>zeppelin-ambari-config</config-type>
+                <config-type>zeppelin-config</config-type>
+            </configuration-dependencies>
             <restartRequiredAfterChange>false</restartRequiredAfterChange>
         </service>
     </services>
