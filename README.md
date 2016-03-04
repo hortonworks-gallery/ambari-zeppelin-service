@@ -5,7 +5,7 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 
 
 ##### Contents:
-  -  [Quick start](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-the-ambari-service) 
+  -  [Quick start](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-the-ambari-service-quick-start) 
   -  Option 1: [Deploy Zeppelin on existing cluster/sandbox](https://github.com/hortonworks-gallery/ambari-zeppelin-service#option-1-deploy-zeppelin-on-existing-cluster)
     - [Setup Pre-requisites](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-pre-requisites)
     - [Setup YARN queue](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-yarn-queue)
