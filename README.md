@@ -46,6 +46,9 @@ Special thanks: [Prabhjyot Singh](https://github.com/prabhjyotsingh) for adding 
 
 
 ##### Limitations:
+
+  - This is not an officially supported service and *is not meant to be deployed in production systems*. It is only meant for testing demo/purposes
+  - It does not support Ambari/HDP upgrade process and will cause upgrade problems if not removed prior to upgrade
   - Only tested on CentOS/RHEL 6 so far
   - Does not yet support install on secured (kerborized) clusters
   - Unless otherwise configured, Zeppelin view will be setup using internal hostname, so you would need to have a corresponding hosts file entry on local machine to access.
