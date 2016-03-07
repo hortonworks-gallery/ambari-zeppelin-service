@@ -42,7 +42,8 @@ service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
 zeppelin_dirname = 'zeppelin-server/lib'
 
 # params from zeppelin-ambari-config
-install_dir = config['configurations']['zeppelin-ambari-config']['zeppelin.install.dir']
+#install_dir = config['configurations']['zeppelin-ambari-config']['zeppelin.install.dir']
+install_dir = '/usr/hdp/current'
 executor_mem = config['configurations']['zeppelin-ambari-config']['zeppelin.executor.mem']
 executor_instances = config['configurations']['zeppelin-ambari-config'][
     'zeppelin.executor.instances']

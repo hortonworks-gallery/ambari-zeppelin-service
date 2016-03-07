@@ -54,13 +54,13 @@
         </description>
     </property>
 
-    <property>
+   <!--  <property>
         <name>zeppelin.install.dir</name>
         <value>/usr/hdp/current</value>
         <description>Local dir where to install component. incubator-zeppelin folder will be created
             as a subdir of this dir e.g. /usr/hdp/current
         </description>
-    </property>
+    </property> -->
 
     <property>
         <name>zeppelin.setup.view</name>
