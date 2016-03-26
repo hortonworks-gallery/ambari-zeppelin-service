@@ -92,6 +92,30 @@
                     </packages>
                 </osSpecific>
 
+                <osSpecific>
+                    <osFamily>suse11</osFamily>
+                    <packages>
+                        <package>
+                            <name>gcc-fortran</name>
+                        </package>
+                        <package>
+                            <name>libblas3</name>
+                        </package>
+                        <package>
+                            <name>liblapack3</name>
+                        </package>
+                        <package>
+                            <name>python-devel</name>
+                        </package>
+                        <!-- <package>
+                            <name>python-pip</name>
+                        </package> -->
+                        <package>
+                            <name>zeppelin</name>
+                        </package>
+                    </packages>
+                </osSpecific>
+                
             </osSpecifics>
 
             <requiredServices>
