@@ -456,7 +456,8 @@ Once this is setup, you should already have access to zeppelin rpm. You can chec
 yum search zeppelin
 ```
 
-Once this is confirmed, you can follow the below steps to  
+Once this is confirmed, you can follow the below steps to:
+
 1. Download the Ambari service definition for Zeppelin from https://github.com/hortonworks-gallery/ambari-zeppelin-service/archive/master.zip
 2. Manually copy to the Ambari node and unzip under /var/lib/ambari-server/resources/stacks/HDP/2.4/services/ZEPPELIN (you will have to create this dir). 
 3. Confirm you now see 'configuration' and 'package' subdirs under /var/lib/ambari-server/resources/stacks/HDP/2.4/services/ZEPPELIN
