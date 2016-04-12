@@ -21,6 +21,7 @@ Special thanks: [Prabhjyot Singh](https://github.com/prabhjyotsingh) for adding 
     - [Zeppelin YARN integration](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#zeppelin-yarn-integration)
   - Other:
     - [Remote management](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#remote-management)
+    - [Offline install on cluster](https://github.com/hortonworks-gallery/ambari-zeppelin-service/blob/master/README.md#offline-install-on-cluster)    
     - [Remove zeppelin service](https://github.com/hortonworks-gallery/ambari-zeppelin-service#remove-zeppelin-service)
 
 ##### Pre-requisites:
@@ -42,7 +43,7 @@ Special thanks: [Prabhjyot Singh](https://github.com/prabhjyotsingh) for adding 
     - HiveServer2 to enable Zeppelin hive interpreter (if Hive is installed)
     - Hive metastore so Spark commands can access Hive tables out of the box (if Hive is installed)
     - Phoenix JDBC connect url to enable Zeppelin Phoenix interpreter (if Hbase is installed).
-  - Offline mode: can manually copy tar to /tmp/zeppelin.tar.gz to allow service to be installed on clusters without internet access
+  - Offline install using local repo
 
 
 ##### Limitations:
@@ -445,6 +446,26 @@ curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo"
 #stop service
 curl -u admin:$PASSWORD -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo": {"context" :"Stop $SERVICE via REST"}, "Body": {"ServiceInfo": {"state": "INSTALLED"}}}' http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER/services/$SERVICE
 ```
+------------
+
+#### Offline install on cluster
+
+Even if you do not have internet connection, you can installed HDP using a [local repo](https://docs.hortonworks.com/HDPDocuments/Ambari-2.2.1.1/bk_Installing_HDP_AMB/content/_using_a_local_repository.html)
+Once this is setup, you should already have access to zeppelin rpm. You can check this by running:
+```
+yum search zeppelin
+```
+
+Once this is confirmed, you can follow the below steps to  
+1. Download the Ambari service definition for Zeppelin from https://github.com/hortonworks-gallery/ambari-zeppelin-service/archive/master.zip
+2. Manually copy to the Ambari node and unzip under /var/lib/ambari-server/resources/stacks/HDP/2.4/services/ZEPPELIN (you will have to create this dir). 
+3. Confirm you now see 'configuration' and 'package' subdirs under /var/lib/ambari-server/resources/stacks/HDP/2.4/services/ZEPPELIN
+4. Restart ambari-server
+5. Install Zeppelin via Ambari as you would install any other service (via the ‘Add service wizard')
+
+See here for more info:
+https://community.hortonworks.com/questions/26215/zeppelin-offline-installation.html
+
 ------------
 
 #### Remove zeppelin service
