@@ -69,7 +69,7 @@
                 </osSpecific>
 
                 <osSpecific>
-                    <osFamily>redhat7,redhat6,redhat5,suse11</osFamily>
+                    <osFamily>redhat7,redhat6,redhat5</osFamily>
                     <packages>
                         <package>
                             <name>gcc-gfortran</name>
