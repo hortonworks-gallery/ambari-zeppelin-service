@@ -193,7 +193,7 @@ class Master(Script):
             params.zeppelin_port) + '/api/interpreter/setting/'
 
         # fetch current interpreter settings for spark, hive, phoenix
-        data = json.load(urllib2.urlopen(zeppelin_int_url))
+        data = json.load(urllib2.urlopen(zeppelin_int_url), timeout=60)
         print data
         for body in data['body']:
             if body['group'] == 'spark':
