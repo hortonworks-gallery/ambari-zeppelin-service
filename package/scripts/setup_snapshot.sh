@@ -93,6 +93,7 @@ SetupZeppelin () {
         if [ -d "zeppelin-notebooks-master" ]; then
             mv zeppelin-notebooks-master/* .
             rm -rf zeppelin-notebooks-master
+            rm -rf screenshots
         fi
 
         cd ..
