@@ -23,7 +23,7 @@
             <displayName>Zeppelin Notebook</displayName>
             <comment>A web-based notebook that enables interactive data analytics. It enables you to
                 make beautiful data-driven, interactive and collaborative documents with SQL, Scala
-                and more.
+                and more. This service is for &lt;b&gt;Demo purposes only&lt;/b&gt; and is &lt;b&gt;not officially supported&lt;/b&gt;
             </comment>
             <version>0.6.0</version>
             <requiredServices>

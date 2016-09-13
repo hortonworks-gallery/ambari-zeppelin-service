@@ -6,6 +6,9 @@ Author: [Ali Bajwa](https://www.linkedin.com/in/aliabajwa)
 Special thanks: [Prabhjyot Singh](https://github.com/prabhjyotsingh) for adding install via rpm in HDP 2.4
 
 
+##### Deprecation notice:
+Zeppelin is now officially available via Ambari in HDP 2.5 so as of this release this project is not longer needed.
+Official Zeppelin Ambari service code can be found in Apache github [here](https://github.com/apache/ambari/tree/trunk/ambari-server/src/main/resources/common-services/ZEPPELIN)
 
 ##### Contents:
   -  [Quick start](https://github.com/hortonworks-gallery/ambari-zeppelin-service#setup-the-ambari-service-quick-start) 
