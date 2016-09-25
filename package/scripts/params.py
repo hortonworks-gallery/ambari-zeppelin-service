@@ -23,7 +23,7 @@ import os
 import re
 from resource_management import *
 from resource_management.libraries.functions.default import default
-from resource_management.libraries.functions.version import format_hdp_stack_version
+#from resource_management.libraries.functions.version import format_hdp_stack_version
 from resource_management.libraries.script.script import Script
 
 def get_port_from_url(address):
@@ -125,7 +125,7 @@ if zeppelin_host.strip() == '':
 stack_version_unformatted = str(config['hostLevelParams']['stack_version'])
 
 # e.g. 2.3.0.0
-hdp_stack_version = format_hdp_stack_version(stack_version_unformatted)
+#hdp_stack_version = format_hdp_stack_version(stack_version_unformatted)
 
 # e.g. 2.3.0.0-2130
 full_version = default("/commandParams/version", None)
