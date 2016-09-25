@@ -60,7 +60,9 @@ class Master(Script):
         # create the log, pid, zeppelin dirs
         Directory([params.zeppelin_pid_dir, params.zeppelin_log_dir, params.zeppelin_dir],
                   owner=params.zeppelin_user,
-                  group=params.zeppelin_group
+                  group=params.zeppelin_group,
+                  create_parents=True,
+                  recursive_ownership=True                  
                   )
 
         File(params.zeppelin_log_file,
