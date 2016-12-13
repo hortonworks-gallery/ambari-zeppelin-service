@@ -221,12 +221,13 @@ class Master(Script):
         encoded_body = json.dumps(body)
         req = urllib2.Request(str(url), encoded_body)
         req.get_method = lambda: 'PUT'
+        jsonresp = dict(status=None)
         try:
             response = urllib2.urlopen(req, encoded_body).read()
+            jsonresp = json.loads(response.decode('utf-8'))
         except urllib2.HTTPError, error:
             print 'Exception: ' + error.read()
 
-        jsonresp = json.loads(response.decode('utf-8'))
         print jsonresp['status']
 
 
