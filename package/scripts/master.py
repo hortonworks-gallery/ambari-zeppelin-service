@@ -49,13 +49,13 @@ class Master(Script):
 
         if distribution.startswith('centos'):
             Execute('echo Installing python packages for Centos')
-            Execute('yum install -y epel-release')
+            Execute('sudo yum install -y epel-release')
 
         self.install_packages(env)
         if params.install_python_packages:
             Execute('pip install numpy scipy pandas scikit-learn')
 
-        Execute('chown -R zeppelin:hadoop /usr/hdp/current/zeppelin-server/')
+        Execute('sudo chown -R zeppelin:hadoop /usr/hdp/current/zeppelin-server/')
 
         # create the log, pid, zeppelin dirs
         Directory([params.zeppelin_pid_dir, params.zeppelin_log_dir, params.zeppelin_dir],
@@ -70,8 +70,8 @@ class Master(Script):
              content=''
              )
 
-        Execute('echo spark_version:' + params.spark_version + ' detected for spark_home: '
-                + params.spark_home + ' >> ' + params.zeppelin_log_file)
+        Execute('sudo bash -c "echo spark_version:' + params.spark_version + ' detected for spark_home: '
+                + params.spark_home + ' >> ' + params.zeppelin_log_file + '"')
 
         # update the configs specified by user
         self.configure(env)
@@ -162,7 +162,7 @@ class Master(Script):
             self.create_hdfs_user(params.zeppelin_user, params.spark_jar_dir)
             Execute('hadoop fs -put /tmp/zeppelin-spark-dependencies-*.jar ' + params.spark_jar,
                     user=params.zeppelin_user, ignore_failures=True)
-            Execute('rm /tmp/zeppelin-spark-dependencies-*.jar')
+            Execute('sudo rm /tmp/zeppelin-spark-dependencies-*.jar')
 
         Execute(params.zeppelin_dir + '/bin/zeppelin-daemon.sh start >> '
                 + params.zeppelin_log_file, user=params.zeppelin_user)
