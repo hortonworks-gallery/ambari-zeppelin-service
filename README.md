@@ -329,7 +329,7 @@ curl -u admin:admin -H  X-Requested-By:ambari http://localhost:8080/api/v1/clust
 - Troubleshooting: By default the view will be setup using the `hostname -f` entry of host where zeppelin will be installed. If the corresponding url(e.g. http://<zeppelin-host-FQDN>:9995) is not reachable from your local browser, you can either:
   - create entry in your local hosts file for the internal hostname of the zeppelin node or
   - reconfigure the view to point to a different url using steps below:
-  ```
+```
 #on node where zeppelin is running
 su zeppelin
 cd /home/zeppelin/zeppelin-view
@@ -341,7 +341,7 @@ mvn clean package
 #Now copy the zeppelin view jar from `/home/zeppelin/zeppelin-view/target/zeppelin-view-1.0-SNAPSHOT.jar` on zeppelin node, to `/var/lib/ambari-server/resources/views/` dir on Ambari server node.
 
 #Then restart Ambari server
-  ```
+```
 
 #### Use zeppelin notebooks
 
@@ -371,9 +371,9 @@ mvn clean package
 
 - Start Hbase via Ambari and run the Phoenix notebook (*make sure HBase is started and Phoenix is enabled/installed first*)
   - To check if Phoenix client is installed, run below on Zeppelin node and ensure below dir is not empty
-  ```
+```
   ls /usr/hdp/current/phoenix-client/*
-  ```
+```
   - If Phoenix is not installed, follow the below to install:
     - In Ambari, under Hbase > Configs > Settings > Phoenix SQL > Enabled
     - Stop Hbase and then start Hbase to invoke the Phoenix install
